@@ -1,15 +1,16 @@
-(function () {
-  var IMAGE_MAX = 400;
-  var WORK_SEX_CHANCE = 0.15;
+import Colour from "../engine/colours";
+export default class Slavery {
+  static IMAGE_MAX = 400;
+  static WORK_SEX_CHANCE = 0.15;
 
-  var EMPTY_ROOMS = {
+  static EMPTY_ROOMS = {
     LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR: true,
     LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR: true,
     LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR: true,
     LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR: true,
   };
 
-  LT.SLAVE_JOBS = {
+  static SLAVE_JOBS = {
     IDLE: {
       id: "IDLE",
       name: "Idle",
@@ -30,7 +31,8 @@
       id: "CLEANING",
       name: "maid",
       nameM: "manservant",
-      description: "Assign this character to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
+      description:
+        "Assign this character to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
       income: 80,
       cap: 20,
       affection: 0,
@@ -40,13 +42,17 @@
       colour: "#8ec8f0",
       interactSex: true,
       interactBond: true,
-      place: { world: "LILAYAS_HOUSE_GROUND_FLOOR", place: "LILAYA_HOME_CORRIDOR" },
+      place: {
+        world: "LILAYAS_HOUSE_GROUND_FLOOR",
+        place: "LILAYA_HOME_CORRIDOR",
+      },
     },
     SECURITY: {
       id: "SECURITY",
       name: "security guard",
       nameM: "security guard",
-      description: "Assign this character to act as a security guard. A guard will always be posted at the entrance, with other guards patrolling the corridors.",
+      description:
+        "Assign this character to act as a security guard. A guard will always be posted at the entrance, with other guards patrolling the corridors.",
       income: 80,
       cap: 8,
       affection: 0,
@@ -56,7 +62,10 @@
       colour: "#c0392b",
       interactSex: true,
       interactBond: true,
-      place: { world: "LILAYAS_HOUSE_GROUND_FLOOR", place: "LILAYA_HOME_ENTRANCE_HALL" },
+      place: {
+        world: "LILAYAS_HOUSE_GROUND_FLOOR",
+        place: "LILAYA_HOME_ENTRANCE_HALL",
+      },
     },
     LIBRARY: {
       id: "LIBRARY",
@@ -72,13 +81,17 @@
       colour: "#1abc9c",
       interactSex: true,
       interactBond: true,
-      place: { world: "LILAYAS_HOUSE_GROUND_FLOOR", place: "LILAYA_HOME_LIBRARY" },
+      place: {
+        world: "LILAYAS_HOUSE_GROUND_FLOOR",
+        place: "LILAYA_HOME_LIBRARY",
+      },
     },
     KITCHEN: {
       id: "KITCHEN",
       name: "cook",
       nameM: "cook",
-      description: "Assign this character to work in Lilaya's kitchen as a cook.",
+      description:
+        "Assign this character to work in Lilaya's kitchen as a cook.",
       income: 80,
       cap: 5,
       affection: 0,
@@ -88,13 +101,17 @@
       colour: "#c4a574",
       interactSex: true,
       interactBond: true,
-      place: { world: "LILAYAS_HOUSE_GROUND_FLOOR", place: "LILAYA_HOME_KITCHEN" },
+      place: {
+        world: "LILAYAS_HOUSE_GROUND_FLOOR",
+        place: "LILAYA_HOME_KITCHEN",
+      },
     },
     GARDEN: {
       id: "GARDEN",
       name: "gardener",
       nameM: "gardener",
-      description: "Assign this character to work as a gardener in Lilaya's courtyard garden.",
+      description:
+        "Assign this character to work as a gardener in Lilaya's courtyard garden.",
       income: 80,
       cap: 4,
       affection: 0,
@@ -104,7 +121,10 @@
       colour: "#27ae60",
       interactSex: true,
       interactBond: true,
-      place: { world: "LILAYAS_HOUSE_GROUND_FLOOR", place: "LILAYA_HOME_GARDEN" },
+      place: {
+        world: "LILAYAS_HOUSE_GROUND_FLOOR",
+        place: "LILAYA_HOME_GARDEN",
+      },
     },
     LAB_ASSISTANT: {
       id: "LAB_ASSISTANT",
@@ -127,7 +147,8 @@
       id: "TEST_SUBJECT",
       name: "test subject",
       nameM: "test subject",
-      description: "Allow Lilaya to use this slave as a test subject for her experiments.",
+      description:
+        "Allow Lilaya to use this slave as a test subject for her experiments.",
       income: 150,
       cap: 5,
       affection: -0.5,
@@ -151,13 +172,17 @@
       colour: "#9aa7d9",
       interactSex: true,
       interactBond: true,
-      place: { world: "LILAYAS_HOUSE_FIRST_FLOOR", place: "LILAYA_HOME_ROOM_PLAYER" },
+      place: {
+        world: "LILAYAS_HOUSE_FIRST_FLOOR",
+        place: "LILAYA_HOME_ROOM_PLAYER",
+      },
     },
     PUBLIC_STOCKS: {
       id: "PUBLIC_STOCKS",
       name: "public fucktoy",
       nameM: "public fucktoy",
-      description: "Assign this slave to be locked in the public-use stocks in slaver alley.",
+      description:
+        "Assign this slave to be locked in the public-use stocks in slaver alley.",
       income: 0,
       cap: 5,
       affection: -5,
@@ -170,7 +195,8 @@
       id: "PROSTITUTE",
       name: "Prostitute",
       nameM: "Prostitute",
-      description: "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss'.",
+      description:
+        "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss'.",
       income: 200,
       cap: 10,
       affection: -0.25,
@@ -185,7 +211,8 @@
       id: "MILKING",
       name: "Dairy Cow",
       nameM: "Dairy Bull",
-      description: "Assign this slave to the milking stalls, ready to have their milk, cum, and/or girlcum milked from them.",
+      description:
+        "Assign this slave to the milking stalls, ready to have their milk, cum, and/or girlcum milked from them.",
       income: 0,
       cap: 8,
       affection: -0.25,
@@ -198,7 +225,8 @@
       id: "OFFICE",
       name: "office worker",
       nameM: "office worker",
-      description: "Assign this character to work in the office which you've had outfitted here in Lilaya's house.",
+      description:
+        "Assign this character to work in the office which you've had outfitted here in Lilaya's house.",
       income: 100,
       cap: 4,
       affection: 0,
@@ -214,7 +242,8 @@
       id: "SPA",
       name: "Spa servant",
       nameM: "Spa servant",
-      description: "Assign this slave to your private spa, ready to give you a massage or tend to any of your needs.",
+      description:
+        "Assign this slave to your private spa, ready to give you a massage or tend to any of your needs.",
       income: 0,
       cap: 8,
       affection: 0.5,
@@ -229,7 +258,8 @@
       id: "SPA_RECEPTIONIST",
       name: "Spa clerk",
       nameM: "Spa clerk",
-      description: "Assign this slave to work on the reception desk of your private spa.",
+      description:
+        "Assign this slave to work on the reception desk of your private spa.",
       income: 0,
       cap: 2,
       affection: 0,
@@ -258,118 +288,378 @@
     },
   };
 
-  function setting(id, name, description, colour) {
-    return { id: id, name: name, description: description, colour: colour || "#ff6bda" };
+  static setting(id, name, description, colour) {
+    return {
+      id: id,
+      name: name,
+      description: description,
+      colour: colour || "#ff6bda",
+    };
   }
 
-  LT.SLAVE_JOB_SETTINGS = {
+  static SLAVE_JOB_SETTINGS = {
     SECURITY: {
       mutual: [
-        setting("SECURITY_ENTRANCE_PRIORITY", "Entrance Priority", "This slave will be chosen above others to be positioned at the entrance.", "#e3c66f"),
-        setting("SECURITY_ANSWER_DOOR", "Answer Door", "If this slave is located at the entrance, they will answer the door instead of Rose.", "#8dbe57"),
+        Slavery.setting(
+          "SECURITY_ENTRANCE_PRIORITY",
+          "Entrance Priority",
+          "This slave will be chosen above others to be positioned at the entrance.",
+          "#e3c66f",
+        ),
+        Slavery.setting(
+          "SECURITY_ANSWER_DOOR",
+          "Answer Door",
+          "If this slave is located at the entrance, they will answer the door instead of Rose.",
+          "#8dbe57",
+        ),
       ],
     },
     TEST_SUBJECT: {
       mutual: [
-        setting("TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE", "Feminine TF", "Allow this slave to receive feminine transformations.", LT.Colour.FEMININE),
-        setting("TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE", "Masculine TF", "Allow this slave to receive masculine transformations.", LT.Colour.MASCULINE),
+        Slavery.setting(
+          "TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE",
+          "Feminine TF",
+          "Allow this slave to receive feminine transformations.",
+          Colour.FEMININE,
+        ),
+        Slavery.setting(
+          "TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE",
+          "Masculine TF",
+          "Allow this slave to receive masculine transformations.",
+          Colour.MASCULINE,
+        ),
       ],
     },
     PUBLIC_STOCKS: {
       mutual: [
-        setting("SEX_ORAL", "Allow Oral", "Allow this slave to perform oral on others."),
-        setting("SEX_VAGINAL", "Allow Vaginal", "Allow this slave to receive vaginal sex."),
-        setting("SEX_ANAL", "Allow Anal", "Allow this slave to receive anal sex."),
-        setting("SEX_NIPPLES", "Allow Nipples", "Allow this slave to receive penetrative nipple sex."),
+        Slavery.setting(
+          "SEX_ORAL",
+          "Allow Oral",
+          "Allow this slave to perform oral on others.",
+        ),
+        Slavery.setting(
+          "SEX_VAGINAL",
+          "Allow Vaginal",
+          "Allow this slave to receive vaginal sex.",
+        ),
+        Slavery.setting(
+          "SEX_ANAL",
+          "Allow Anal",
+          "Allow this slave to receive anal sex.",
+        ),
+        Slavery.setting(
+          "SEX_NIPPLES",
+          "Allow Nipples",
+          "Allow this slave to receive penetrative nipple sex.",
+        ),
       ],
       defaults: ["SEX_ORAL", "SEX_VAGINAL", "SEX_ANAL"],
     },
     PROSTITUTE: {
       mutual: [
-        setting("SEX_ORAL", "Allow Oral", "Allow this slave to perform oral on others."),
-        setting("SEX_VAGINAL", "Allow Vaginal", "Allow this slave to receive vaginal sex."),
-        setting("SEX_ANAL", "Allow Anal", "Allow this slave to receive anal sex."),
-        setting("SEX_NIPPLES", "Allow Nipples", "Allow this slave to receive penetrative nipple sex."),
+        Slavery.setting(
+          "SEX_ORAL",
+          "Allow Oral",
+          "Allow this slave to perform oral on others.",
+        ),
+        Slavery.setting(
+          "SEX_VAGINAL",
+          "Allow Vaginal",
+          "Allow this slave to receive vaginal sex.",
+        ),
+        Slavery.setting(
+          "SEX_ANAL",
+          "Allow Anal",
+          "Allow this slave to receive anal sex.",
+        ),
+        Slavery.setting(
+          "SEX_NIPPLES",
+          "Allow Nipples",
+          "Allow this slave to receive penetrative nipple sex.",
+        ),
       ],
       defaults: ["SEX_ORAL", "SEX_VAGINAL", "SEX_ANAL"],
     },
     MILKING: {
       mutual: [
-        setting("MILKING_MILK", "Collect Milk", "Allow this slave's milk to be collected.", "#f8e1b9"),
-        setting("MILKING_MILK_CROTCH", "Collect Udder-milk", "Allow this slave's udders to be milked.", "#f8e1b9"),
-        setting("MILKING_CUM", "Collect Cum", "Allow this slave's cum to be collected.", "#8ec8f0"),
-        setting("MILKING_GIRLCUM", "Collect Girlcum", "Allow this slave's girlcum to be collected.", "#f5a8ff"),
-        setting("MILKING_MILK_AUTO_SELL", "Auto-sell Milk", "Set this slave's milk to be automatically sold instead of stored.", "#e3c66f"),
-        setting("MILKING_MILK_CROTCH_AUTO_SELL", "Auto-sell Udder-milk", "Set this slave's crotch-milk to be automatically sold instead of stored.", "#e3c66f"),
-        setting("MILKING_CUM_AUTO_SELL", "Auto-sell Cum", "Set this slave's cum to be automatically sold instead of stored.", "#e3c66f"),
-        setting("MILKING_GIRLCUM_AUTO_SELL", "Auto-sell Girlcum", "Set this slave's girlcum to be automatically sold instead of stored.", "#e3c66f"),
-        setting("MILKING_TEAR_HYMEN", "Tear Hymen", "If this slave has an intact hymen, allow the 'pussy pump' to be inserted anyway.", "#ad1457"),
+        Slavery.setting(
+          "MILKING_MILK",
+          "Collect Milk",
+          "Allow this slave's milk to be collected.",
+          "#f8e1b9",
+        ),
+        Slavery.setting(
+          "MILKING_MILK_CROTCH",
+          "Collect Udder-milk",
+          "Allow this slave's udders to be milked.",
+          "#f8e1b9",
+        ),
+        Slavery.setting(
+          "MILKING_CUM",
+          "Collect Cum",
+          "Allow this slave's cum to be collected.",
+          "#8ec8f0",
+        ),
+        Slavery.setting(
+          "MILKING_GIRLCUM",
+          "Collect Girlcum",
+          "Allow this slave's girlcum to be collected.",
+          "#f5a8ff",
+        ),
+        Slavery.setting(
+          "MILKING_MILK_AUTO_SELL",
+          "Auto-sell Milk",
+          "Set this slave's milk to be automatically sold instead of stored.",
+          "#e3c66f",
+        ),
+        Slavery.setting(
+          "MILKING_MILK_CROTCH_AUTO_SELL",
+          "Auto-sell Udder-milk",
+          "Set this slave's crotch-milk to be automatically sold instead of stored.",
+          "#e3c66f",
+        ),
+        Slavery.setting(
+          "MILKING_CUM_AUTO_SELL",
+          "Auto-sell Cum",
+          "Set this slave's cum to be automatically sold instead of stored.",
+          "#e3c66f",
+        ),
+        Slavery.setting(
+          "MILKING_GIRLCUM_AUTO_SELL",
+          "Auto-sell Girlcum",
+          "Set this slave's girlcum to be automatically sold instead of stored.",
+          "#e3c66f",
+        ),
+        Slavery.setting(
+          "MILKING_TEAR_HYMEN",
+          "Tear Hymen",
+          "If this slave has an intact hymen, allow the 'pussy pump' to be inserted anyway.",
+          "#ad1457",
+        ),
       ],
-      defaults: ["MILKING_MILK", "MILKING_MILK_CROTCH", "MILKING_CUM", "MILKING_GIRLCUM"],
+      defaults: [
+        "MILKING_MILK",
+        "MILKING_MILK_CROTCH",
+        "MILKING_CUM",
+        "MILKING_GIRLCUM",
+      ],
       exclusive: {
         "Room Preference": [
-          setting("MILKING_NO_PREFERENCE", "No Preference", "Set this slave to work in any available milking room.", "#888"),
-          setting("MILKING_INDUSTRIAL", "Industrial Milking", "Set this slave to work in a milking room with industrial milkers.", "#e36f6f"),
-          setting("MILKING_REGULAR", "Regular Milking", "Set this slave to work in a milking room with regular milkers.", "#f8e1b9"),
-          setting("MILKING_ARTISAN", "Artisan Milking", "Set this slave to work in a milking room with artisan milkers.", "#8dbe57"),
+          Slavery.setting(
+            "MILKING_NO_PREFERENCE",
+            "No Preference",
+            "Set this slave to work in any available milking room.",
+            "#888",
+          ),
+          Slavery.setting(
+            "MILKING_INDUSTRIAL",
+            "Industrial Milking",
+            "Set this slave to work in a milking room with industrial milkers.",
+            "#e36f6f",
+          ),
+          Slavery.setting(
+            "MILKING_REGULAR",
+            "Regular Milking",
+            "Set this slave to work in a milking room with regular milkers.",
+            "#f8e1b9",
+          ),
+          Slavery.setting(
+            "MILKING_ARTISAN",
+            "Artisan Milking",
+            "Set this slave to work in a milking room with artisan milkers.",
+            "#8dbe57",
+          ),
         ],
       },
       exclusiveDefaults: ["MILKING_NO_PREFERENCE"],
     },
     BEDROOM: {
       mutual: [
-        setting("BEDROOM_GREETING", "Greeting", "Instruct this slave to greet you whenever you enter your room.", "#8dbe57"),
-        setting("BEDROOM_CLEAN", "Cleaning", "Tell this slave to keep your room clean.", "#8ec8f0"),
-        setting("BEDROOM_WAKE_UP", "Waking", "Allow this slave to serve as your alarm clock.", "#f8e1b9"),
-        setting("BEDROOM_HELP_WASH", "Washing", "Have this slave assist you in the bathroom when you wash yourself.", "#6f9be3"),
+        Slavery.setting(
+          "BEDROOM_GREETING",
+          "Greeting",
+          "Instruct this slave to greet you whenever you enter your room.",
+          "#8dbe57",
+        ),
+        Slavery.setting(
+          "BEDROOM_CLEAN",
+          "Cleaning",
+          "Tell this slave to keep your room clean.",
+          "#8ec8f0",
+        ),
+        Slavery.setting(
+          "BEDROOM_WAKE_UP",
+          "Waking",
+          "Allow this slave to serve as your alarm clock.",
+          "#f8e1b9",
+        ),
+        Slavery.setting(
+          "BEDROOM_HELP_WASH",
+          "Washing",
+          "Have this slave assist you in the bathroom when you wash yourself.",
+          "#6f9be3",
+        ),
       ],
       defaults: ["BEDROOM_GREETING", "BEDROOM_CLEAN"],
       exclusive: {
         Sleep: [
-          setting("BEDROOM_SLEEP_FLOOR", "Sleep on Floor", "Tell this slave that they must sleep on the floor of your room.", "#e36f6f"),
-          setting("BEDROOM_SLEEP_ON_BED", "Sleep on Bed", "Permit this slave to sleep on your bed, but not under the covers.", "#b98cff"),
-          setting("BEDROOM_SLEEP_IN_BED", "Sleep in Bed", "Permit this slave to sleep in your bed beside you, under the covers.", "#ff6bda"),
+          Slavery.setting(
+            "BEDROOM_SLEEP_FLOOR",
+            "Sleep on Floor",
+            "Tell this slave that they must sleep on the floor of your room.",
+            "#e36f6f",
+          ),
+          Slavery.setting(
+            "BEDROOM_SLEEP_ON_BED",
+            "Sleep on Bed",
+            "Permit this slave to sleep on your bed, but not under the covers.",
+            "#b98cff",
+          ),
+          Slavery.setting(
+            "BEDROOM_SLEEP_IN_BED",
+            "Sleep in Bed",
+            "Permit this slave to sleep in your bed beside you, under the covers.",
+            "#ff6bda",
+          ),
         ],
       },
       exclusiveDefaults: ["BEDROOM_SLEEP_ON_BED"],
     },
     SPA: {
       mutual: [
-        setting("SPA_BATHING", "Bathing", "Have this slave join you in the spa when you bathe.", "#5dade2"),
-        setting("SPA_STRIP_TO_BATHE", "Bathe Naked", "Have this slave strip off all of their clothes when joining you to bathe.", "#d7b8e8"),
-        setting("SPA_MASSAGE", "Massage", "Have this slave available for giving you a massage.", "#c4a574"),
-        setting("SPA_SAUNA", "Sauna", "Have this slave join you when you use the sauna (once you've constructed that extension).", "#e39ab8"),
-        setting("SPA_POOL", "Swimming", "Have this slave join you for a swim when you use the pool (once you've constructed that extension).", "#8ec8f0"),
+        Slavery.setting(
+          "SPA_BATHING",
+          "Bathing",
+          "Have this slave join you in the spa when you bathe.",
+          "#5dade2",
+        ),
+        Slavery.setting(
+          "SPA_STRIP_TO_BATHE",
+          "Bathe Naked",
+          "Have this slave strip off all of their clothes when joining you to bathe.",
+          "#d7b8e8",
+        ),
+        Slavery.setting(
+          "SPA_MASSAGE",
+          "Massage",
+          "Have this slave available for giving you a massage.",
+          "#c4a574",
+        ),
+        Slavery.setting(
+          "SPA_SAUNA",
+          "Sauna",
+          "Have this slave join you when you use the sauna (once you've constructed that extension).",
+          "#e39ab8",
+        ),
+        Slavery.setting(
+          "SPA_POOL",
+          "Swimming",
+          "Have this slave join you for a swim when you use the pool (once you've constructed that extension).",
+          "#8ec8f0",
+        ),
       ],
       defaults: ["SPA_BATHING", "SPA_STRIP_TO_BATHE", "SPA_MASSAGE"],
     },
     SPA_RECEPTIONIST: {
-      mutual: [setting("SPA_SHOWERING", "Showering", "Have this slave assist you in the changing room's showers when you wash yourself.", "#6f9be3")],
+      mutual: [
+        Slavery.setting(
+          "SPA_SHOWERING",
+          "Showering",
+          "Have this slave assist you in the changing room's showers when you wash yourself.",
+          "#6f9be3",
+        ),
+      ],
     },
   };
 
-  LT.SLAVE_JOB_HOURS = {
-    NONE: { id: "NONE", name: "None", description: "Do not assign any hours to this character.", start: 0, length: 0 },
-    DAY_NORMAL: { id: "DAY_NORMAL", name: "Day shift", description: "Get this character to work eight hours over the course of the day.", start: 9, length: 8 },
-    DAY_LONG: { id: "DAY_LONG", name: "Day shift +", description: "Get this character to work sixteen hours over the course of the day.", start: 6, length: 16 },
-    NIGHT_NORMAL: { id: "NIGHT_NORMAL", name: "Night shift", description: "Get this character to work eight hours over the course of the night.", start: 20, length: 8 },
-    NIGHT_LONG: { id: "NIGHT_LONG", name: "Night shift +", description: "Get this character to work sixteen hours over the course of the night.", start: 16, length: 16 },
-    TWENTY_FOUR_HOURS: { id: "TWENTY_FOUR_HOURS", name: "24 hours", description: "Assign every hour as a work hour.", start: 0, length: 24 },
+  static SLAVE_JOB_HOURS = {
+    NONE: {
+      id: "NONE",
+      name: "None",
+      description: "Do not assign any hours to this character.",
+      start: 0,
+      length: 0,
+    },
+    DAY_NORMAL: {
+      id: "DAY_NORMAL",
+      name: "Day shift",
+      description:
+        "Get this character to work eight hours over the course of the day.",
+      start: 9,
+      length: 8,
+    },
+    DAY_LONG: {
+      id: "DAY_LONG",
+      name: "Day shift +",
+      description:
+        "Get this character to work sixteen hours over the course of the day.",
+      start: 6,
+      length: 16,
+    },
+    NIGHT_NORMAL: {
+      id: "NIGHT_NORMAL",
+      name: "Night shift",
+      description:
+        "Get this character to work eight hours over the course of the night.",
+      start: 20,
+      length: 8,
+    },
+    NIGHT_LONG: {
+      id: "NIGHT_LONG",
+      name: "Night shift +",
+      description:
+        "Get this character to work sixteen hours over the course of the night.",
+      start: 16,
+      length: 16,
+    },
+    TWENTY_FOUR_HOURS: {
+      id: "TWENTY_FOUR_HOURS",
+      name: "24 hours",
+      description: "Assign every hour as a work hour.",
+      start: 0,
+      length: 24,
+    },
   };
 
-  LT.SLAVE_BASE_STAMINA = 24;
+  static SLAVE_BASE_STAMINA = 24;
 
-  LT.SLAVE_PERMISSIONS = {
+  static SLAVE_PERMISSIONS = {
     BEHAVIOUR: {
       id: "BEHAVIOUR",
       name: "Behaviour",
       exclusive: true,
       settings: [
-        { id: "BEHAVIOUR_SLUTTY", name: "Slutty", description: "Get this slave to act in a trashy, slutty manner when interacting with you." },
-        { id: "BEHAVIOUR_SEDUCTIVE", name: "Seductive", description: "Get this slave to act in a refined, seductive manner when interacting with you." },
-        { id: "BEHAVIOUR_STANDARD", name: "Standard", description: "Do not give this slave any instructions as to how they should act around you.", def: true },
-        { id: "BEHAVIOUR_PROFESSIONAL", name: "Professional", description: "Get this slave to act in a professional manner when interacting with you." },
-        { id: "BEHAVIOUR_WHOLESOME", name: "Wholesome", description: "Get this slave to act in a loving and wholesome manner around you." },
+        {
+          id: "BEHAVIOUR_SLUTTY",
+          name: "Slutty",
+          description:
+            "Get this slave to act in a trashy, slutty manner when interacting with you.",
+        },
+        {
+          id: "BEHAVIOUR_SEDUCTIVE",
+          name: "Seductive",
+          description:
+            "Get this slave to act in a refined, seductive manner when interacting with you.",
+        },
+        {
+          id: "BEHAVIOUR_STANDARD",
+          name: "Standard",
+          description:
+            "Do not give this slave any instructions as to how they should act around you.",
+          def: true,
+        },
+        {
+          id: "BEHAVIOUR_PROFESSIONAL",
+          name: "Professional",
+          description:
+            "Get this slave to act in a professional manner when interacting with you.",
+        },
+        {
+          id: "BEHAVIOUR_WHOLESOME",
+          name: "Wholesome",
+          description:
+            "Get this slave to act in a loving and wholesome manner around you.",
+        },
       ],
     },
     GENERAL: {
@@ -377,10 +667,29 @@
       name: "General",
       exclusive: false,
       settings: [
-        { id: "GENERAL_SILENCE", name: "Silence", description: "Forbid this slave from talking." },
-        { id: "GENERAL_CRAWLING", name: "Crawling", description: "Forbid this slave from walking, forcing them to crawl around on all fours." },
-        { id: "GENERAL_HOUSE_FREEDOM", name: "House Freedom", description: "Grant this slave the freedom to walk around Lilaya's house in their free time." },
-        { id: "GENERAL_OUTSIDE_FREEDOM", name: "Outside Freedom", description: "Grant this slave the freedom to leave Lilaya's house in their free time." },
+        {
+          id: "GENERAL_SILENCE",
+          name: "Silence",
+          description: "Forbid this slave from talking.",
+        },
+        {
+          id: "GENERAL_CRAWLING",
+          name: "Crawling",
+          description:
+            "Forbid this slave from walking, forcing them to crawl around on all fours.",
+        },
+        {
+          id: "GENERAL_HOUSE_FREEDOM",
+          name: "House Freedom",
+          description:
+            "Grant this slave the freedom to walk around Lilaya's house in their free time.",
+        },
+        {
+          id: "GENERAL_OUTSIDE_FREEDOM",
+          name: "Outside Freedom",
+          description:
+            "Grant this slave the freedom to leave Lilaya's house in their free time.",
+        },
       ],
     },
     SEX: {
@@ -388,13 +697,48 @@
       name: "Sex",
       exclusive: false,
       settings: [
-        { id: "SEX_MASTURBATE", name: "Masturbation", description: "Allow this slave to masturbate." },
-        { id: "SEX_INITIATE_SLAVES", name: "Initiate Sex", description: "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled." },
-        { id: "SEX_INITIATE_PLAYER", name: "Use You", description: "Allow this slave to use you for sexual relief. This will allow them to initiate sex with you at any time." },
-        { id: "SEX_RECEIVE_SLAVES", name: "Sex Toy", description: "Allow this slave to be used for sexual relief by any of your slaves with the 'Initiate Sex' permission enabled." },
-        { id: "SEX_SAVE_VIRGINITY", name: "Save Virginity", description: "Do not let any other slaves take this slave's virginity during sex.", def: true },
-        { id: "SEX_IMPREGNATED", name: "Breeding Bitch", description: "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled." },
-        { id: "SEX_IMPREGNATE", name: "Slave Stud", description: "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events." },
+        {
+          id: "SEX_MASTURBATE",
+          name: "Masturbation",
+          description: "Allow this slave to masturbate.",
+        },
+        {
+          id: "SEX_INITIATE_SLAVES",
+          name: "Initiate Sex",
+          description:
+            "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled.",
+        },
+        {
+          id: "SEX_INITIATE_PLAYER",
+          name: "Use You",
+          description:
+            "Allow this slave to use you for sexual relief. This will allow them to initiate sex with you at any time.",
+        },
+        {
+          id: "SEX_RECEIVE_SLAVES",
+          name: "Sex Toy",
+          description:
+            "Allow this slave to be used for sexual relief by any of your slaves with the 'Initiate Sex' permission enabled.",
+        },
+        {
+          id: "SEX_SAVE_VIRGINITY",
+          name: "Save Virginity",
+          description:
+            "Do not let any other slaves take this slave's virginity during sex.",
+          def: true,
+        },
+        {
+          id: "SEX_IMPREGNATED",
+          name: "Breeding Bitch",
+          description:
+            "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled.",
+        },
+        {
+          id: "SEX_IMPREGNATE",
+          name: "Slave Stud",
+          description:
+            "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events.",
+        },
       ],
     },
     PILLS: {
@@ -402,10 +746,31 @@
       name: "Pills",
       exclusive: true,
       settings: [
-        { id: "PILLS_PROMISCUITY_PILLS", name: "Promiscuity Pills", description: "Keep this slave on Promiscuity Pills, greatly reducing both their fertility and virility." },
-        { id: "PILLS_NO_PILLS", name: "No Pills", description: "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant.", def: true },
-        { id: "PILLS_VIXENS_VIRILITY", name: "Vixen's Virility", description: "Keep this slave on Vixen's Virility pills, greatly increasing both their fertility and virility." },
-        { id: "PILLS_BROODMOTHER", name: "Broodmother Pills", description: "Keep this slave on Broodmother pills, massively increasing both their fertility and virility and doubling how many offspring they conceive." },
+        {
+          id: "PILLS_PROMISCUITY_PILLS",
+          name: "Promiscuity Pills",
+          description:
+            "Keep this slave on Promiscuity Pills, greatly reducing both their fertility and virility.",
+        },
+        {
+          id: "PILLS_NO_PILLS",
+          name: "No Pills",
+          description:
+            "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant.",
+          def: true,
+        },
+        {
+          id: "PILLS_VIXENS_VIRILITY",
+          name: "Vixen's Virility",
+          description:
+            "Keep this slave on Vixen's Virility pills, greatly increasing both their fertility and virility.",
+        },
+        {
+          id: "PILLS_BROODMOTHER",
+          name: "Broodmother Pills",
+          description:
+            "Keep this slave on Broodmother pills, massively increasing both their fertility and virility and doubling how many offspring they conceive.",
+        },
       ],
     },
     PREGNANCY: {
@@ -413,9 +778,26 @@
       name: "Pregnancy",
       exclusive: false,
       settings: [
-        { id: "PREGNANCY_MOTHERS_MILK", name: "Mother's Milk", description: "Order this slave to regularly consume Mother's Milk while pregnant, which will result in them completing their pregnancy within a few hours of becoming visibly pregnant." },
-        { id: "PREGNANCY_ALLOW_BIRTHING", name: "Allow Birthing", description: "Allow this slave to go to Lilaya's birthing room to give birth whenever they need to.", def: true },
-        { id: "PREGNANCY_ALLOW_EGG_LAYING", name: "Allow Egg Laying", description: "Allow this slave to go to Lilaya's birthing room to lay any eggs which have been implanted in them whenever they need to.", def: true },
+        {
+          id: "PREGNANCY_MOTHERS_MILK",
+          name: "Mother's Milk",
+          description:
+            "Order this slave to regularly consume Mother's Milk while pregnant, which will result in them completing their pregnancy within a few hours of becoming visibly pregnant.",
+        },
+        {
+          id: "PREGNANCY_ALLOW_BIRTHING",
+          name: "Allow Birthing",
+          description:
+            "Allow this slave to go to Lilaya's birthing room to give birth whenever they need to.",
+          def: true,
+        },
+        {
+          id: "PREGNANCY_ALLOW_EGG_LAYING",
+          name: "Allow Egg Laying",
+          description:
+            "Allow this slave to go to Lilaya's birthing room to lay any eggs which have been implanted in them whenever they need to.",
+          def: true,
+        },
       ],
     },
     DIET: {
@@ -423,11 +805,37 @@
       name: "Diet",
       exclusive: true,
       settings: [
-        { id: "FOOD_DIET_EXTREME", name: "Skinny", description: "Severely limit the amount of food available to this slave, eventually making them skinny." },
-        { id: "FOOD_DIET", name: "Slender", description: "Restrict the amount of food available to this slave, eventually making them slender." },
-        { id: "FOOD_NORMAL", name: "Average", description: "Give this slave a healthy amount of food, eventually making them average.", def: true },
-        { id: "FOOD_PLUS", name: "Large", description: "Give this slave an extra meal every day, eventually making them large." },
-        { id: "FOOD_LAVISH", name: "Huge", description: "Make an abundance of food available to this slave, eventually making them huge." },
+        {
+          id: "FOOD_DIET_EXTREME",
+          name: "Skinny",
+          description:
+            "Severely limit the amount of food available to this slave, eventually making them skinny.",
+        },
+        {
+          id: "FOOD_DIET",
+          name: "Slender",
+          description:
+            "Restrict the amount of food available to this slave, eventually making them slender.",
+        },
+        {
+          id: "FOOD_NORMAL",
+          name: "Average",
+          description:
+            "Give this slave a healthy amount of food, eventually making them average.",
+          def: true,
+        },
+        {
+          id: "FOOD_PLUS",
+          name: "Large",
+          description:
+            "Give this slave an extra meal every day, eventually making them large.",
+        },
+        {
+          id: "FOOD_LAVISH",
+          name: "Huge",
+          description:
+            "Make an abundance of food available to this slave, eventually making them huge.",
+        },
       ],
     },
     EXERCISE: {
@@ -435,11 +843,37 @@
       name: "Exercise",
       exclusive: true,
       settings: [
-        { id: "EXERCISE_FORBIDDEN", name: "Soft", description: "Forbid this slave from performing any strenuous activities, eventually making them soft." },
-        { id: "EXERCISE_REST", name: "Lightly muscled", description: "Do not give this slave any exercise routine, eventually making them lightly muscled." },
-        { id: "EXERCISE_NORMAL", name: "Toned", description: "Set this slave to perform a healthy amount of exercise, eventually making them toned.", def: true },
-        { id: "EXERCISE_TRAINING", name: "Muscular", description: "Give this slave a workout routine, eventually making them muscular." },
-        { id: "EXERCISE_BODY_BUILDING", name: "Ripped", description: "Give this slave a strenuous exercise routine, eventually making them ripped." },
+        {
+          id: "EXERCISE_FORBIDDEN",
+          name: "Soft",
+          description:
+            "Forbid this slave from performing any strenuous activities, eventually making them soft.",
+        },
+        {
+          id: "EXERCISE_REST",
+          name: "Lightly muscled",
+          description:
+            "Do not give this slave any exercise routine, eventually making them lightly muscled.",
+        },
+        {
+          id: "EXERCISE_NORMAL",
+          name: "Toned",
+          description:
+            "Set this slave to perform a healthy amount of exercise, eventually making them toned.",
+          def: true,
+        },
+        {
+          id: "EXERCISE_TRAINING",
+          name: "Muscular",
+          description:
+            "Give this slave a workout routine, eventually making them muscular.",
+        },
+        {
+          id: "EXERCISE_BODY_BUILDING",
+          name: "Ripped",
+          description:
+            "Give this slave a strenuous exercise routine, eventually making them ripped.",
+        },
       ],
     },
     CLEANLINESS: {
@@ -447,8 +881,20 @@
       name: "Cleanliness",
       exclusive: false,
       settings: [
-        { id: "CLEANLINESS_WASH_CLOTHES", name: "Wash Clothing", description: "Tell this slave to keep their clothing washed and clean.", def: true },
-        { id: "CLEANLINESS_WASH_BODY", name: "Wash Body", description: "Tell this slave to keep their body washed and clean, which will keep their orifices free of creampies.", def: true },
+        {
+          id: "CLEANLINESS_WASH_CLOTHES",
+          name: "Wash Clothing",
+          description:
+            "Tell this slave to keep their clothing washed and clean.",
+          def: true,
+        },
+        {
+          id: "CLEANLINESS_WASH_BODY",
+          name: "Wash Body",
+          description:
+            "Tell this slave to keep their body washed and clean, which will keep their orifices free of creampies.",
+          def: true,
+        },
       ],
     },
     SLEEPING: {
@@ -456,14 +902,30 @@
       name: "Sleeping",
       exclusive: true,
       settings: [
-        { id: "SLEEPING_DEFAULT", name: "Sleep Whenever", description: "Tell this slave to sleep whenever they like, which will be during the night for diurnal races and during the day for nocturnal races.", def: true },
-        { id: "SLEEPING_NIGHT", name: "Sleep At Night", description: "Tell this slave to sleep during the night. This will have neither a positive nor negative effect on them." },
-        { id: "SLEEPING_DAY", name: "Sleep During Day", description: "Tell this slave to sleep during the day. This will have neither a positive nor negative effect on them." },
+        {
+          id: "SLEEPING_DEFAULT",
+          name: "Sleep Whenever",
+          description:
+            "Tell this slave to sleep whenever they like, which will be during the night for diurnal races and during the day for nocturnal races.",
+          def: true,
+        },
+        {
+          id: "SLEEPING_NIGHT",
+          name: "Sleep At Night",
+          description:
+            "Tell this slave to sleep during the night. This will have neither a positive nor negative effect on them.",
+        },
+        {
+          id: "SLEEPING_DAY",
+          name: "Sleep During Day",
+          description:
+            "Tell this slave to sleep during the day. This will have neither a positive nor negative effect on them.",
+        },
       ],
     },
   };
 
-  LT.HOUSE_UPGRADES = {
+  static HOUSE_UPGRADES = {
     SLAVE_ROOM: {
       id: "SLAVE_ROOM",
       name: "Slave's Room",
@@ -522,7 +984,8 @@
       home: true,
       colour: "#777",
       convert: false,
-      description: "The cells within Lilaya's dungeon are designed to be cramped and uncomfortable.",
+      description:
+        "The cells within Lilaya's dungeon are designed to be cramped and uncomfortable.",
     },
     GUEST_ROOM: {
       id: "GUEST_ROOM",
@@ -592,34 +1055,48 @@
       convert: true,
       placeType: "LILAYA_HOME_ARTHUR_ROOM",
       colour: "#6b8ea8",
-      description: "This room now belongs to Arthur, who uses it as his personal lab-cum-bedroom.",
+      description:
+        "This room now belongs to Arthur, who uses it as his personal lab-cum-bedroom.",
     },
   };
 
-  var JOB_SEX = {
-    CLEANING: "[npc.Name] is halfway through changing the linens when [npc.she] sees you. Flushing, [npc.she] sets the sheets aside and waits to see what you want.",
-    SECURITY: "[npc.Name] is posted at [npc.her] station. After a glance to make sure the hall is empty, [npc.she] lowers [npc.her] eyes and waits.",
-    LIBRARY: "Between the stacks, [npc.name] looks up from a returned book. [npc.She] keeps [npc.her] voice to a whisper as [npc.she] asks if you needed [npc.herHim].",
-    KITCHEN: "The kitchen is hot. [npc.Name] sets down a ladle, wipes [npc.her] hands, and leans back against the prep table.",
-    GARDEN: "[npc.Name] is kneeling by the rose bushes. When [npc.she] realises you are alone, [npc.she] stays where [npc.she] is.",
-    LAB_ASSISTANT: "Lilaya is absorbed in a reading on the far bench. [npc.Name] glances that way, then back at you, cheeks coloured.",
-    BEDROOM: "[npc.Name] is waiting in your room, just as you ordered. [npc.She] looks up from the foot of the bed.",
-    PUBLIC_STOCKS: "[npc.Name] is locked in the public stocks, unable to do more than watch you approach.",
-    PROSTITUTE: "The bedroom door is closed on a finished booking. [npc.Name] is still on the sheets, catching [npc.her] breath.",
-    MILKING: "[npc.Name] is locked into a milking stall. The pumps are quiet for the moment.",
-    OFFICE: "[npc.Name] is alone with the occupancy ledger. [npc.She] closes the book when you shut the office door.",
+  static JOB_SEX = {
+    CLEANING:
+      "[npc.Name] is halfway through changing the linens when [npc.she] sees you. Flushing, [npc.she] sets the sheets aside and waits to see what you want.",
+    SECURITY:
+      "[npc.Name] is posted at [npc.her] station. After a glance to make sure the hall is empty, [npc.she] lowers [npc.her] eyes and waits.",
+    LIBRARY:
+      "Between the stacks, [npc.name] looks up from a returned book. [npc.She] keeps [npc.her] voice to a whisper as [npc.she] asks if you needed [npc.herHim].",
+    KITCHEN:
+      "The kitchen is hot. [npc.Name] sets down a ladle, wipes [npc.her] hands, and leans back against the prep table.",
+    GARDEN:
+      "[npc.Name] is kneeling by the rose bushes. When [npc.she] realises you are alone, [npc.she] stays where [npc.she] is.",
+    LAB_ASSISTANT:
+      "Lilaya is absorbed in a reading on the far bench. [npc.Name] glances that way, then back at you, cheeks coloured.",
+    BEDROOM:
+      "[npc.Name] is waiting in your room, just as you ordered. [npc.She] looks up from the foot of the bed.",
+    PUBLIC_STOCKS:
+      "[npc.Name] is locked in the public stocks, unable to do more than watch you approach.",
+    PROSTITUTE:
+      "The bedroom door is closed on a finished booking. [npc.Name] is still on the sheets, catching [npc.her] breath.",
+    MILKING:
+      "[npc.Name] is locked into a milking stall. The pumps are quiet for the moment.",
+    OFFICE:
+      "[npc.Name] is alone with the occupancy ledger. [npc.She] closes the book when you shut the office door.",
     SPA: "[npc.Name] has a massage table ready. [npc.She] oils [npc.her] hands and waits to see whether you actually wanted a massage.",
-    SPA_RECEPTIONIST: "The spa desk is empty of guests. [npc.Name] sets the appointment book aside.",
-    DINING_HALL: "[npc.Name] is laying out silverware on the long dining table. [npc.She] looks up as you enter.",
+    SPA_RECEPTIONIST:
+      "The spa desk is empty of guests. [npc.Name] sets the appointment book aside.",
+    DINING_HALL:
+      "[npc.Name] is laying out silverware on the long dining table. [npc.She] looks up as you enter.",
     IDLE: "You catch [npc.name] idle in [npc.her] room. [npc.She] stands as you enter.",
   };
 
-  function flags() {
+  flags() {
     LT.game.flags = LT.game.flags || {};
     return LT.game.flags;
   }
 
-  function escapeHtml(s) {
+  escapeHtml(s) {
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
@@ -627,59 +1104,73 @@
       .replace(/"/g, "&quot;");
   }
 
-  LT.pendingSlaves = function () {
+  pendingSlaves() {
     if (!flags().pendingSlaves) flags().pendingSlaves = [];
     return flags().pendingSlaves;
-  };
+  }
 
-  LT.ownedSlaves = function () {
+  ownedSlaves() {
     if (!flags().ownedSlaves) flags().ownedSlaves = [];
     return flags().ownedSlaves;
-  };
+  }
 
-  LT.houseRooms = function () {
+  houseRooms() {
     if (!flags().houseRooms) flags().houseRooms = {};
     return flags().houseRooms;
-  };
+  }
 
-  LT.charImages = function () {
+  charImages() {
     if (!flags().charImages) flags().charImages = {};
     return flags().charImages;
-  };
+  }
 
-  LT.canManageHouse = function () {
+  canManageHouse() {
     var f = flags();
-    return !!(f.hasSlaverLicense || f.slaveryQuest === "SIDE_SLAVER_RECOMMENDATION_OBTAINED" || f.slaveryQuest === "complete");
-  };
+    return !!(
+      f.hasSlaverLicense ||
+      f.slaveryQuest === "SIDE_SLAVER_RECOMMENDATION_OBTAINED" ||
+      f.slaveryQuest === "complete"
+    );
+  }
 
-  LT.isEmptyHouseRoom = function (placeType) {
+  isEmptyHouseRoom(placeType) {
     return !!EMPTY_ROOMS[placeType];
-  };
+  }
 
-  LT.currentRoomKey = function () {
+  currentRoomKey() {
     var loc = (LT.game.player && LT.game.player.location) || {};
     var world = loc.world || (window.grid && grid.gridName) || "";
-    var x = loc.x != null ? loc.x : window.grid && grid.playerPosition ? grid.playerPosition.x : null;
-    var y = loc.y != null ? loc.y : window.grid && grid.playerPosition ? grid.playerPosition.y : null;
+    var x =
+      loc.x != null
+        ? loc.x
+        : window.grid && grid.playerPosition
+          ? grid.playerPosition.x
+          : null;
+    var y =
+      loc.y != null
+        ? loc.y
+        : window.grid && grid.playerPosition
+          ? grid.playerPosition.y
+          : null;
     if (world == null || x == null || y == null) return "";
     return world + ":" + x + "," + y;
-  };
+  }
 
-  LT.parseRoomKey = function (key) {
+  parseRoomKey(key) {
     var parts = String(key || "").split(":");
     if (parts.length < 2) return null;
     var xy = parts[1].split(",");
     return { world: parts[0], x: parseInt(xy[0], 10), y: parseInt(xy[1], 10) };
-  };
+  }
 
-  LT.roomUpgradeAt = function (key) {
-    var rec = LT.houseRooms()[key || LT.currentRoomKey()];
+  roomUpgradeAt(key) {
+    var rec = this.houseRooms()[key || this.currentRoomKey()];
     if (!rec) return null;
-    return LT.HOUSE_UPGRADES[rec.u || rec] || null;
-  };
+    return this.HOUSE_UPGRADES[rec.u || rec] || null;
+  }
 
-  LT.findUpgradeKey = function (upgradeId) {
-    var rooms = LT.houseRooms();
+  findUpgradeKey(upgradeId) {
+    var rooms = this.houseRooms();
     var keys = Object.keys(rooms);
     var i;
     for (i = 0; i < keys.length; i++) {
@@ -687,25 +1178,29 @@
       if ((rec && rec.u) === upgradeId || rec === upgradeId) return keys[i];
     }
     return null;
-  };
+  }
 
-  LT.countUpgrade = function (upgradeId) {
-    var rooms = LT.houseRooms();
+  countUpgrade(upgradeId) {
+    var rooms = this.houseRooms();
     var n = 0;
     Object.keys(rooms).forEach(function (k) {
       var rec = rooms[k];
       if ((rec && rec.u) === upgradeId || rec === upgradeId) n += 1;
     });
     return n;
-  };
+  }
 
-  LT.applyRoomUpgradeVisual = function (key, upgrade) {
-    var parsed = LT.parseRoomKey(key);
+  applyRoomUpgradeVisual(key, upgrade) {
+    var parsed = this.parseRoomKey(key);
     if (!parsed || !window.allGrids || !allGrids[parsed.world]) return;
     var cells = allGrids[parsed.world];
     var i;
     for (i = 0; i < cells.length; i++) {
-      if (cells[i].x === parsed.x && cells[i].y === parsed.y && cells[i].location) {
+      if (
+        cells[i].x === parsed.x &&
+        cells[i].y === parsed.y &&
+        cells[i].location
+      ) {
         cells[i].location.name = upgrade ? upgrade.name : "Room";
         if (upgrade) cells[i].location.color = upgrade.colour;
         if (upgrade && upgrade.placeType) {
@@ -716,90 +1211,127 @@
         return;
       }
     }
-  };
+  }
 
-  LT.refreshAllRoomVisuals = function () {
-    var rooms = LT.houseRooms();
+  refreshAllRoomVisuals() {
+    var rooms = this.houseRooms();
     Object.keys(rooms).forEach(function (key) {
-      var up = LT.roomUpgradeAt(key);
-      if (up) LT.applyRoomUpgradeVisual(key, up);
+      var up = this.roomUpgradeAt(key);
+      if (up) this.applyRoomUpgradeVisual(key, up);
     });
-  };
+  }
 
-  LT.canUpgradeRoom = function (fromId, toId) {
-    var to = LT.HOUSE_UPGRADES[toId];
+  canUpgradeRoom = function (fromId, toId) {
+    var to = this.HOUSE_UPGRADES[toId];
     if (!to || !to.from) return false;
     return to.from.indexOf(fromId) >= 0;
   };
 
-  LT.convertRoom = function (upgradeId) {
-    var up = LT.HOUSE_UPGRADES[upgradeId];
-    var key = LT.currentRoomKey();
+  convertRoom = function (upgradeId) {
+    var up = this.HOUSE_UPGRADES[upgradeId];
+    var key = this.currentRoomKey();
     if (!up || !key) return "There is no room here to convert.";
-    var existing = LT.roomUpgradeAt(key);
+    var existing = this.roomUpgradeAt(key);
     if (existing) {
       if (existing.id === up.id) return "This room has already been converted.";
-      if (!LT.canUpgradeRoom(existing.id, up.id)) return "This room has already been converted.";
+      if (!this.canUpgradeRoom(existing.id, up.id))
+        return "This room has already been converted.";
     }
-    if (up.unique && LT.countUpgrade(up.id)) return "There is already a " + up.name.toLowerCase() + " in the house.";
-    if (LT.getMoney() < up.cost) return "You need " + up.cost + " flames to convert this room.";
-    LT.incrementMoney(-up.cost);
-    var extras = (LT.houseRooms()[key] && LT.houseRooms()[key].x) || {};
-    LT.houseRooms()[key] = { u: up.id, x: extras };
-    LT.applyRoomUpgradeVisual(key, up);
-    return "<p>Rose has the room converted into a <b>" + up.name + "</b> for " + up.cost + " flames.</p>";
+    if (up.unique && this.countUpgrade(up.id))
+      return "There is already a " + up.name.toLowerCase() + " in the house.";
+    if (getMoney() < up.cost)
+      return "You need " + up.cost + " flames to convert this room.";
+    incrementMoney(-up.cost);
+    var extras = (this.houseRooms()[key] && this.houseRooms()[key].x) || {};
+    this.houseRooms()[key] = { u: up.id, x: extras };
+    applyRoomUpgradeVisual(key, up);
+    return (
+      "<p>Rose has the room converted into a <b>" +
+      up.name +
+      "</b> for " +
+      up.cost +
+      " flames.</p>"
+    );
   };
 
-  LT.roomHasExtra = function (key, extraId) {
-    var rec = LT.houseRooms()[key || LT.currentRoomKey()];
+  roomHasExtra = function (key, extraId) {
+    var rec = this.houseRooms()[key || this.currentRoomKey()];
     return !!(rec && rec.x && rec.x[extraId]);
   };
 
-  LT.addRoomExtra = function (extraId) {
-    var key = LT.currentRoomKey();
-    var up = LT.roomUpgradeAt(key);
-    if (!up || !up.extras || !up.extras[extraId]) return "That extension cannot be built here.";
-    if (LT.roomHasExtra(key, extraId)) return "That extension is already finished.";
+  addRoomExtra = function (extraId) {
+    var key = this.currentRoomKey();
+    var up = this.roomUpgradeAt(key);
+    if (!up || !up.extras || !up.extras[extraId])
+      return "That extension cannot be built here.";
+    if (this.roomHasExtra(key, extraId))
+      return "That extension is already finished.";
     var extra = up.extras[extraId];
-    if (extra.exclusive && LT.roomHasExtra(key, extra.exclusive)) {
-      return "The '" + (up.extras[extra.exclusive] && up.extras[extra.exclusive].name) + "' upgrade must be removed first.";
+    if (extra.exclusive && this.roomHasExtra(key, extra.exclusive)) {
+      return (
+        "The '" +
+        (up.extras[extra.exclusive] && up.extras[extra.exclusive].name) +
+        "' upgrade must be removed first."
+      );
     }
-    if (LT.getMoney() < extra.cost) return "You need " + extra.cost + " flames for the " + extra.name.toLowerCase() + ".";
+    if (LT.getMoney() < extra.cost)
+      return (
+        "You need " +
+        extra.cost +
+        " flames for the " +
+        extra.name.toLowerCase() +
+        "."
+      );
     LT.incrementMoney(-extra.cost);
-    var rec = LT.houseRooms()[key] || { u: up.id };
+    var rec = this.houseRooms()[key] || { u: up.id };
     rec.x = rec.x || {};
     rec.x[extraId] = true;
-    LT.houseRooms()[key] = rec;
-    return "<p>Rose has the <b>" + extra.name + "</b> built for " + extra.cost + " flames.</p>";
+    this.houseRooms()[key] = rec;
+    return (
+      "<p>Rose has the <b>" +
+      extra.name +
+      "</b> built for " +
+      extra.cost +
+      " flames.</p>"
+    );
   };
 
-  LT.removeRoomExtra = function (extraId) {
-    var key = LT.currentRoomKey();
-    var rec = LT.houseRooms()[key];
-    if (!rec || !rec.x || !rec.x[extraId]) return "That upgrade is not installed.";
-    var up = LT.roomUpgradeAt(key);
+  removeRoomExtra = function (extraId) {
+    var key = this.currentRoomKey();
+    var rec = this.houseRooms()[key];
+    if (!rec || !rec.x || !rec.x[extraId])
+      return "That upgrade is not installed.";
+    var up = this.roomUpgradeAt(key);
     var extra = up && up.extras && up.extras[extraId];
     delete rec.x[extraId];
-    return "<p>The <b>" + ((extra && extra.name) || extraId) + "</b> has been removed.</p>";
+    return (
+      "<p>The <b>" +
+      ((extra && extra.name) || extraId) +
+      "</b> has been removed.</p>"
+    );
   };
 
-  LT.ensureDungeonCell = function (key) {
-    key = key || LT.currentRoomKey();
+  ensureDungeonCell = function (key) {
+    key = key || this.currentRoomKey();
     var loc = (LT.game.player && LT.game.player.location) || {};
     if ((loc.place || "") !== "LILAYA_HOME_DUNGEON_CELL") return null;
-    if (!LT.houseRooms()[key]) LT.houseRooms()[key] = { u: "DUNGEON_CELL" };
-    return LT.roomUpgradeAt(key);
+    if (!this.houseRooms()[key]) this.houseRooms()[key] = { u: "DUNGEON_CELL" };
+    return this.roomUpgradeAt(key);
   };
 
-  LT.availableConvertIds = function () {
-    var existing = LT.roomUpgradeAt();
+  availableConvertIds = function () {
+    var existing = this.roomUpgradeAt();
     var quest = LT.game.flags && LT.game.flags.quest;
     var ids = [];
-    Object.keys(LT.HOUSE_UPGRADES).forEach(function (id) {
-      var up = LT.HOUSE_UPGRADES[id];
+    Object.keys(this.HOUSE_UPGRADES).forEach(function (id) {
+      var up = this.HOUSE_UPGRADES[id];
       if (!up.convert) return;
       if (id === "ARTHUR_ROOM") {
-        if (quest !== "MAIN_1_I_ARTHURS_TALE" && quest !== "MAIN_1_J_ARTHURS_ROOM") return;
+        if (
+          quest !== "MAIN_1_I_ARTHURS_TALE" &&
+          quest !== "MAIN_1_J_ARTHURS_ROOM"
+        )
+          return;
         if (LT.countUpgrade("ARTHUR_ROOM")) return;
       }
       if (!existing) ids.push(id);
@@ -808,14 +1340,18 @@
     return ids;
   };
 
-  LT.installArthurRoom = function () {
+  installArthurRoom = function () {
     var world = "LILAYAS_HOUSE_GROUND_FLOOR";
     var cells = window.allGrids && window.allGrids[world];
     if (!cells) return null;
     var lab = null;
     var i;
     for (i = 0; i < cells.length; i++) {
-      if (cells[i].location && cells[i].location.placeType === "LILAYA_HOME_LAB") lab = cells[i];
+      if (
+        cells[i].location &&
+        cells[i].location.placeType === "LILAYA_HOME_LAB"
+      )
+        lab = cells[i];
     }
     var x = lab ? lab.x + 1 : 3;
     var y = lab ? lab.y : 9;
@@ -850,26 +1386,44 @@
       cell.location.description = desc;
     }
     var key = world + ":" + x + "," + y;
-    LT.houseRooms()[key] = { u: "ARTHUR_ROOM", x: {} };
+    this.houseRooms()[key] = { u: "ARTHUR_ROOM", x: {} };
     var a = typeof LT.ensureArthur === "function" ? LT.ensureArthur() : null;
-    if (a) a.location = { world: world, place: "LILAYA_HOME_ARTHUR_ROOM", x: x, y: y };
-    if (LT.game.player) LT.game.player.location = { world: world, place: "LILAYA_HOME_ARTHUR_ROOM", x: x, y: y };
-    if (typeof LT.enterWorld === "function") LT.enterWorld(world, "LILAYA_HOME_ARTHUR_ROOM", { x: x, y: y });
+    if (a)
+      a.location = {
+        world: world,
+        place: "LILAYA_HOME_ARTHUR_ROOM",
+        x: x,
+        y: y,
+      };
+    if (LT.game.player)
+      LT.game.player.location = {
+        world: world,
+        place: "LILAYA_HOME_ARTHUR_ROOM",
+        x: x,
+        y: y,
+      };
+    if (typeof LT.enterWorld === "function")
+      LT.enterWorld(world, "LILAYA_HOME_ARTHUR_ROOM", { x: x, y: y });
     return cell;
   };
 
-  function nextSlaveId() {
-    return "slave_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 6);
+  nextSlaveId() {
+    return (
+      "slave_" +
+      Date.now().toString(36) +
+      "_" +
+      Math.random().toString(36).slice(2, 6)
+    );
   }
 
-  function emptyHours() {
+  emptyHours() {
     var hours = [];
     var i;
     for (i = 0; i < 24; i++) hours.push("IDLE");
     return hours;
   }
 
-  function defaultPermFlags() {
+  defaultPermFlags() {
     return {
       BEHAVIOUR_STANDARD: true,
       SEX_SAVE_VIRGINITY: true,
@@ -884,7 +1438,7 @@
     };
   }
 
-  function extra(id, name, cost, description, opts) {
+  extra(id, name, cost, description, opts) {
     opts = opts || {};
     return {
       id: id,
@@ -897,53 +1451,153 @@
     };
   }
 
-  var SLAVE_ROOM_EXTRAS = {
-    BED_UPGRADE: extra("BED_UPGRADE", "Double Size Bed", 500, "A double size bed, complete with a comfortable mattress, fluffy pillows, and a warm duvet.", { exclusive: "BED_DOWNGRADE", aff: 0.2, obe: -0.1 }),
-    BED_DOWNGRADE: extra("BED_DOWNGRADE", "Small Steel Bed", 250, "A small steel-framed bed with an uncomfortable mattress, a hard pillow, and a thin blanket.", { exclusive: "BED_UPGRADE", aff: -0.1, obe: 0.2 }),
-    DOG_BOWLS: extra("DOG_BOWLS", "Dog Bowls", 100, "Metal dog bowls on the floor. Meals are served from these.", { exclusive: "ROOM_SERVICE", aff: -0.2, obe: 0.25 }),
-    ROOM_SERVICE: extra("ROOM_SERVICE", "Room Service", 500, "Unlimited room service for this room's occupant.", { exclusive: "DOG_BOWLS", aff: 0.4, obe: -0.2 }),
-    OBEDIENCE_TRAINER: extra("OBEDIENCE_TRAINER", "Obedience Trainer", 10000, "A glowing crystal that shocks disobedient thoughts.", { aff: -0.2, obe: 0.4 }),
-    ARCANE_INSTRUMENTS: extra("ARCANE_INSTRUMENTS", "Arcane Instruments", 500, "Arcane sensors gather data on the occupant's aura.", { aff: -0.1, obe: 0 }),
+  static SLAVE_ROOM_EXTRAS = {
+    BED_UPGRADE: extra(
+      "BED_UPGRADE",
+      "Double Size Bed",
+      500,
+      "A double size bed, complete with a comfortable mattress, fluffy pillows, and a warm duvet.",
+      { exclusive: "BED_DOWNGRADE", aff: 0.2, obe: -0.1 },
+    ),
+    BED_DOWNGRADE: extra(
+      "BED_DOWNGRADE",
+      "Small Steel Bed",
+      250,
+      "A small steel-framed bed with an uncomfortable mattress, a hard pillow, and a thin blanket.",
+      { exclusive: "BED_UPGRADE", aff: -0.1, obe: 0.2 },
+    ),
+    DOG_BOWLS: extra(
+      "DOG_BOWLS",
+      "Dog Bowls",
+      100,
+      "Metal dog bowls on the floor. Meals are served from these.",
+      { exclusive: "ROOM_SERVICE", aff: -0.2, obe: 0.25 },
+    ),
+    ROOM_SERVICE: extra(
+      "ROOM_SERVICE",
+      "Room Service",
+      500,
+      "Unlimited room service for this room's occupant.",
+      { exclusive: "DOG_BOWLS", aff: 0.4, obe: -0.2 },
+    ),
+    OBEDIENCE_TRAINER: extra(
+      "OBEDIENCE_TRAINER",
+      "Obedience Trainer",
+      10000,
+      "A glowing crystal that shocks disobedient thoughts.",
+      { aff: -0.2, obe: 0.4 },
+    ),
+    ARCANE_INSTRUMENTS: extra(
+      "ARCANE_INSTRUMENTS",
+      "Arcane Instruments",
+      500,
+      "Arcane sensors gather data on the occupant's aura.",
+      { aff: -0.1, obe: 0 },
+    ),
   };
 
-  var DUNGEON_EXTRAS = {
-    CELL_BED_UP: extra("CELL_BED_UP", "Improved Bedding", 250, "More comfortable mattresses, pillows, and blankets.", { exclusive: "CELL_BED_DOWN", aff: 0.05, obe: -0.05 }),
-    CELL_BED_DOWN: extra("CELL_BED_DOWN", "Straw Bedding", 100, "The beds have been replaced with piles of straw.", { exclusive: "CELL_BED_UP", aff: -0.1, obe: 0.2 }),
-    CELL_DOG_BOWLS: extra("CELL_DOG_BOWLS", "Dog Bowls", 100, "Meals are served in dog bowls on the floor.", { exclusive: "CELL_FOOD", aff: -0.2, obe: 0.25 }),
-    CELL_FOOD: extra("CELL_FOOD", "Decent Food", 250, "Cold bland meals have been replaced with decent hot food.", { exclusive: "CELL_DOG_BOWLS", aff: 0.1, obe: -0.1 }),
-    CELL_ROPES: extra("CELL_ROPES", "Rope Restraints", 250, "Sturdy ropes bind the occupying slaves in place.", { exclusive: "CELL_CHAINS", aff: -0.2, obe: 0.15 }),
-    CELL_CHAINS: extra("CELL_CHAINS", "Chain Restraints", 500, "Metal chains bind the occupying slaves in place.", { exclusive: "CELL_ROPES", aff: -0.25, obe: 0.3 }),
+  static DUNGEON_EXTRAS = {
+    CELL_BED_UP: extra(
+      "CELL_BED_UP",
+      "Improved Bedding",
+      250,
+      "More comfortable mattresses, pillows, and blankets.",
+      { exclusive: "CELL_BED_DOWN", aff: 0.05, obe: -0.05 },
+    ),
+    CELL_BED_DOWN: extra(
+      "CELL_BED_DOWN",
+      "Straw Bedding",
+      100,
+      "The beds have been replaced with piles of straw.",
+      { exclusive: "CELL_BED_UP", aff: -0.1, obe: 0.2 },
+    ),
+    CELL_DOG_BOWLS: extra(
+      "CELL_DOG_BOWLS",
+      "Dog Bowls",
+      100,
+      "Meals are served in dog bowls on the floor.",
+      { exclusive: "CELL_FOOD", aff: -0.2, obe: 0.25 },
+    ),
+    CELL_FOOD: extra(
+      "CELL_FOOD",
+      "Decent Food",
+      250,
+      "Cold bland meals have been replaced with decent hot food.",
+      { exclusive: "CELL_DOG_BOWLS", aff: 0.1, obe: -0.1 },
+    ),
+    CELL_ROPES: extra(
+      "CELL_ROPES",
+      "Rope Restraints",
+      250,
+      "Sturdy ropes bind the occupying slaves in place.",
+      { exclusive: "CELL_CHAINS", aff: -0.2, obe: 0.15 },
+    ),
+    CELL_CHAINS: extra(
+      "CELL_CHAINS",
+      "Chain Restraints",
+      500,
+      "Metal chains bind the occupying slaves in place.",
+      { exclusive: "CELL_ROPES", aff: -0.25, obe: 0.3 },
+    ),
   };
 
-  var MILKING_EXTRAS = {
-    ARTISAN_MILKERS: extra("ARTISAN_MILKERS", "Artisan Milkers", 2500, "Comfortable artisan machines. Milk 2000 / cum 200 / girlcum 40 per hour.", { exclusive: "INDUSTRIAL_MILKERS", aff: 1, obe: 0.5 }),
-    INDUSTRIAL_MILKERS: extra("INDUSTRIAL_MILKERS", "Industrial Milkers", 1500, "Industrial machines maximise output. Milk 5000 / cum 500 / girlcum 100 per hour.", { exclusive: "ARTISAN_MILKERS", aff: -1, obe: 0.5 }),
-    MILK_EFFICIENCY: extra("MILK_EFFICIENCY", "Lact-o-Cups", 500, "Doubles the machines' maximum hourly milking efficiency."),
-    CUM_EFFICIENCY: extra("CUM_EFFICIENCY", "Succ-u-Buses", 500, "Doubles the machines' maximum hourly cum-milking efficiency."),
-    GIRLCUM_EFFICIENCY: extra("GIRLCUM_EFFICIENCY", "Vibro-Pumps", 500, "Doubles the machines' maximum hourly girlcum-milking efficiency."),
+  static MILKING_EXTRAS = {
+    ARTISAN_MILKERS: extra(
+      "ARTISAN_MILKERS",
+      "Artisan Milkers",
+      2500,
+      "Comfortable artisan machines. Milk 2000 / cum 200 / girlcum 40 per hour.",
+      { exclusive: "INDUSTRIAL_MILKERS", aff: 1, obe: 0.5 },
+    ),
+    INDUSTRIAL_MILKERS: extra(
+      "INDUSTRIAL_MILKERS",
+      "Industrial Milkers",
+      1500,
+      "Industrial machines maximise output. Milk 5000 / cum 500 / girlcum 100 per hour.",
+      { exclusive: "ARTISAN_MILKERS", aff: -1, obe: 0.5 },
+    ),
+    MILK_EFFICIENCY: extra(
+      "MILK_EFFICIENCY",
+      "Lact-o-Cups",
+      500,
+      "Doubles the machines' maximum hourly milking efficiency.",
+    ),
+    CUM_EFFICIENCY: extra(
+      "CUM_EFFICIENCY",
+      "Succ-u-Buses",
+      500,
+      "Doubles the machines' maximum hourly cum-milking efficiency.",
+    ),
+    GIRLCUM_EFFICIENCY: extra(
+      "GIRLCUM_EFFICIENCY",
+      "Vibro-Pumps",
+      500,
+      "Doubles the machines' maximum hourly girlcum-milking efficiency.",
+    ),
   };
 
-  LT.HOUSE_UPGRADES.SLAVE_ROOM.extras = SLAVE_ROOM_EXTRAS;
-  LT.HOUSE_UPGRADES.SLAVE_ROOM_DOUBLE.extras = SLAVE_ROOM_EXTRAS;
-  LT.HOUSE_UPGRADES.SLAVE_ROOM_QUADRUPLE.extras = SLAVE_ROOM_EXTRAS;
-  LT.HOUSE_UPGRADES.DUNGEON_CELL.extras = DUNGEON_EXTRAS;
-  LT.HOUSE_UPGRADES.DUNGEON_CELL.cap = 4;
-  LT.HOUSE_UPGRADES.MILKING_ROOM.extras = MILKING_EXTRAS;
-  LT.HOUSE_UPGRADES.DINING_HALL = {
-    id: "DINING_HALL",
-    name: "Dining Hall",
-    cost: 6000,
-    cap: 0,
-    home: false,
-    convert: true,
-    colour: "#e3b06f",
-    description:
-      "This room has been converted into a dining hall, complete with a long, wooden table and a dozen chairs. Although Lilaya and Rose are likely going to continue with their habit of eating in the lab, there's nothing stopping you from making use of this room.",
-  };
+  // this.HOUSE_UPGRADES.SLAVE_ROOM.extras = SLAVE_ROOM_EXTRAS;
+  // this.HOUSE_UPGRADES.SLAVE_ROOM_DOUBLE.extras = SLAVE_ROOM_EXTRAS;
+  // this.HOUSE_UPGRADES.SLAVE_ROOM_QUADRUPLE.extras = SLAVE_ROOM_EXTRAS;
+  // this.HOUSE_UPGRADES.DUNGEON_CELL.extras = DUNGEON_EXTRAS;
+  // this.HOUSE_UPGRADES.DUNGEON_CELL.cap = 4;
+  // this.HOUSE_UPGRADES.MILKING_ROOM.extras = MILKING_EXTRAS;
+  // this.HOUSE_UPGRADES.DINING_HALL = {
+  //   id: "DINING_HALL",
+  //   name: "Dining Hall",
+  //   cost: 6000,
+  //   cap: 0,
+  //   home: false,
+  //   convert: true,
+  //   colour: "#e3b06f",
+  //   description:
+  //     "This room has been converted into a dining hall, complete with a long, wooden table and a dozen chairs. Although Lilaya and Rose are likely going to continue with their habit of eating in the lab, there's nothing stopping you from making use of this room.",
+  // };
 
-  LT.normalizeSlave = function (rec) {
+  normalizeSlave = function (rec) {
     if (!rec) return rec;
-    if (!rec.id || rec.id === "slave" || rec.id === "alleyMugger") rec.id = nextSlaveId();
+    if (!rec.id || rec.id === "slave" || rec.id === "alleyMugger")
+      rec.id = nextSlaveId();
     rec.job = rec.job || "IDLE";
     rec.aff = rec.aff == null ? 0 : rec.aff;
     rec.obe = rec.obe == null ? 0 : rec.obe;
@@ -957,14 +1611,43 @@
     if (rec.hasVagina == null) rec.hasVagina = rec.feminine !== false;
     if (rec.hasPenis == null) rec.hasPenis = rec.feminine === false;
     rec.milkStorage = rec.milkStorage || 0;
-    if (!rec.perms.PILLS_NO_PILLS && !rec.perms.PILLS_PROMISCUITY_PILLS && !rec.perms.PILLS_VIXENS_VIRILITY && !rec.perms.PILLS_BROODMOTHER) rec.perms.PILLS_NO_PILLS = true;
-    if (!rec.perms.FOOD_DIET_EXTREME && !rec.perms.FOOD_DIET && !rec.perms.FOOD_NORMAL && !rec.perms.FOOD_PLUS && !rec.perms.FOOD_LAVISH) rec.perms.FOOD_NORMAL = true;
-    if (!rec.perms.EXERCISE_FORBIDDEN && !rec.perms.EXERCISE_REST && !rec.perms.EXERCISE_NORMAL && !rec.perms.EXERCISE_TRAINING && !rec.perms.EXERCISE_BODY_BUILDING) rec.perms.EXERCISE_NORMAL = true;
-    if (!rec.perms.SLEEPING_DEFAULT && !rec.perms.SLEEPING_NIGHT && !rec.perms.SLEEPING_DAY) rec.perms.SLEEPING_DEFAULT = true;
-    if (rec.perms.PREGNANCY_ALLOW_BIRTHING == null) rec.perms.PREGNANCY_ALLOW_BIRTHING = true;
-    if (rec.perms.PREGNANCY_ALLOW_EGG_LAYING == null) rec.perms.PREGNANCY_ALLOW_EGG_LAYING = true;
-    if (rec.perms.CLEANLINESS_WASH_CLOTHES == null) rec.perms.CLEANLINESS_WASH_CLOTHES = true;
-    if (rec.perms.CLEANLINESS_WASH_BODY == null) rec.perms.CLEANLINESS_WASH_BODY = true;
+    if (
+      !rec.perms.PILLS_NO_PILLS &&
+      !rec.perms.PILLS_PROMISCUITY_PILLS &&
+      !rec.perms.PILLS_VIXENS_VIRILITY &&
+      !rec.perms.PILLS_BROODMOTHER
+    )
+      rec.perms.PILLS_NO_PILLS = true;
+    if (
+      !rec.perms.FOOD_DIET_EXTREME &&
+      !rec.perms.FOOD_DIET &&
+      !rec.perms.FOOD_NORMAL &&
+      !rec.perms.FOOD_PLUS &&
+      !rec.perms.FOOD_LAVISH
+    )
+      rec.perms.FOOD_NORMAL = true;
+    if (
+      !rec.perms.EXERCISE_FORBIDDEN &&
+      !rec.perms.EXERCISE_REST &&
+      !rec.perms.EXERCISE_NORMAL &&
+      !rec.perms.EXERCISE_TRAINING &&
+      !rec.perms.EXERCISE_BODY_BUILDING
+    )
+      rec.perms.EXERCISE_NORMAL = true;
+    if (
+      !rec.perms.SLEEPING_DEFAULT &&
+      !rec.perms.SLEEPING_NIGHT &&
+      !rec.perms.SLEEPING_DAY
+    )
+      rec.perms.SLEEPING_DEFAULT = true;
+    if (rec.perms.PREGNANCY_ALLOW_BIRTHING == null)
+      rec.perms.PREGNANCY_ALLOW_BIRTHING = true;
+    if (rec.perms.PREGNANCY_ALLOW_EGG_LAYING == null)
+      rec.perms.PREGNANCY_ALLOW_EGG_LAYING = true;
+    if (rec.perms.CLEANLINESS_WASH_CLOTHES == null)
+      rec.perms.CLEANLINESS_WASH_CLOTHES = true;
+    if (rec.perms.CLEANLINESS_WASH_BODY == null)
+      rec.perms.CLEANLINESS_WASH_BODY = true;
     Object.keys(LT.SLAVE_JOB_SETTINGS).forEach(function (jobId) {
       var spec = LT.SLAVE_JOB_SETTINGS[jobId];
       rec.jobSettings[jobId] = rec.jobSettings[jobId] || {};
@@ -986,7 +1669,13 @@
       delete rec.perms.sexP;
       delete rec.perms.house;
     }
-    if (!rec.perms.BEHAVIOUR_SLUTTY && !rec.perms.BEHAVIOUR_SEDUCTIVE && !rec.perms.BEHAVIOUR_STANDARD && !rec.perms.BEHAVIOUR_PROFESSIONAL && !rec.perms.BEHAVIOUR_WHOLESOME) {
+    if (
+      !rec.perms.BEHAVIOUR_SLUTTY &&
+      !rec.perms.BEHAVIOUR_SEDUCTIVE &&
+      !rec.perms.BEHAVIOUR_STANDARD &&
+      !rec.perms.BEHAVIOUR_PROFESSIONAL &&
+      !rec.perms.BEHAVIOUR_WHOLESOME
+    ) {
       rec.perms.BEHAVIOUR_STANDARD = true;
     }
     if (!rec.hours || rec.hours.length !== 24) {
@@ -999,13 +1688,18 @@
     return rec;
   };
 
-  LT.snapshotSlave = function (npc) {
+  snapshotSlave = function (npc) {
     var rec = {
       id: nextSlaveId(),
       name: (npc && (npc.name || (npc.getName && npc.getName()))) || "Unknown",
-      feminine: !!(npc && (npc.feminine || (npc.isFeminine && npc.isFeminine()))),
+      feminine: !!(
+        npc &&
+        (npc.feminine || (npc.isFeminine && npc.isFeminine()))
+      ),
       raceName: (npc && npc.raceName) || "human",
-      fullRace: (npc && (npc.fullRace || (npc.getRaceName && npc.getRaceName()))) || "human",
+      fullRace:
+        (npc && (npc.fullRace || (npc.getRaceName && npc.getRaceName()))) ||
+        "human",
       collared: true,
       job: "IDLE",
       hours: emptyHours(),
@@ -1017,7 +1711,9 @@
       affToward: {},
       home: "",
       earned: 0,
-      hasVagina: !!(npc && npc.hasVagina ? npc.hasVagina() : npc && npc.feminine),
+      hasVagina: !!(npc && npc.hasVagina
+        ? npc.hasVagina()
+        : npc && npc.feminine),
       hasPenis: !!(npc && npc.hasPenis ? npc.hasPenis() : npc && !npc.feminine),
       milkStorage: 0,
     };
@@ -1025,18 +1721,19 @@
       rec.hasVagina = !!npc.gender.hasVagina;
       rec.hasPenis = !!npc.gender.hasPenis;
     }
-    if (npc && npc.id && npc.id !== "alleyMugger" && npc.id !== "npc") rec.src = String(npc.id).slice(0, 24);
+    if (npc && npc.id && npc.id !== "alleyMugger" && npc.id !== "npc")
+      rec.src = String(npc.id).slice(0, 24);
     return rec;
   };
 
-  LT.enslaveNpc = function (npc) {
+  enslaveNpc = function (npc) {
     var rec = LT.snapshotSlave(npc);
     rec.waiting = true;
     LT.pendingSlaves().push(rec);
     return rec;
   };
 
-  LT.collectPendingSlave = function (index) {
+  collectPendingSlave = function (index) {
     var wait = LT.pendingSlaves();
     if (index < 0 || index >= wait.length) return null;
     var rec = LT.normalizeSlave(wait.splice(index, 1)[0]);
@@ -1046,7 +1743,7 @@
     return rec;
   };
 
-  LT.takeOwnership = function (npc) {
+  takeOwnership = function (npc) {
     if (!npc) return null;
     var owned = LT.ownedSlaves();
     var i;
@@ -1062,32 +1759,34 @@
     return rec;
   };
 
-  LT.findSlave = function (id) {
+  findSlave = function (id) {
     var owned = LT.ownedSlaves();
     var i;
-    for (i = 0; i < owned.length; i++) if (owned[i].id === id) return LT.normalizeSlave(owned[i]);
+    for (i = 0; i < owned.length; i++)
+      if (owned[i].id === id) return LT.normalizeSlave(owned[i]);
     return null;
   };
 
-  LT.slaveJobName = function (rec, hour) {
+  slaveJobName = function (rec, hour) {
     var id = hour == null ? LT.getSlaveJob(rec) : LT.getSlaveJob(rec, hour);
     var job = LT.SLAVE_JOBS[id] || LT.SLAVE_JOBS.IDLE;
     return rec && rec.feminine === false ? job.nameM : job.name;
   };
 
-  LT.getSlaveJob = function (rec, hour) {
+  getSlaveJob = function (rec, hour) {
     if (!rec) return "IDLE";
     LT.normalizeSlave(rec);
-    if (hour == null) hour = typeof LT.hourOfDay === "function" ? LT.hourOfDay() : 12;
+    if (hour == null)
+      hour = typeof LT.hourOfDay === "function" ? LT.hourOfDay() : 12;
     hour = ((hour % 24) + 24) % 24;
     return rec.hours[hour] || "IDLE";
   };
 
-  LT.isSlaveAtWork = function (rec, hour) {
+  isSlaveAtWork = function (rec, hour) {
     return LT.getSlaveJob(rec, hour) !== "IDLE";
   };
 
-  LT.countWorkingJob = function (hour, jobId, skipId) {
+  countWorkingJob = function (hour, jobId, skipId) {
     var n = 0;
     LT.ownedSlaves().forEach(function (s) {
       if (skipId && s.id === skipId) return;
@@ -1096,43 +1795,74 @@
     return n;
   };
 
-  LT.jobHourAvailable = function (jobId, rec, hour) {
+  jobHourAvailable = function (jobId, rec, hour) {
     var job = LT.SLAVE_JOBS[jobId];
     if (!job) return { ok: false, reason: "Unknown job." };
     if (jobId === "IDLE") return { ok: true };
-    if (job.needsLicense && !(flags().hasProstitutionLicense)) {
-      return { ok: false, reason: "You do not have permission from Angel to send your slaves to work in her brothel!" };
+    if (job.needsLicense && !flags().hasProstitutionLicense) {
+      return {
+        ok: false,
+        reason:
+          "You do not have permission from Angel to send your slaves to work in her brothel!",
+      };
     }
     if (job.needs && !LT.findUpgradeKey(job.needs)) {
-      if (job.needs === "SPA") return { ok: false, reason: "The spa upgrade must be constructed before this job is available!" };
-      if (job.needs === "OFFICE") return { ok: false, reason: "There isn't enough office space to assign this job!" };
-      if (job.needs === "MILKING_ROOM") return { ok: false, reason: "Not enough space in milking rooms!" };
-      return { ok: false, reason: "Convert a room into a " + job.needs.replace(/_/g, " ").toLowerCase() + " first." };
+      if (job.needs === "SPA")
+        return {
+          ok: false,
+          reason:
+            "The spa upgrade must be constructed before this job is available!",
+        };
+      if (job.needs === "OFFICE")
+        return {
+          ok: false,
+          reason: "There isn't enough office space to assign this job!",
+        };
+      if (job.needs === "MILKING_ROOM")
+        return { ok: false, reason: "Not enough space in milking rooms!" };
+      return {
+        ok: false,
+        reason:
+          "Convert a room into a " +
+          job.needs.replace(/_/g, " ").toLowerCase() +
+          " first.",
+      };
     }
     if (!rec.home) {
-      return { ok: false, reason: "Slaves cannot work out of the cells at slavery administration. Move them into a room first!" };
+      return {
+        ok: false,
+        reason:
+          "Slaves cannot work out of the cells at slavery administration. Move them into a room first!",
+      };
     }
     if (job.dayOnly && (hour < 6 || hour >= 22)) {
-      return { ok: false, reason: "No-one can work in Lilaya's lab while she is sleeping!" };
+      return {
+        ok: false,
+        reason: "No-one can work in Lilaya's lab while she is sleeping!",
+      };
     }
     if (job.cap > 0 && LT.countWorkingJob(hour, jobId, rec.id) >= job.cap) {
-      return { ok: false, reason: "You have already assigned the maximum number of people to this job!" };
+      return {
+        ok: false,
+        reason:
+          "You have already assigned the maximum number of people to this job!",
+      };
     }
     return { ok: true };
   };
 
-  LT.slavesInRoom = function (key) {
+  slavesInRoom = function (key) {
     key = key || "";
     return LT.ownedSlaves().filter(function (s) {
       return s.home === key;
     });
   };
 
-  LT.jobAvailable = function (jobId, rec) {
+  jobAvailable = function (jobId, rec) {
     return LT.jobHourAvailable(jobId, rec, 12);
   };
 
-  LT.setSlaveJobHour = function (rec, hour, jobId) {
+  setSlaveJobHour = function (rec, hour, jobId) {
     LT.normalizeSlave(rec);
     hour = ((hour % 24) + 24) % 24;
     if (jobId !== "IDLE" && LT.getSlaveJob(rec, hour) === jobId) {
@@ -1147,7 +1877,7 @@
     return "";
   };
 
-  LT.applySlaveHoursPreset = function (rec, presetId, jobId, force) {
+  applySlaveHoursPreset = function (rec, presetId, jobId, force) {
     LT.normalizeSlave(rec);
     var preset = LT.SLAVE_JOB_HOURS[presetId];
     if (!preset) return "Unknown hours.";
@@ -1169,7 +1899,7 @@
     return "";
   };
 
-  LT.primarySlaveJob = function (rec) {
+  primarySlaveJob = function (rec) {
     LT.normalizeSlave(rec);
     var counts = {};
     var hour;
@@ -1189,7 +1919,7 @@
     return best;
   };
 
-  LT.slaveHoursSummary = function (rec) {
+  slaveHoursSummary = function (rec) {
     LT.normalizeSlave(rec);
     var parts = [];
     var start = 0;
@@ -1201,7 +1931,14 @@
         if (cur !== "IDLE") {
           var job = LT.SLAVE_JOBS[cur] || LT.SLAVE_JOBS.IDLE;
           var name = rec.feminine === false ? job.nameM : job.name;
-          parts.push(name + " " + String(start).padStart(2, "0") + ":00–" + String(hour % 24).padStart(2, "0") + ":00");
+          parts.push(
+            name +
+              " " +
+              String(start).padStart(2, "0") +
+              ":00–" +
+              String(hour % 24).padStart(2, "0") +
+              ":00",
+          );
         }
         start = hour;
         cur = next;
@@ -1210,7 +1947,7 @@
     return parts.length ? parts.join("; ") : "Idle all day";
   };
 
-  LT.setSlaveJob = function (rec, jobId) {
+  setSlaveJob = function (rec, jobId) {
     var check = LT.jobAvailable(jobId, rec);
     if (!check.ok) return check.reason;
     rec.job = jobId;
@@ -1223,13 +1960,16 @@
     return "";
   };
 
-  LT.slaveHourlyIncome = function (rec, jobId) {
+  slaveHourlyIncome = function (rec, jobId) {
     var job = LT.SLAVE_JOBS[jobId] || LT.SLAVE_JOBS.IDLE;
-    var value = job.income + (job.affPay || 0) * (rec.aff || 0) + (job.obePay || 0) * (rec.obe || 0);
+    var value =
+      job.income +
+      (job.affPay || 0) * (rec.aff || 0) +
+      (job.obePay || 0) * (rec.obe || 0);
     return Math.max(0, Math.floor(value));
   };
 
-  LT.dailySlaveStamina = function (rec) {
+  dailySlaveStamina = function (rec) {
     LT.normalizeSlave(rec);
     var drain = 0;
     var hour;
@@ -1240,7 +1980,7 @@
     return LT.SLAVE_BASE_STAMINA - drain;
   };
 
-  LT.overworkLevel = function (rec) {
+  overworkLevel = function (rec) {
     var stam = LT.dailySlaveStamina(rec);
     if (stam < -19) return 3;
     if (stam < -9) return 2;
@@ -1248,11 +1988,11 @@
     return 0;
   };
 
-  LT.hasSlavePermission = function (rec, settingId) {
+  hasSlavePermission = function (rec, settingId) {
     return !!(rec && rec.perms && rec.perms[settingId]);
   };
 
-  LT.setSlavePermission = function (rec, groupId, settingId) {
+  setSlavePermission = function (rec, groupId, settingId) {
     LT.normalizeSlave(rec);
     var group = LT.SLAVE_PERMISSIONS[groupId];
     if (!group) return;
@@ -1268,11 +2008,16 @@
     }
   };
 
-  LT.hasSlaveJobSetting = function (rec, jobId, settingId) {
-    return !!(rec && rec.jobSettings && rec.jobSettings[jobId] && rec.jobSettings[jobId][settingId]);
+  hasSlaveJobSetting = function (rec, jobId, settingId) {
+    return !!(
+      rec &&
+      rec.jobSettings &&
+      rec.jobSettings[jobId] &&
+      rec.jobSettings[jobId][settingId]
+    );
   };
 
-  LT.setSlaveJobSetting = function (rec, jobId, settingId, exclusiveIds) {
+  setSlaveJobSetting = function (rec, jobId, settingId, exclusiveIds) {
     LT.normalizeSlave(rec);
     rec.jobSettings[jobId] = rec.jobSettings[jobId] || {};
     var map = rec.jobSettings[jobId];
@@ -1287,79 +2032,88 @@
     else map[settingId] = true;
   };
 
-  LT.slaveBehaviourName = function (rec) {
-    if (LT.hasSlavePermission(rec, "BEHAVIOUR_SLUTTY")) return "Slutty";
-    if (LT.hasSlavePermission(rec, "BEHAVIOUR_SEDUCTIVE")) return "Seductive";
-    if (LT.hasSlavePermission(rec, "BEHAVIOUR_PROFESSIONAL")) return "Professional";
-    if (LT.hasSlavePermission(rec, "BEHAVIOUR_WHOLESOME")) return "Wholesome";
+  slaveBehaviourName = function (rec) {
+    if (hasSlavePermission(rec, "BEHAVIOUR_SLUTTY")) return "Slutty";
+    if (hasSlavePermission(rec, "BEHAVIOUR_SEDUCTIVE")) return "Seductive";
+    if (hasSlavePermission(rec, "BEHAVIOUR_PROFESSIONAL"))
+      return "Professional";
+    if (hasSlavePermission(rec, "BEHAVIOUR_WHOLESOME")) return "Wholesome";
     return "Standard";
   };
 
-  LT.assignSlaveHome = function (rec, key) {
-    var up = LT.roomUpgradeAt(key);
+  assignSlaveHome = function (rec, key) {
+    var up = this.roomUpgradeAt(key);
     if (!up || !up.home) return "This room cannot house a slave.";
-    if (up.cap > 0 && LT.slavesInRoom(key).filter(function (s) { return s.id !== rec.id; }).length >= up.cap) {
+    if (
+      up.cap > 0 &&
+      LT.slavesInRoom(key).filter(function (s) {
+        return s.id !== rec.id;
+      }).length >= up.cap
+    ) {
       return "This room is already occupied.";
     }
     rec.home = key;
-    LT.placeSlave(rec);
+    placeSlave(rec);
     return "";
   };
 
-  function hourSeed(rec, hour) {
+  hourSeed(rec, hour) {
     var day = Math.floor((LT.game.secondsPassed || 0) / 86400);
     var n = day * 97 + hour * 13;
-    var s = String(rec && rec.id || "");
+    var s = String((rec && rec.id) || "");
     var i;
     for (i = 0; i < s.length; i++) n += s.charCodeAt(i) * (i + 3);
-    return ((n % 1000) + 1000) % 1000 / 1000;
+    return (((n % 1000) + 1000) % 1000) / 1000;
   }
 
-  function isSleepingHour(rec, hour) {
+  isSleepingHour(rec, hour) {
     if (LT.getSlaveJob(rec, hour) !== "IDLE") return false;
-    if (LT.hasSlavePermission(rec, "SLEEPING_DAY")) return hour >= 6 && hour < 22;
-    if (LT.hasSlavePermission(rec, "SLEEPING_NIGHT")) return hour < 6 || hour >= 22;
+    if (LT.hasSlavePermission(rec, "SLEEPING_DAY"))
+      return hour >= 6 && hour < 22;
+    if (LT.hasSlavePermission(rec, "SLEEPING_NIGHT"))
+      return hour < 6 || hour >= 22;
     return hour < 6 || hour >= 22;
   }
 
-  LT.FLUID_VALUE = { milk: 0.01, crotchMilk: 0.01, cum: 0.1, girlcum: 1 };
+  static FLUID_VALUE = { milk: 0.01, crotchMilk: 0.01, cum: 0.1, girlcum: 1 };
 
-  LT.milkingRooms = function () {
+  milkingRooms = function () {
     if (!flags().milkingRooms) flags().milkingRooms = {};
     return flags().milkingRooms;
   };
 
-  LT.milkingTank = function (key) {
+  milkingTank = function (key) {
     key = key || LT.findUpgradeKey("MILKING_ROOM");
     if (!key) return null;
     var tanks = LT.milkingRooms();
-    if (!tanks[key]) tanks[key] = { milk: 0, crotchMilk: 0, cum: 0, girlcum: 0 };
+    if (!tanks[key])
+      tanks[key] = { milk: 0, crotchMilk: 0, cum: 0, girlcum: 0 };
     return tanks[key];
   };
 
-  LT.milkingAmounts = function (rec, key) {
+  milkingAmounts = function (rec, key) {
     var tankKey = key || LT.findUpgradeKey("MILKING_ROOM");
     var milk = 2500;
     var cum = 250;
     var girl = 50;
-    if (LT.roomHasExtra(tankKey, "ARTISAN_MILKERS")) {
+    if (this.roomHasExtra(tankKey, "ARTISAN_MILKERS")) {
       milk = 2000;
       cum = 200;
       girl = 40;
-    } else if (LT.roomHasExtra(tankKey, "INDUSTRIAL_MILKERS")) {
+    } else if (this.roomHasExtra(tankKey, "INDUSTRIAL_MILKERS")) {
       milk = 5000;
       cum = 500;
       girl = 100;
     }
-    if (LT.roomHasExtra(tankKey, "MILK_EFFICIENCY")) milk *= 2;
-    if (LT.roomHasExtra(tankKey, "CUM_EFFICIENCY")) cum *= 2;
-    if (LT.roomHasExtra(tankKey, "GIRLCUM_EFFICIENCY")) girl *= 2;
+    if (this.roomHasExtra(tankKey, "MILK_EFFICIENCY")) milk *= 2;
+    if (this.roomHasExtra(tankKey, "CUM_EFFICIENCY")) cum *= 2;
+    if (this.roomHasExtra(tankKey, "GIRLCUM_EFFICIENCY")) girl *= 2;
     return { milk: milk, crotchMilk: milk, cum: cum, girlcum: girl };
   };
 
-  LT.applyMilkingHour = function (rec, key) {
-    var amounts = LT.milkingAmounts(rec, key);
-    var tank = LT.milkingTank(key);
+  applyMilkingHour = function (rec, key) {
+    var amounts = milkingAmounts(rec, key);
+    var tank = milkingTank(key);
     var income = 0;
     var notes = [];
     function handle(type, amount, collect, sell, label) {
@@ -1373,47 +2127,78 @@
         notes.push(amount + "ml " + label + " stored");
       }
     }
-    handle("milk", rec.milkStorage > 0 || rec.lactating ? amounts.milk : 0, LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_MILK"), LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_MILK_AUTO_SELL"), "milk");
-    handle("crotchMilk", rec.hasCrotchMilk ? amounts.crotchMilk : 0, LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_MILK_CROTCH"), LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_MILK_CROTCH_AUTO_SELL"), "udder-milk");
-    handle("cum", rec.hasPenis ? amounts.cum : 0, LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_CUM"), LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_CUM_AUTO_SELL"), "cum");
-    handle("girlcum", rec.hasVagina ? amounts.girlcum : 0, LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_GIRLCUM"), LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_GIRLCUM_AUTO_SELL"), "girlcum");
+    handle(
+      "milk",
+      rec.milkStorage > 0 || rec.lactating ? amounts.milk : 0,
+      LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_MILK"),
+      LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_MILK_AUTO_SELL"),
+      "milk",
+    );
+    handle(
+      "crotchMilk",
+      rec.hasCrotchMilk ? amounts.crotchMilk : 0,
+      LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_MILK_CROTCH"),
+      LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_MILK_CROTCH_AUTO_SELL"),
+      "udder-milk",
+    );
+    handle(
+      "cum",
+      rec.hasPenis ? amounts.cum : 0,
+      LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_CUM"),
+      LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_CUM_AUTO_SELL"),
+      "cum",
+    );
+    handle(
+      "girlcum",
+      rec.hasVagina ? amounts.girlcum : 0,
+      LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_GIRLCUM"),
+      LT.hasSlaveJobSetting(rec, "MILKING", "MILKING_GIRLCUM_AUTO_SELL"),
+      "girlcum",
+    );
     return { income: income, notes: notes };
   };
 
-  LT.sellMilkingTank = function (key) {
-    var tank = LT.milkingTank(key);
+  sellMilkingTank = function (key) {
+    var tank = milkingTank(key);
     if (!tank) return 0;
     var pay = 0;
     ["milk", "crotchMilk", "cum", "girlcum"].forEach(function (type) {
-      if (tank[type] > 0) pay += Math.max(1, Math.floor(tank[type] * LT.FLUID_VALUE[type]));
+      if (tank[type] > 0)
+        pay += Math.max(1, Math.floor(tank[type] * LT.FLUID_VALUE[type]));
       tank[type] = 0;
     });
     if (pay && typeof LT.incrementMoney === "function") LT.incrementMoney(pay);
     return pay;
   };
 
-  LT.applyRoomExtraDaily = function (rec) {
+  applyRoomExtraDaily = function (rec) {
     if (!rec.home) return;
-    var up = LT.roomUpgradeAt(rec.home);
+    var up = this.roomUpgradeAt(rec.home);
     if (!up || !up.extras) return;
-    var room = LT.houseRooms()[rec.home];
+    var room = this.houseRooms()[rec.home];
     if (!room || !room.x) return;
     Object.keys(room.x).forEach(function (id) {
       if (!room.x[id] || !up.extras[id]) return;
-      rec.aff = Math.max(-100, Math.min(100, (rec.aff || 0) + (up.extras[id].aff || 0)));
-      rec.obe = Math.max(-100, Math.min(100, (rec.obe || 0) + (up.extras[id].obe || 0)));
+      rec.aff = Math.max(
+        -100,
+        Math.min(100, (rec.aff || 0) + (up.extras[id].aff || 0)),
+      );
+      rec.obe = Math.max(
+        -100,
+        Math.min(100, (rec.obe || 0) + (up.extras[id].obe || 0)),
+      );
     });
   };
 
-  LT.loungeKey = function () {
+  loungeKey() {
     return LT.findUpgradeKey("SLAVE_LOUNGE");
-  };
+  }
 
-  function wantsLounge(rec, hour) {
+  wantsLounge(rec, hour) {
     if (!rec || !rec.home) return false;
     if (LT.getSlaveJob(rec, hour) !== "IDLE") return false;
     if (!LT.hasSlavePermission(rec, "GENERAL_HOUSE_FREEDOM")) return false;
-    if (!LT.loungeKey()) return false;
+    if (!loungeKey()) return false;
     if (isSleepingHour(rec, hour)) return false;
     var over = LT.overworkLevel(rec);
     if (over === 3) return false;
@@ -1425,13 +2210,18 @@
     return true;
   }
 
-  LT.idleDestination = function (rec, hour) {
-    if (hour == null) hour = typeof LT.hourOfDay === "function" ? LT.hourOfDay() : 12;
-    if (!rec.home) return { world: "SLAVER_ALLEY", place: "SLAVER_ALLEY_SLAVERY_ADMINISTRATION" };
+  idleDestination(rec, hour) {
+    if (hour == null)
+      hour = typeof LT.hourOfDay === "function" ? LT.hourOfDay() : 12;
+    if (!rec.home)
+      return {
+        world: "SLAVER_ALLEY",
+        place: "SLAVER_ALLEY_SLAVERY_ADMINISTRATION",
+      };
     var home = LT.parseRoomKey(rec.home);
     if (home) home.key = rec.home;
     if (!wantsLounge(rec, hour)) return home;
-    var lounge = LT.loungeKey();
+    var lounge = this.loungeKey();
     var already = 0;
     LT.ownedSlaves().forEach(function (s) {
       if (s.id !== rec.id && wantsLounge(s, hour)) already += 1;
@@ -1440,15 +2230,21 @@
     var dest = LT.parseRoomKey(lounge);
     if (dest) dest.key = lounge;
     return dest || home;
-  };
+  }
 
-  LT.slaveWorkPlace = function (rec) {
+  slaveWorkPlace = function (rec) {
     var hour = typeof LT.hourOfDay === "function" ? LT.hourOfDay() : 12;
     var jobId = LT.getSlaveJob(rec, hour);
     var job = LT.SLAVE_JOBS[jobId] || LT.SLAVE_JOBS.IDLE;
-    if (jobId === "IDLE") return LT.idleDestination(rec, hour);
-    if (jobId === "SECURITY" && LT.hasSlaveJobSetting(rec, "SECURITY", "SECURITY_ENTRANCE_PRIORITY")) {
-      return { world: "LILAYAS_HOUSE_GROUND_FLOOR", place: "LILAYA_HOME_ENTRANCE_HALL" };
+    if (jobId === "IDLE") return idleDestination(rec, hour);
+    if (
+      jobId === "SECURITY" &&
+      LT.hasSlaveJobSetting(rec, "SECURITY", "SECURITY_ENTRANCE_PRIORITY")
+    ) {
+      return {
+        world: "LILAYAS_HOUSE_GROUND_FLOOR",
+        place: "LILAYA_HOME_ENTRANCE_HALL",
+      };
     }
     if (job.needs) {
       var key = LT.findUpgradeKey(job.needs);
@@ -1459,7 +2255,7 @@
     return null;
   };
 
-  LT.placeSlave = function (rec) {
+  placeSlave(rec) {
     var dest = LT.slaveWorkPlace(rec);
     var npc = LT.slaveAsNpc(rec);
     if (!dest) {
@@ -1473,15 +2269,19 @@
       var cells = allGrids[dest.world];
       var i;
       for (i = 0; i < cells.length; i++) {
-        if (cells[i].x === dest.x && cells[i].y === dest.y && cells[i].location) {
+        if (
+          cells[i].x === dest.x &&
+          cells[i].y === dest.y &&
+          cells[i].location
+        ) {
           npc.location.place = cells[i].location.placeType;
           break;
         }
       }
     }
-  };
+  }
 
-  LT.slaveAsNpc = function (rec) {
+  slaveAsNpc(rec) {
     LT.game.npcs = LT.game.npcs || {};
     rec = LT.normalizeSlave(rec);
     var n = LT.game.npcs[rec.id] || {};
@@ -1490,7 +2290,7 @@
     n.feminine = rec.feminine !== false;
     n.raceName = rec.raceName || rec.fullRace || "human";
     n.fullRace = rec.fullRace || n.raceName;
-    n.speechColour = n.feminine ? LT.Colour.FEMININE : LT.Colour.MASCULINE;
+    n.speechColour = n.feminine ? Colour.FEMININE : Colour.MASCULINE;
     n.slave = true;
     n.job = rec.job;
     n.gender = n.feminine ? LT.Gender.FEMALE : LT.Gender.MALE;
@@ -1518,16 +2318,16 @@
     if (!n.sex) n.sex = { vaginaVirgin: false, penisVirgin: false };
     LT.game.npcs[rec.id] = n;
     return n;
-  };
+  }
 
-  LT.syncSlaveNpcs = function () {
+  syncSlaveNpcs() {
     LT.ownedSlaves().forEach(function (rec) {
       LT.normalizeSlave(rec);
       LT.placeSlave(rec);
     });
-  };
+  }
 
-  function hoursCrossed(prevSeconds, nextSeconds) {
+  hoursCrossed(prevSeconds, nextSeconds) {
     var hours = [];
     var t = Math.floor(prevSeconds / 3600) + 1;
     var end = Math.floor(nextSeconds / 3600);
@@ -1535,13 +2335,13 @@
     return hours;
   }
 
-  LT.tickSlavery = function (seconds) {
+  tickSlavery(seconds) {
     if (!seconds || !LT.game) return;
     var next = LT.game.secondsPassed;
     var prev = next - seconds;
-    var hours = hoursCrossed(prev, next);
+    var hours = this.hoursCrossed(prev, next);
     if (!hours.length) {
-      LT.syncSlaveNpcs();
+      this.syncSlaveNpcs();
       return;
     }
     var pay = 0;
@@ -1568,9 +2368,15 @@
           aff -= 2;
         }
         rec.aff = Math.max(-100, Math.min(100, (rec.aff || 0) + aff));
-        rec.obe = Math.max(-100, Math.min(100, (rec.obe || 0) + (job.obedience || 0)));
+        rec.obe = Math.max(
+          -100,
+          Math.min(100, (rec.obe || 0) + (job.obedience || 0)),
+        );
         if (jobId === "MILKING") {
-          var milked = LT.applyMilkingHour(rec, LT.findUpgradeKey("MILKING_ROOM"));
+          var milked = LT.applyMilkingHour(
+            rec,
+            LT.findUpgradeKey("MILKING_ROOM"),
+          );
           pay += milked.income;
           rec.earned = (rec.earned || 0) + milked.income;
         }
@@ -1582,66 +2388,80 @@
     hours.forEach(function (hour) {
       LT.runSlaveInteractions(hour);
     });
-    LT.syncSlaveNpcs();
-  };
+    this.syncSlaveNpcs();
+  }
 
-  function destKey(dest) {
+  destKey(dest) {
     if (!dest) return "";
     if (dest.key) return dest.key;
     if (dest.x != null) return (dest.world || "") + ":" + dest.x + "," + dest.y;
     return (dest.world || "") + "|" + (dest.place || "");
   }
 
-  function slaveDestAt(rec, hour) {
-    var jobId = LT.getSlaveJob(rec, hour);
-    if (jobId === "IDLE") return LT.idleDestination(rec, hour);
-    var job = LT.SLAVE_JOBS[jobId] || LT.SLAVE_JOBS.IDLE;
+  slaveDestAt(rec, hour) {
+    var jobId = getSlaveJob(rec, hour);
+    if (jobId === "IDLE") return idleDestination(rec, hour);
+    var job = SLAVE_JOBS[jobId] || SLAVE_JOBS.IDLE;
     if (job.needs) {
-      var key = LT.findUpgradeKey(job.needs);
-      if (key) return LT.parseRoomKey(key);
+      var key = findUpgradeKey(job.needs);
+      if (key) return parseRoomKey(key);
     }
     if (job.place) return { world: job.place.world, place: job.place.place };
-    if (rec.home) return LT.parseRoomKey(rec.home);
+    if (rec.home) return parseRoomKey(rec.home);
     return null;
   }
 
-  LT.slaveEvents = function () {
+  slaveEvents = function () {
     if (!flags().slaveEvents) flags().slaveEvents = [];
     return flags().slaveEvents;
   };
 
-  LT.pushSlaveEvent = function (text) {
-    var list = LT.slaveEvents();
+  pushSlaveEvent = function (text) {
+    var list = slaveEvents();
     list.unshift(text);
     if (list.length > 12) list.length = 12;
   };
 
-  var SLAVE_SEX_TEXT = {
-    CLEANING: "While dusting one of the corridors, [npc.name] caught sight of [npc2.name], and couldn't resist pulling [npc2.herHim] into an empty room for some sex.",
-    SECURITY: "While patrolling one of the corridors, [npc.name] caught sight of [npc2.name], and couldn't resist pulling [npc2.herHim] into an empty room for some sex.",
+  static SLAVE_SEX_TEXT = {
+    CLEANING:
+      "While dusting one of the corridors, [npc.name] caught sight of [npc2.name], and couldn't resist pulling [npc2.herHim] into an empty room for some sex.",
+    SECURITY:
+      "While patrolling one of the corridors, [npc.name] caught sight of [npc2.name], and couldn't resist pulling [npc2.herHim] into an empty room for some sex.",
     IDLE: "[npc.Name] had some fun with [npc2.name].",
-    KITCHEN: "While working in the kitchen, [npc.name] saw [npc2.name] enter the pantry alone, and couldn't resist following [npc2.herHim] inside.",
-    GARDEN: "[npc.Name] pulled [npc2.name] behind one of the bushes in the garden.",
-    LAB_ASSISTANT: "When Lilaya left to take a break, [npc.name] used the opportunity to have sex with [npc2.name] on one of the lab's tables.",
-    LIBRARY: "[npc.Name] pulled [npc2.name] behind one of the shelves in the Library.",
-    OFFICE: "Taking a small break from the paperwork assigned to [npc.herHim], [npc.name] pushed [npc2.name] down over [npc.her] desk.",
-    BEDROOM: "[npc.Name] took advantage of being in your bedroom with [npc2.name].",
+    KITCHEN:
+      "While working in the kitchen, [npc.name] saw [npc2.name] enter the pantry alone, and couldn't resist following [npc2.herHim] inside.",
+    GARDEN:
+      "[npc.Name] pulled [npc2.name] behind one of the bushes in the garden.",
+    LAB_ASSISTANT:
+      "When Lilaya left to take a break, [npc.name] used the opportunity to have sex with [npc2.name] on one of the lab's tables.",
+    LIBRARY:
+      "[npc.Name] pulled [npc2.name] behind one of the shelves in the Library.",
+    OFFICE:
+      "Taking a small break from the paperwork assigned to [npc.herHim], [npc.name] pushed [npc2.name] down over [npc.her] desk.",
+    BEDROOM:
+      "[npc.Name] took advantage of being in your bedroom with [npc2.name].",
     SPA: "[npc.Name] took advantage of being in the spa with [npc2.name].",
-    SPA_RECEPTIONIST: "[npc.Name] took advantage of being assigned to the spa's reception desk with [npc2.name].",
+    SPA_RECEPTIONIST:
+      "[npc.Name] took advantage of being assigned to the spa's reception desk with [npc2.name].",
   };
 
-  function parseSlavePair(a, b, raw) {
+  parseSlavePair(a, b, raw) {
     var npc = LT.slaveAsNpc(a);
     var npc2 = LT.slaveAsNpc(b);
     if (typeof LT.withParseTargets === "function") {
-      return LT.withParseTargets({ npc: npc, npc2: npc2, pc: LT.game.player }, function () {
-        return LT.parse(raw);
-      });
+      return LT.withParseTargets(
+        { npc: npc, npc2: npc2, pc: LT.game.player },
+        function () {
+          return LT.parse(raw);
+        },
+      );
     }
-    return raw.replace(/\[npc\.Name\]/g, a.name).replace(/\[npc2\.name\]/g, b.name);
+    return raw
+      .replace(/\[npc\.Name\]/g, a.name)
+      .replace(/\[npc2\.name\]/g, b.name);
   }
 
-  LT.runSlaveInteractions = function (hour) {
+  runSlaveInteractions = function (hour) {
     var slaves = LT.ownedSlaves().map(function (s) {
       return LT.normalizeSlave(s);
     });
@@ -1653,7 +2473,8 @@
       var jobA = LT.getSlaveJob(a, hour);
       var specA = LT.SLAVE_JOBS[jobA] || LT.SLAVE_JOBS.IDLE;
       if (specA.interactSex) a.pentUp = (a.pentUp || 0) + 1;
-      if (used[a.id] || !LT.hasSlavePermission(a, "SEX_INITIATE_SLAVES")) continue;
+      if (used[a.id] || !LT.hasSlavePermission(a, "SEX_INITIATE_SLAVES"))
+        continue;
       if (!specA.interactSex) continue;
       if ((a.pentUp || 0) < 8) continue;
       var destA = destKey(slaveDestAt(a, hour));
@@ -1663,8 +2484,14 @@
         if (b.id === a.id || used[b.id]) continue;
         if (!LT.hasSlavePermission(b, "SEX_RECEIVE_SLAVES")) continue;
         if (destKey(slaveDestAt(b, hour)) !== destA) continue;
-        if (a.home && (LT.roomHasExtra(a.home, "CELL_ROPES") || LT.roomHasExtra(a.home, "CELL_CHAINS"))) continue;
-        if (LT.hasSlavePermission(b, "SEX_SAVE_VIRGINITY") && b.virgin) continue;
+        if (
+          a.home &&
+          (this.roomHasExtra(a.home, "CELL_ROPES") ||
+            this.roomHasExtra(a.home, "CELL_CHAINS"))
+        )
+          continue;
+        if (LT.hasSlavePermission(b, "SEX_SAVE_VIRGINITY") && b.virgin)
+          continue;
         used[a.id] = true;
         used[b.id] = true;
         a.pentUp = 0;
@@ -1674,7 +2501,10 @@
         b.affToward[a.id] = Math.min(100, (b.affToward[a.id] || 0) + 10);
         a.aff = Math.min(100, (a.aff || 0) + 2);
         b.aff = Math.min(100, (b.aff || 0) + 2);
-        if (LT.hasSlavePermission(a, "SEX_IMPREGNATE") && LT.hasSlavePermission(b, "SEX_IMPREGNATED")) {
+        if (
+          LT.hasSlavePermission(a, "SEX_IMPREGNATE") &&
+          LT.hasSlavePermission(b, "SEX_IMPREGNATED")
+        ) {
           b.bredBy = a.id;
         }
         LT.pushSlaveEvent(text);
@@ -1696,12 +2526,24 @@
         if (roll > 0.2) continue;
         var pos = roll < 0.16;
         var delta = pos ? 5 : -5;
-        a.affToward[b.id] = Math.max(-100, Math.min(100, (a.affToward[b.id] || 0) + delta));
-        b.affToward[a.id] = Math.max(-100, Math.min(100, (b.affToward[a.id] || 0) + delta));
+        a.affToward[b.id] = Math.max(
+          -100,
+          Math.min(100, (a.affToward[b.id] || 0) + delta),
+        );
+        b.affToward[a.id] = Math.max(
+          -100,
+          Math.min(100, (b.affToward[a.id] || 0) + delta),
+        );
         LT.pushSlaveEvent(
           pos
-            ? a.name + " and " + b.name + " spent some time getting to know one another a little better."
-            : a.name + " and " + b.name + " spent some time arguing with one another.",
+            ? a.name +
+                " and " +
+                b.name +
+                " spent some time getting to know one another a little better."
+            : a.name +
+                " and " +
+                b.name +
+                " spent some time arguing with one another.",
         );
         used[a.id] = true;
         used[b.id] = true;
@@ -1710,7 +2552,7 @@
     }
   };
 
-  LT.slavesAtCurrentTile = function () {
+  slavesAtCurrentTile = function () {
     var loc = (LT.game.player && LT.game.player.location) || {};
     var world = loc.world || (window.grid && grid.gridName);
     var place = loc.place || "";
@@ -1725,12 +2567,13 @@
         list.push(rec);
         return;
       }
-      if (x != null && npc.location.x === x && npc.location.y === y) list.push(rec);
+      if (x != null && npc.location.x === x && npc.location.y === y)
+        list.push(rec);
     });
     return list;
   };
 
-  LT.jobSexText = function (rec) {
+  jobSexText = function (rec) {
     var raw = JOB_SEX[rec.job] || JOB_SEX.IDLE;
     var npc = LT.slaveAsNpc(rec);
     if (typeof LT.withParseTargets === "function") {
@@ -1741,7 +2584,7 @@
     return "<p>" + raw + "</p>";
   };
 
-  LT.maybeWorkplaceSex = function () {
+  maybeWorkplaceSex = function () {
     var f = flags();
     f.workSex = null;
     var slaves = LT.slavesAtCurrentTile();
@@ -1764,14 +2607,14 @@
     return "";
   };
 
-  LT.normalizeLocalImagePath = function (url) {
+  normalizeLocalImagePath = function (url) {
     if (!url || typeof url !== "string") return "";
     return String(url).trim().replace(/\\/g, "/");
   };
 
-  LT.isSafeImageUrl = function (url) {
+  isSafeImageUrl = function (url) {
     if (!url || typeof url !== "string") return false;
-    url = LT.normalizeLocalImagePath(url);
+    url = normalizeLocalImagePath(url);
     if (!url || url.length > IMAGE_MAX) return false;
     if (/^(data:|https?:|file:|javascript:)/i.test(url)) return false;
     if (/^[a-zA-Z]:\//.test(url)) return false;
@@ -1781,26 +2624,26 @@
     return true;
   };
 
-  LT.setCharacterImage = function (id, url) {
+  setCharacterImage = function (id, url) {
     if (!id) return false;
     var map = LT.charImages();
     if (!url) {
       delete map[id];
       return true;
     }
-    url = LT.normalizeLocalImagePath(url);
-    if (!LT.isSafeImageUrl(url)) return false;
+    url = normalizeLocalImagePath(url);
+    if (!isSafeImageUrl(url)) return false;
     map[id] = url;
     return true;
   };
 
-  LT.getCharacterImage = function (id) {
+  getCharacterImage = function (id) {
     if (!id) return "";
     return LT.charImages()[id] || "";
   };
 
   /* Bundled clothed portraits. Custom http(s) URLs still override. */
-  LT.DEFAULT_PORTRAITS = {
+  static DEFAULT_PORTRAITS = {
     lilaya: "lilaya/clothed1.png",
     rose: "rose/clothed1.png",
     scarlett: "scarlett/clothed1.png",
@@ -1831,45 +2674,52 @@
     kelly: "kelly/clothed1.png",
   };
 
-  LT.defaultPortraitUrl = function (id) {
+  defaultPortraitUrl = function (id) {
     var rel = LT.DEFAULT_PORTRAITS && LT.DEFAULT_PORTRAITS[id];
     if (!rel) return "";
-    return typeof LT.charAsset === "function" ? LT.charAsset(rel) : "assets/characters/" + rel;
+    return typeof LT.charAsset === "function"
+      ? LT.charAsset(rel)
+      : "assets/characters/" + rel;
   };
 
   /* Official Artwork.java: clothed* / partial* / naked*, plus filename tags
      #preg #nopreg #penis #nopenis #vagina #novagina. Cycle with artworkIndex. */
-  LT.ARTWORK = LT.ARTWORK || {};
 
-  function artworkBasename(path) {
+  artworkBasename(path) {
     var s = String(path || "").replace(/\\/g, "/");
     var slash = s.lastIndexOf("/");
     return (slash >= 0 ? s.slice(slash + 1) : s).toLowerCase();
   }
 
-  function artworkKind(path) {
+  artworkKind(path) {
     var n = artworkBasename(path);
     if (n.indexOf("naked") === 0) return "naked";
     if (n.indexOf("partial") === 0) return "partial";
     return "clothed";
   }
 
-  function artworkHasTag(path, tag) {
-    return artworkBasename(path).indexOf("#" + tag) >= 0 || artworkBasename(path).indexOf("_" + tag) >= 0;
+  artworkHasTag(path, tag) {
+    return (
+      artworkBasename(path).indexOf("#" + tag) >= 0 ||
+      artworkBasename(path).indexOf("_" + tag) >= 0
+    );
   }
 
-  LT.registerArtwork = function (id, spec) {
+  registerArtwork(id, spec) {
     if (!id || !spec || !spec.artists) return null;
     var existing = LT.ARTWORK[id] || { index: 0 };
     existing.artists = spec.artists;
-    existing.defaultArtist = spec.defaultArtist || existing.defaultArtist || Object.keys(spec.artists)[0];
+    existing.defaultArtist =
+      spec.defaultArtist ||
+      existing.defaultArtist ||
+      Object.keys(spec.artists)[0];
     if (spec.artist) existing.artist = spec.artist;
     if (existing.artist == null) existing.artist = existing.defaultArtist;
     LT.ARTWORK[id] = existing;
     return existing;
-  };
+  }
 
-  LT.setArtworkArtist = function (id, artist) {
+  setArtworkArtist = function (id, artist) {
     var pack = LT.ARTWORK[id];
     if (!pack || !pack.artists || !pack.artists[artist]) return false;
     pack.artist = artist;
@@ -1877,7 +2727,7 @@
     return true;
   };
 
-  LT.artworkListFor = function (id) {
+  artworkListFor = function (id) {
     var pack = LT.ARTWORK[id];
     if (!pack || !pack.artists) return [];
     var artist = pack.artist || pack.defaultArtist;
@@ -1885,8 +2735,10 @@
     return files.slice();
   };
 
-  LT.filterArtworkList = function (ch, files) {
-    var preg = !!(typeof LT.isVisiblyPregnant === "function" && LT.isVisiblyPregnant(ch));
+  filterArtworkList = function (ch, files) {
+    var preg = !!(
+      typeof LT.isVisiblyPregnant === "function" && LT.isVisiblyPregnant(ch)
+    );
     var hasPenis = !!(ch && ch.hasPenis && ch.hasPenis());
     var hasVagina = !!(ch && ch.hasVagina && ch.hasVagina());
     var taggedPreg = [];
@@ -1895,20 +2747,24 @@
     for (i = 0; i < (files || []).length; i++) {
       var f = files[i];
       var n = artworkBasename(f);
-      if (n.indexOf("#preg") >= 0 && n.indexOf("#nopreg") < 0 && !preg) continue;
+      if (n.indexOf("#preg") >= 0 && n.indexOf("#nopreg") < 0 && !preg)
+        continue;
       if (n.indexOf("#nopreg") >= 0 && preg) continue;
-      if (n.indexOf("#penis") >= 0 && n.indexOf("#nopenis") < 0 && !hasPenis) continue;
+      if (n.indexOf("#penis") >= 0 && n.indexOf("#nopenis") < 0 && !hasPenis)
+        continue;
       if (n.indexOf("#nopenis") >= 0 && hasPenis) continue;
-      if (n.indexOf("#vagina") >= 0 && n.indexOf("#novagina") < 0 && !hasVagina) continue;
+      if (n.indexOf("#vagina") >= 0 && n.indexOf("#novagina") < 0 && !hasVagina)
+        continue;
       if (n.indexOf("#novagina") >= 0 && hasVagina) continue;
-      if (n.indexOf("#preg") >= 0 && n.indexOf("#nopreg") < 0) taggedPreg.push(f);
+      if (n.indexOf("#preg") >= 0 && n.indexOf("#nopreg") < 0)
+        taggedPreg.push(f);
       else kept.push(f);
     }
     if (preg && taggedPreg.length) return taggedPreg;
     return kept;
   };
 
-  function sexParticipant(ch) {
+  sexParticipant(ch) {
     if (!LT.sex || !LT.sex.active || !ch) return false;
     if (LT.sex.player === ch || LT.sex.partner === ch) return true;
     var parts = LT.sex.participants || [];
@@ -1917,17 +2773,18 @@
     return false;
   }
 
-  LT.artworkClothingTier = function (ch) {
+  artworkClothingTier(ch) {
     if (sexParticipant(ch)) {
       var exp = ch.sexExposed || {};
       if (exp.PENIS || exp.VAGINA || exp.ANUS) return "naked";
       if (exp.BREASTS) return "partial";
     }
     return "clothed";
-  };
+  }
 
-  LT.filteredArtworkByTier = function (id) {
-    var ch = typeof LT.characterById === "function" ? LT.characterById(id) : null;
+  filteredArtworkByTier(id) {
+    var ch =
+      typeof LT.characterById === "function" ? LT.characterById(id) : null;
     var files = LT.filterArtworkList(ch, LT.artworkListFor(id));
     var tier = LT.artworkClothingTier(ch);
     var bucket = [];
@@ -1936,60 +2793,74 @@
       if (artworkKind(files[i]) === tier) bucket.push(files[i]);
     }
     if (!bucket.length && tier === "partial") {
-      for (i = 0; i < files.length; i++) if (artworkKind(files[i]) === "naked") bucket.push(files[i]);
+      for (i = 0; i < files.length; i++)
+        if (artworkKind(files[i]) === "naked") bucket.push(files[i]);
     }
     if (!bucket.length) bucket = files;
     return bucket;
-  };
+  }
 
-  LT.pickArtworkUrl = function (id) {
-    var bucket = LT.filteredArtworkByTier(id);
+  pickArtworkUrl = function (id) {
+    var bucket = filteredArtworkByTier(id);
     if (!bucket.length) return "";
     var pack = LT.ARTWORK[id] || {};
-    var ch = typeof LT.characterById === "function" ? LT.characterById(id) : null;
-    var idx = (ch && ch.artworkIndex != null) ? ch.artworkIndex : pack.index || 0;
+    var ch =
+      typeof LT.characterById === "function" ? LT.characterById(id) : null;
+    var idx = ch && ch.artworkIndex != null ? ch.artworkIndex : pack.index || 0;
     idx = ((idx % bucket.length) + bucket.length) % bucket.length;
     return bucket[idx];
   };
 
-  LT.incrementArtworkIndex = function (id, delta) {
+  incrementArtworkIndex(id, delta) {
     var bucket = LT.filteredArtworkByTier(id);
     if (bucket.length < 2) return false;
     var pack = LT.ARTWORK[id];
-    var ch = typeof LT.characterById === "function" ? LT.characterById(id) : null;
-    var idx = (ch && ch.artworkIndex != null) ? ch.artworkIndex : (pack && pack.index) || 0;
+    var ch =
+      typeof LT.characterById === "function" ? LT.characterById(id) : null;
+    var idx =
+      ch && ch.artworkIndex != null
+        ? ch.artworkIndex
+        : (pack && pack.index) || 0;
     idx = idx + (delta || 1);
     idx = ((idx % bucket.length) + bucket.length) % bucket.length;
     if (ch) ch.artworkIndex = idx;
     if (pack) pack.index = idx;
     return true;
-  };
+  }
 
-  LT.artworkEnabled = function () {
+  artworkEnabled() {
     return typeof LT.hasProperty !== "function" || LT.hasProperty("artwork");
-  };
+  }
 
-  LT.thumbnailEnabled = function () {
+  thumbnailEnabled() {
     return typeof LT.hasProperty !== "function" || LT.hasProperty("thumbnail");
-  };
+  }
 
-  LT.hasArtwork = function (id) {
-    return !!(LT.getCharacterImage(id) || (typeof LT.pickArtworkUrl === "function" && LT.pickArtworkUrl(id)) || LT.defaultPortraitUrl(id));
-  };
+  hasArtwork(id) {
+    return !!(
+      LT.getCharacterImage(id) ||
+      (typeof LT.pickArtworkUrl === "function" && LT.pickArtworkUrl(id)) ||
+      LT.defaultPortraitUrl(id)
+    );
+  }
 
-  LT.resolvedPortraitUrl = function (id) {
+  resolvedPortraitUrl(id) {
     var custom = LT.getCharacterImage(id);
     if (custom) return custom;
-    if (!LT.artworkEnabled()) return "";
-    var packed = typeof LT.pickArtworkUrl === "function" ? LT.pickArtworkUrl(id) : "";
+    if (!artworkEnabled()) return "";
+    var packed =
+      typeof LT.pickArtworkUrl === "function" ? LT.pickArtworkUrl(id) : "";
     if (packed) return packed;
     return LT.defaultPortraitUrl(id);
-  };
+  }
 
-  LT.promptCharacterImage = function (id) {
+  promptCharacterImage = function (id) {
     if (typeof window === "undefined" || !window.prompt) return false;
     var current = LT.getCharacterImage(id) || "";
-    var next = window.prompt("Image path inside the game folder (for example images/name.png). Leave empty to clear.", current);
+    var next = window.prompt(
+      "Image path inside the game folder (for example images/name.png). Leave empty to clear.",
+      current,
+    );
     if (next == null) return false;
     next = LT.normalizeLocalImagePath(next);
     if (!next) {
@@ -2000,7 +2871,7 @@
     return LT.setCharacterImage(id, next);
   };
 
-  LT.portraitHtml = function (id, cls) {
+  portraitHtml = function (id, cls) {
     var url = LT.resolvedPortraitUrl(id);
     if (!url) return "";
     return (
@@ -2012,10 +2883,16 @@
     );
   };
 
-  LT.artworkHtml = function (id) {
-    var img = typeof LT.portraitHtml === "function" ? LT.portraitHtml(id, "char-portrait") : "";
+  artworkHtml(id) {
+    var img =
+      typeof LT.portraitHtml === "function"
+        ? LT.portraitHtml(id, "char-portrait")
+        : "";
     if (!img) return "";
-    var bucket = typeof LT.filteredArtworkByTier === "function" ? LT.filteredArtworkByTier(id) : [];
+    var bucket =
+      typeof LT.filteredArtworkByTier === "function"
+        ? LT.filteredArtworkByTier(id)
+        : [];
     var cycle = "";
     if (bucket.length > 1) {
       cycle =
@@ -2028,24 +2905,34 @@
         "'>&gt;</span></div>";
     }
     return "<div class='char-artwork'>" + img + cycle + "</div>";
-  };
-
-  if (typeof document !== "undefined" && document.addEventListener) {
-    document.addEventListener("click", function (e) {
-      var btn = e.target && e.target.closest && e.target.closest("[data-art-id][data-art-delta]");
-      if (!btn) return;
-      var id = btn.getAttribute("data-art-id");
-      var delta = Number(btn.getAttribute("data-art-delta")) || 1;
-      if (typeof LT.incrementArtworkIndex === "function" && LT.incrementArtworkIndex(id, delta) && LT.game && LT.game.currentNode) {
-        LT.game.setContent(LT.game.currentNode);
-      }
-    });
+  }
+  eventListener() {
+    if (typeof document !== "undefined" && document.addEventListener) {
+      document.addEventListener("click", function (e) {
+        var btn =
+          e.target &&
+          e.target.closest &&
+          e.target.closest("[data-art-id][data-art-delta]");
+        if (!btn) return;
+        var id = btn.getAttribute("data-art-id");
+        var delta = Number(btn.getAttribute("data-art-delta")) || 1;
+        if (
+          typeof LT.incrementArtworkIndex === "function" &&
+          LT.incrementArtworkIndex(id, delta) &&
+          LT.game &&
+          LT.game.currentNode
+        ) {
+          LT.game.setContent(LT.game.currentNode);
+        }
+      });
+    }
   }
 
-  LT.sizeArtwork = function (img) {
+  sizeArtwork(img) {
     if (!img) return;
     var wrap = img.closest ? img.closest(".char-artwork") : img.parentNode;
-    if (!wrap || !wrap.classList || !wrap.classList.contains("char-artwork")) return;
+    if (!wrap || !wrap.classList || !wrap.classList.contains("char-artwork"))
+      return;
     var w = img.naturalWidth || 0;
     var h = img.naturalHeight || 0;
     var pct = 52;
@@ -2053,9 +2940,9 @@
     else if (h && w && h === w) pct = 56;
     wrap.style.width = pct + "%";
     if (w) wrap.style.maxWidth = w + "px";
-  };
+  }
 
-  LT.characterById = function (id) {
+  characterById(id) {
     if (!id || id === "player") return LT.game && LT.game.player;
     if (LT.game && LT.game.npcs && LT.game.npcs[id]) return LT.game.npcs[id];
     if (typeof LT.findSlave === "function") {
@@ -2063,33 +2950,40 @@
       if (rec && typeof LT.slaveAsNpc === "function") return LT.slaveAsNpc(rec);
     }
     return null;
-  };
+  }
 
-  LT.characterHoverTooltipHtml = function (id, opts) {
+  characterHoverTooltipHtml(id, opts) {
     opts = opts || {};
     var full = !!opts.full;
-    var ch = typeof LT.characterById === "function" ? LT.characterById(id) : null;
+    var ch =
+      typeof LT.characterById === "function" ? LT.characterById(id) : null;
     var name = "Unknown";
     var race = "";
     var level = 1;
-    var colour = (LT.Colour && LT.Colour.ANDROGYNOUS) || "#ddd";
+    var colour = (Colour && Colour.ANDROGYNOUS) || "#ddd";
     if (ch) {
       if (ch.getName) name = ch.getName();
       else name = ch.name || id || name;
       if (ch.getRaceName) race = ch.getRaceName();
       else race = ch.fullRace || ch.raceName || "";
       level = ch.level || 1;
-      var fem = ch.getFemininityValue ? ch.getFemininityValue() : ch.femininityValue;
+      var fem = ch.getFemininityValue
+        ? ch.getFemininityValue()
+        : ch.femininityValue;
       if (fem == null && ch.isFeminine) fem = ch.isFeminine() ? 70 : 30;
       if (fem == null) fem = 50;
-      if (LT.Colour) {
-        if (fem < 40) colour = LT.Colour.MASCULINE;
-        else if (fem > 60) colour = LT.Colour.FEMININE;
-        else colour = LT.Colour.ANDROGYNOUS;
+      if (Colour) {
+        if (fem < 40) colour = Colour.MASCULINE;
+        else if (fem > 60) colour = Colour.FEMININE;
+        else colour = Colour.ANDROGYNOUS;
       }
     } else if (id) name = id;
     var img = "";
-    if (full || typeof LT.thumbnailEnabled !== "function" || LT.thumbnailEnabled()) {
+    if (
+      full ||
+      typeof LT.thumbnailEnabled !== "function" ||
+      LT.thumbnailEnabled()
+    ) {
       img = LT.portraitHtml(id, full ? "tip-portrait-full" : "tip-portrait");
     }
     return (
@@ -2108,9 +3002,9 @@
       img +
       "</div>"
     );
-  };
+  }
 
-  LT.compactCharacterSave = function () {
+  compactCharacterSave() {
     var map = LT.charImages();
     Object.keys(map).forEach(function (id) {
       if (!LT.isSafeImageUrl(map[id])) delete map[id];
@@ -2127,9 +3021,9 @@
       LT.normalizeSlave(rec);
       delete rec._sexHour;
     });
-  };
+  }
 
-  var GENERIC_CONTACT = {
+  GENERIC_CONTACT = {
     npc: true,
     alleyMugger: true,
     angelClient: true,
@@ -2140,7 +3034,7 @@
     prologuemale: true,
   };
 
-  function isGenericContactId(id) {
+  isGenericContactId(id) {
     if (!id) return true;
     var s = String(id);
     if (GENERIC_CONTACT[s]) return true;
@@ -2149,21 +3043,22 @@
     return false;
   }
 
-  LT.charactersEncountered = function () {
+  charactersEncountered() {
     LT.game.flags = LT.game.flags || {};
-    if (!Array.isArray(LT.game.flags.charactersEncountered)) LT.game.flags.charactersEncountered = [];
+    if (!Array.isArray(LT.game.flags.charactersEncountered))
+      LT.game.flags.charactersEncountered = [];
     return LT.game.flags.charactersEncountered;
-  };
+  }
 
-  LT.markCharacterEncountered = function (id) {
+  markCharacterEncountered(id) {
     if (!id || id === "player" || isGenericContactId(id)) return;
     var list = LT.charactersEncountered();
     if (list.indexOf(id) < 0) list.push(id);
     var n = LT.game.npcs && LT.game.npcs[id];
     if (n) n.playerHasMet = true;
-  };
+  }
 
-  LT.namedCharacterIds = function () {
+  namedCharacterIds() {
     var ids = ["player"];
     var met = LT.charactersEncountered();
     var npcs = LT.game.npcs || {};
@@ -2180,5 +3075,5 @@
       if (n.playerHasMet && ids.indexOf(n.id) < 0) ids.push(n.id);
     });
     return ids;
-  };
-})();
+  }
+}
