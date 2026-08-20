@@ -1,23 +1,23 @@
-(function () {
-  function esc(s) {
+export default class Appearance {
+  esc(s) {
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
   }
 
-  function cap(s) {
+  cap(s) {
     s = String(s || "");
     return s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
   }
 
-  function article(s) {
+  article(s) {
     var plain = String(s || "").replace(/<[^>]+>/g, "");
     var det = typeof LT.article === "function" ? LT.article(plain) : /^[aeiou]/i.test(plain) ? "an" : "a";
     return det + " " + s;
   }
 
-  function named(list, id, fallback) {
+  named(list, id, fallback) {
     if (!id) return fallback || "";
     if (typeof id === "object") return id.name || fallback || "";
     if (list) {
@@ -33,7 +33,7 @@
     return fallback || String(id).toLowerCase().replace(/_/g, " ");
   }
 
-  function hexOf(list, id, fallback) {
+  hexOf(list, id, fallback) {
     if (id && typeof id === "object") return id.hex || id.colour || fallback || "#ddd";
     if (list) {
       if (list[id] && (list[id].hex || list[id].colour)) return list[id].hex || list[id].colour;
@@ -48,20 +48,20 @@
     return fallback || "#ddd";
   }
 
-  function colourSpan(list, id, text) {
+  colourSpan(list, id, text) {
     return "<span style='color:" + hexOf(list, id, "#ddd") + ";'>" + esc(text || named(list, id)) + "</span>";
   }
 
-  function isPlayer(ch) {
+  isPlayer(ch) {
     return !!(ch && (ch.player || ch.id === "player" || (ch.isPlayer && ch.isPlayer())));
   }
 
-  function feminine(ch) {
+  feminine(ch) {
     if (ch.isFeminine) return !!ch.isFeminine();
     return (ch.femininityValue || 50) >= 50;
   }
 
-  function voice(ch) {
+  voice(ch) {
     var you = isPlayer(ch);
     var fem = feminine(ch);
     if (you) {
@@ -104,17 +104,17 @@
     };
   }
 
-  function header(title) {
+  header(title) {
     return "<p style='padding-top:0;margin-top:0;'><span style='color:" + LT.Colour.TEXT_GREY + ";'>" + esc(title) + ":</span><br/>";
   }
 
-  function partName(type) {
+  partName(type) {
     if (!type || type === "NONE") return "";
     if (type === "HUMAN") return "human";
     return named(LT.PART_TYPE, type, String(type).toLowerCase().replace(/_/g, "-"));
   }
 
-  function heightLabel(cm) {
+  heightLabel(cm) {
     var n = Number(cm) || 170;
     if (n < 152) return { name: "very short", colour: "#c9dde8" };
     if (n < 165) return { name: "short", colour: "#9ec9dc" };
@@ -123,7 +123,7 @@
     return { name: "very tall", colour: "#4f88ab" };
   }
 
-  function heightText(cm) {
+  heightText(cm) {
     var n = Number(cm) || 170;
     var ft = Math.floor(n / 30.48);
     var inch = Math.round((n / 2.54) % 12);
@@ -145,7 +145,7 @@
     );
   }
 
-  function ageCategory(age) {
+  ageCategory(age) {
     var list = LT.AGE_CATEGORY || [];
     var i;
     for (i = 0; i < list.length; i++) {
@@ -154,13 +154,13 @@
     return list[list.length - 1] || { name: "adult", colour: "#ddd" };
   }
 
-  function makeupColour(ch, slotId) {
+  makeupColour(ch, slotId) {
     var rec = ch.makeup && ch.makeup[slotId];
     if (!rec || !rec.colour || rec.colour === "NONE") return "";
     return named(LT.MAKEUP_COLOURS, rec.colour, rec.colour.toLowerCase().replace(/_/g, " "));
   }
 
-  function hairStylePhrase(styleId) {
+  hairStylePhrase(styleId) {
     var map = {
       NONE: "is unstyled",
       MESSY: "is unstyled and very messy",
@@ -190,7 +190,7 @@
     return map[styleId] || "has been styled";
   }
 
-  function bodyHairPhrase(level, area) {
+  bodyHairPhrase(level, area) {
     var n = named(LT.BODY_HAIR, level, "none");
     if (!level || level === "ZERO_NONE") return "";
     if (level === "ONE_STUBBLE") return "a stubbly patch of " + area;
@@ -203,7 +203,7 @@
     return n + " " + area;
   }
 
-  LT.knowsArea = function (target, area) {
+  knowsArea = function (target, area) {
     if (!target) return false;
     if (isPlayer(target)) return true;
     if (target.areasKnown && Object.prototype.hasOwnProperty.call(target.areasKnown, area)) {
@@ -213,17 +213,17 @@
     return true;
   };
 
-  LT.revealArea = function (target, area) {
+  revealArea = function (target, area) {
     if (!target) return;
     target.areasKnown = target.areasKnown || {};
     target.areasKnown[area] = true;
   };
 
-  function disabled(text) {
+  disabled(text) {
     return "<span style='color:" + LT.Colour.TEXT_GREY + ";'>" + text + "</span>";
   }
 
-  function overview(ch, v, b) {
+  overview(ch, v, b) {
     var fem = ch.getFemininity ? ch.getFemininity() : LT.femininityFromValue(ch.femininityValue || 50);
     var gender = ch.getGender ? ch.getGender() : ch.gender;
     var genderName = (gender && gender.name) || "person";
@@ -297,7 +297,7 @@
     return html + "</p>";
   }
 
-  function faceSection(ch, v, b) {
+  faceSection(ch, v, b) {
     var html = header("Face");
     var faceType = partName(b.face && b.face.type) || "human";
     var fem = ch.getFemininity ? ch.getFemininity() : LT.femininityFromValue(ch.femininityValue || 50);
@@ -375,7 +375,7 @@
     return html + "</p>";
   }
 
-  function mouthSection(ch, v, b) {
+  mouthSection(ch, v, b) {
     var html = header("Mouth");
     var lips = named(LT.LIP_LIST, (b.face && b.face.lipSize) || (ch.lipSize && ch.lipSize.id), "average-sized");
     var lipstick = makeupColour(ch, "MAKEUP_LIPSTICK");
@@ -417,7 +417,7 @@
     return html + "</p>";
   }
 
-  function torsoSection(ch, v, b) {
+  torsoSection(ch, v, b) {
     var html = header("Torso");
     var size = ch.bodySize || (LT.BODY_SIZE && LT.BODY_SIZE[b.bodySize]);
     var muscle = ch.muscle || (LT.MUSCLE && LT.MUSCLE[b.muscle]);
@@ -454,7 +454,7 @@
     return html + "</p>";
   }
 
-  function chestSection(ch, v, b) {
+  chestSection(ch, v, b) {
     var html = header("Chest");
     var cup = (b.breast && b.breast.size) || (ch.breastSize && ch.breastSize.id) || "FLAT";
     var shape = named(LT.BREAST_SHAPE, (b.breast && b.breast.shape) || (ch.breastShape && ch.breastShape.id), "round");
@@ -515,7 +515,7 @@
     return html + "</p>";
   }
 
-  function crotchSection(ch, v, b) {
+  crotchSection(ch, v, b) {
     var crotch = b.breastCrotch;
     if (!crotch || crotch.type === "NONE" || !crotch.rows) return "";
     var title = crotch.shape === "UDDERS" ? "Udders" : "Crotch-boobs";
@@ -534,7 +534,7 @@
     );
   }
 
-  function armsSection(ch, v, b) {
+  armsSection(ch, v, b) {
     var html = header("Arms");
     var rows = (b.arm && b.arm.rows) || 1;
     var type = partName((b.arm && b.arm.type) || "HUMAN");
@@ -555,7 +555,7 @@
     return html + "</p>";
   }
 
-  function legsSection(ch, v, b) {
+  legsSection(ch, v, b) {
     var html = header("Legs");
     var type = partName((b.leg && b.leg.type) || "HUMAN");
     var config = named(LT.LEG_CONFIGURATION, (b.leg && b.leg.configuration) || "BIPEDAL");
@@ -574,7 +574,7 @@
     return html + "</p>";
   }
 
-  function extrasSection(ch, v, b) {
+  extrasSection(ch, v, b) {
     var html = "";
     if (b.wing && b.wing.type && b.wing.type !== "NONE") {
       html +=
@@ -617,7 +617,7 @@
     return html;
   }
 
-  function assSection(ch, v, b) {
+  assSection(ch, v, b) {
     var html = header("Ass");
     var ass = named(LT.SIZE5, (b.ass && b.ass.size) || (ch.assSize && ch.assSize.id), "average-sized");
     var hips = named(LT.SIZE5, (b.ass && b.ass.hipSize) || (ch.hipSize && ch.hipSize.id), "average-sized");
@@ -650,7 +650,7 @@
     return html + "</p>";
   }
 
-  function penisSection(ch, v, b) {
+  penisSection(ch, v, b) {
     var has = (b.penis && b.penis.type && b.penis.type !== "NONE") || (ch.hasPenis && ch.hasPenis());
     if (LT.knowsArea(ch, "PENIS")) {
       if (!has) return "";
@@ -694,7 +694,7 @@
     return header("Penis") + disabled("You haven't seen " + v.her + " naked groin before, so you don't know what " + v.her + " cock looks like, or even if " + v.she + " " + v.has + " one.") + "</p>";
   }
 
-  function vaginaSection(ch, v, b) {
+  vaginaSection(ch, v, b) {
     var has = (b.vagina && b.vagina.type && b.vagina.type !== "NONE") || (ch.hasVagina && ch.hasVagina());
     if (LT.knowsArea(ch, "VAGINA")) {
       if (!has) {
@@ -738,7 +738,7 @@
     return header("Vagina") + disabled("You haven't seen " + v.her + " naked groin before, so you don't know what " + v.her + " pussy looks like, or even if " + v.she + " " + v.has + " one.") + "</p>";
   }
 
-  function tattooSection(ch, v) {
+  tattooSection(ch, v) {
     var tats = ch.tattoos || {};
     var keys = Object.keys(tats).filter(function (k) { return tats[k]; });
     if (!keys.length) return "";
@@ -761,7 +761,7 @@
     return html + "</p>";
   }
 
-  function pregnancySection(ch, v) {
+   pregnancySection(ch, v) {
     if (isPlayer(ch)) return "";
     if (typeof LT.isVisiblyPregnant === "function" && LT.isVisiblyPregnant(ch)) {
       return header("Pregnancy") + v.SheIs + " visibly pregnant.</p>";
@@ -769,7 +769,7 @@
     return "";
   }
 
-  LT.getBodyDescription = function (ch) {
+  getBodyDescription = function (ch) {
     if (!ch) return "";
     if (typeof LT.ensureAppearance === "function") LT.ensureAppearance(ch);
     else if (typeof LT.ensureCharacterSystems === "function") LT.ensureCharacterSystems(ch);
@@ -805,7 +805,7 @@
     );
   };
 
-  function birthdayString(ch) {
+  birthdayString(ch) {
     if (!ch.birthday) return "";
     var d = ch.birthday;
     var months = LT.MONTHS || ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -816,7 +816,7 @@
     return ord + " of " + months[d.getMonth()] + " " + d.getFullYear();
   }
 
-  function personalityHtml(ch) {
+  personalityHtml(ch) {
     var html = "<h6>Personality</h6><p>";
     var traits = [];
     var src = ch.personality || {};
@@ -847,7 +847,7 @@
     return html + "</p>";
   }
 
-  function relationshipHtml(ch) {
+  relationshipHtml(ch) {
     if (isPlayer(ch)) return "";
     var v = voice(ch);
     var html = "<h6>Relationships</h6><p>";
@@ -862,7 +862,7 @@
     return html + "</p>";
   }
 
-  function clothingHtml(ch) {
+  clothingHtml(ch) {
     var slots = ch.equipped || {};
     var keys = Object.keys(slots).filter(function (k) { return slots[k]; });
     var html = "<h6>Clothing</h6><p>";
@@ -879,7 +879,7 @@
     return html + "</p>";
   }
 
-  function fetishHtml(ch) {
+  fetishHtml(ch) {
     var fet = ch.fetishes || {};
     var keys = Object.keys(fet).filter(function (k) { return fet[k]; });
     if (!keys.length) return "";
@@ -891,7 +891,7 @@
     return html + "</p>";
   }
 
-  function statsHtml(ch) {
+  statsHtml(ch) {
     var phys = typeof LT.effectivePhysique === "function" ? LT.effectivePhysique(ch) : ch.physique || 10;
     var arc = typeof LT.effectiveArcane === "function" ? LT.effectiveArcane(ch) : ch.arcane || 10;
     var cor = typeof LT.effectiveCorruption === "function" ? LT.effectiveCorruption(ch) : ch.corruption || 0;
@@ -923,7 +923,7 @@
     );
   }
 
-  LT.getCharacterInformationScreen = function (ch, opts) {
+  getCharacterInformationScreen = function (ch, opts) {
     opts = opts || {};
     if (!ch) return "<p>Nobody is here.</p>";
     if (typeof LT.ensureAppearance === "function") LT.ensureAppearance(ch);
@@ -975,9 +975,9 @@
     return html;
   };
 
-  var oldDescribe = LT.describeBody;
-  LT.describeBody = function (p) {
-    if (typeof LT.getBodyDescription === "function") return LT.getBodyDescription(p);
-    return oldDescribe ? oldDescribe(p) : "";
+  var oldDescribe = describeBody;
+  describeBody = function (p) {
+    if (typeof getBodyDescription === "function") return getBodyDescription(p);
+    return oldDescribe ? describeBody(p) : "";
   };
-})();
+}
