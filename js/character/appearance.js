@@ -337,7 +337,7 @@ export default class Appearance {
       " " +
       (this.isPlayer(ch) ? "measure" : "measures") +
       " " +
-      heightText(heightCm) +
+      this.heightText(heightCm) +
       ".";
     if (
       !this.isPlayer(ch) &&
@@ -361,7 +361,7 @@ export default class Appearance {
       var age = ch.getAgeValue
         ? ch.getAgeValue()
         : ch.ageAppearance || (b && b.ageAppearance) || 25;
-      var cat = ageCategory(age);
+      var cat = this.ageCategory(age);
       html +=
         " " +
         v.She +
@@ -394,7 +394,7 @@ export default class Appearance {
     var fem = ch.getFemininity
       ? ch.getFemininity()
       : this.femininityFromValue(ch.femininityValue || 50);
-    var skin = colourSpan(
+    var skin = this.colourSpan(
       bodyEnums.SKIN,
       (b.torso && b.torso.covering && b.torso.covering.primary) ||
         (ch.skin && ch.skin.id),
@@ -448,7 +448,7 @@ export default class Appearance {
         " " +
         this.named(bodyEnums.HAIR_LENGTH_LIST, hairLen, "short") +
         ", " +
-        colourSpan(bodyEnums.HAIR_COLOUR, hairCol) +
+        this.colourSpan(bodyEnums.HAIR_COLOUR, hairCol) +
         " hair, which " +
         hairStylePhrase(hairStyle) +
         ".";
@@ -456,7 +456,7 @@ export default class Appearance {
     if (b.hair && b.hair.neckFluff) {
       html +=
         " A large amount of " +
-        colourSpan(bodyEnums.HAIR_COLOUR, hairCol) +
+        this.colourSpan(bodyEnums.HAIR_COLOUR, hairCol) +
         " hair has grown around " +
         v.her +
         " neck and upper chest.";
@@ -516,7 +516,7 @@ export default class Appearance {
     } else {
       html +=
         " " +
-        disabled(
+        this.disabled(
           "You haven't seen " +
             v.her +
             " eyes before, so you don't know what they look like.",
@@ -731,7 +731,7 @@ export default class Appearance {
     if (!this.knowsArea(ch, "NIPPLES")) {
       html +=
         " " +
-        disabled(
+        this.disabled(
           "You've never seen " +
             v.her +
             " naked chest, so you don't know what " +
@@ -814,7 +814,7 @@ export default class Appearance {
     if (!this.knowsArea(ch, "BREASTS_CROTCH")) {
       return (
         this.header(title) +
-        disabled(
+        this.disabled(
           "You haven't seen " +
             v.her +
             " exposed stomach before, so you don't know if " +
@@ -970,7 +970,7 @@ export default class Appearance {
     if (!this.knowsArea(ch, "ANUS")) {
       html +=
         " " +
-        disabled(
+        this.disabled(
           "You haven't seen " +
             v.her +
             " naked ass before, so you don't know what " +
@@ -1095,7 +1095,7 @@ export default class Appearance {
     }
     return (
       this.header("Penis") +
-      disabled(
+      this.disabled(
         "You haven't seen " +
           v.her +
           " naked groin before, so you don't know what " +
@@ -1191,7 +1191,7 @@ export default class Appearance {
     }
     return (
       this.header("Vagina") +
-      disabled(
+      this.disabled(
         "You haven't seen " +
           v.her +
           " naked groin before, so you don't know what " +
@@ -1216,8 +1216,8 @@ export default class Appearance {
     var i;
     for (i = 0; i < keys.length; i++) {
       var t = tats[keys[i]];
-      var slot = named(
-        LT.TATTOO_SLOTS,
+      var slot = this.named(
+        bodyEnums.TATTOO_SLOTS,
         keys[i],
         keys[i].toLowerCase().replace(/_/g, " "),
       );
@@ -1226,7 +1226,7 @@ export default class Appearance {
         "<span style='color:" +
         Colour.GENERIC_ARCANE +
         ";'>" +
-        cap(slot) +
+        this.cap(slot) +
         ":</span> " +
         this.esc(t.name || t.type || "a tattoo") +
         (t.writing
@@ -1331,7 +1331,7 @@ export default class Appearance {
           "<b style='color:" +
           (t.colour || "#ddd") +
           ";'>" +
-          cap(t.name) +
+          this.cap(t.name) +
           "</b>";
       });
     }
@@ -1353,7 +1353,7 @@ export default class Appearance {
     var v = voice(ch);
     var html = "<h6>Relationships</h6><p>";
     if (ch.relationToPlayer)
-      html += cap(String(ch.relationToPlayer)) + ".<br/>";
+      html += this.cap(String(ch.relationToPlayer)) + ".<br/>";
     var aff = 0;
     if (typeof ch.getAffection === "function") aff = ch.getAffection();
     else if (typeof ch.affection === "number") aff = ch.affection;
@@ -1397,7 +1397,7 @@ export default class Appearance {
         var item = slots[slot];
         var name = item.name || item.id || slot;
         if (i) html += "<br/>";
-        html += "<b>" + cap(slot) + ":</b> " + this.esc(name);
+        html += "<b>" + this.cap(slot) + ":</b> " + this.esc(name);
       });
     }
     return html + "</p>";
@@ -1479,7 +1479,7 @@ export default class Appearance {
       this.esc(name) +
       "</span></h6><p>";
     if (ch.occupation && ch.occupation.name)
-      html += cap(ch.occupation.name) + ". ";
+      html += this.cap(ch.occupation.name) + ". ";
     var born = birthdayString(ch);
     if (born) {
       html +=

@@ -1,5 +1,5 @@
-(function () {
-  LT.HUMAN_NAME_TRIPLETS = [
+export default class names {
+  HUMAN_NAME_TRIPLETS = [
     ["Alexander", "Alex", "Alexandria"],
     ["Alexius", "Alex", "Alexia"],
     ["Alex", "Alex", "Alex"],
@@ -94,59 +94,207 @@
     ["Wynn", "Wynne", "Gwen"],
   ];
 
-  LT.HUMAN_SURNAMES = [
-    "Adams", "Ali", "Allen", "Anderson", "Andrews", "Armstrong", "Atkinson", "Bailey",
-    "Baker", "Barker", "Barnes", "Bell", "Bennett", "Berry", "Booth", "Bradley",
-    "Brooks", "Brown", "Butler", "Campbell", "Carr", "Carter", "Chambers", "Chapman",
-    "Clark", "Clarke", "Cole", "Collins", "Cook", "Cooper", "Cox", "Cunningham",
-    "Davies", "Davis", "Dawson", "Dean", "Dixon", "Edwards", "Ellis", "Evans",
-    "Fisher", "Foster", "Fox", "Gardner", "George", "Gibson", "Gill", "Gordon",
-    "Graham", "Grant", "Gray", "Green", "Griffiths", "Hall", "Hamilton", "Harper",
-    "Harris", "Harrison", "Hart", "Harvey", "Hill", "Holmes", "Hudson", "Hughes",
-    "Hunt", "Hunter", "Jackson", "James", "Jenkins", "Johnson", "Johnston", "Jones",
-    "Kaur", "Kelly", "Kennedy", "Khan", "King", "Knight", "Lane", "Lawrence",
-    "Lawson", "Lee", "Lewis", "Lloyd", "Macdonald", "Marshall", "Martin", "Mason",
-    "Matthews", "Mcdonald", "Miller", "Mills", "Mitchell", "Moore", "Morgan", "Morris",
-    "Murphy", "Murray", "Owen", "Palmer", "Parker", "Patel", "Pearce", "Pearson",
-    "Phillips", "Poole", "Powell", "Price", "Reid", "Reynolds", "Richards", "Richardson",
-    "Roberts", "Robertson", "Robinson", "Rogers", "Rose", "Ross", "Russell", "Ryan",
-    "Saunders", "Scott", "Shaw", "Simpson", "Smith", "Spencer", "Stevens", "Stewart",
-    "Stone", "Taylor", "Thomas", "Thompson", "Thomson", "Turner", "Walker", "Walsh",
-    "Ward", "Watson", "Watts", "Webb", "Wells", "West", "White", "Wilkinson",
-    "Williams", "Williamson", "Wilson", "Wood", "Wright", "Young",
+  HUMAN_SURNAMES = [
+    "Adams",
+    "Ali",
+    "Allen",
+    "Anderson",
+    "Andrews",
+    "Armstrong",
+    "Atkinson",
+    "Bailey",
+    "Baker",
+    "Barker",
+    "Barnes",
+    "Bell",
+    "Bennett",
+    "Berry",
+    "Booth",
+    "Bradley",
+    "Brooks",
+    "Brown",
+    "Butler",
+    "Campbell",
+    "Carr",
+    "Carter",
+    "Chambers",
+    "Chapman",
+    "Clark",
+    "Clarke",
+    "Cole",
+    "Collins",
+    "Cook",
+    "Cooper",
+    "Cox",
+    "Cunningham",
+    "Davies",
+    "Davis",
+    "Dawson",
+    "Dean",
+    "Dixon",
+    "Edwards",
+    "Ellis",
+    "Evans",
+    "Fisher",
+    "Foster",
+    "Fox",
+    "Gardner",
+    "George",
+    "Gibson",
+    "Gill",
+    "Gordon",
+    "Graham",
+    "Grant",
+    "Gray",
+    "Green",
+    "Griffiths",
+    "Hall",
+    "Hamilton",
+    "Harper",
+    "Harris",
+    "Harrison",
+    "Hart",
+    "Harvey",
+    "Hill",
+    "Holmes",
+    "Hudson",
+    "Hughes",
+    "Hunt",
+    "Hunter",
+    "Jackson",
+    "James",
+    "Jenkins",
+    "Johnson",
+    "Johnston",
+    "Jones",
+    "Kaur",
+    "Kelly",
+    "Kennedy",
+    "Khan",
+    "King",
+    "Knight",
+    "Lane",
+    "Lawrence",
+    "Lawson",
+    "Lee",
+    "Lewis",
+    "Lloyd",
+    "Macdonald",
+    "Marshall",
+    "Martin",
+    "Mason",
+    "Matthews",
+    "Mcdonald",
+    "Miller",
+    "Mills",
+    "Mitchell",
+    "Moore",
+    "Morgan",
+    "Morris",
+    "Murphy",
+    "Murray",
+    "Owen",
+    "Palmer",
+    "Parker",
+    "Patel",
+    "Pearce",
+    "Pearson",
+    "Phillips",
+    "Poole",
+    "Powell",
+    "Price",
+    "Reid",
+    "Reynolds",
+    "Richards",
+    "Richardson",
+    "Roberts",
+    "Robertson",
+    "Robinson",
+    "Rogers",
+    "Rose",
+    "Ross",
+    "Russell",
+    "Ryan",
+    "Saunders",
+    "Scott",
+    "Shaw",
+    "Simpson",
+    "Smith",
+    "Spencer",
+    "Stevens",
+    "Stewart",
+    "Stone",
+    "Taylor",
+    "Thomas",
+    "Thompson",
+    "Thomson",
+    "Turner",
+    "Walker",
+    "Walsh",
+    "Ward",
+    "Watson",
+    "Watts",
+    "Webb",
+    "Wells",
+    "West",
+    "White",
+    "Wilkinson",
+    "Williams",
+    "Williamson",
+    "Wilson",
+    "Wood",
+    "Wright",
+    "Young",
   ];
 
-  function pick(list) {
+  pick(list) {
     return list[Math.floor(Math.random() * list.length)];
   }
 
-  var DEMON_PREFIX_FEM = ["Aella", "Bella", "Cae", "Deva", "Ella", "Fae", "Hela", "Isa", "Katha", "Loe", "Nysa", "Oella", "Rae", "Sytha", "Vixxa", "Wynna"];
-  var DEMON_PREFIX_MAS = ["Ada", "Boro", "Foro", "Helio", "Kiri", "Zara"];
-  var DEMON_POSTFIX = ["jyx", "ryth", "ney", "nix", "sys", "trix"];
+  DEMON_PREFIX_FEM = [
+    "Aella",
+    "Bella",
+    "Cae",
+    "Deva",
+    "Ella",
+    "Fae",
+    "Hela",
+    "Isa",
+    "Katha",
+    "Loe",
+    "Nysa",
+    "Oella",
+    "Rae",
+    "Sytha",
+    "Vixxa",
+    "Wynna",
+  ];
+  DEMON_PREFIX_MAS = ["Ada", "Boro", "Foro", "Helio", "Kiri", "Zara"];
+  DEMON_POSTFIX = ["jyx", "ryth", "ney", "nix", "sys", "trix"];
 
-  LT.randomHumanNameTriplet = function () {
+  randomHumanNameTriplet() {
     return pick(LT.HUMAN_NAME_TRIPLETS).slice();
-  };
+  }
 
-  LT.randomHumanSurname = function () {
-    return pick(LT.HUMAN_SURNAMES);
-  };
+  randomHumanSurname() {
+    return pick(HUMAN_SURNAMES);
+  }
 
-  LT.randomDemonName = function (feminine) {
+  randomDemonName(feminine) {
     if (feminine) return pick(DEMON_PREFIX_FEM) + pick(DEMON_POSTFIX);
     return pick(DEMON_PREFIX_MAS) + pick(DEMON_POSTFIX);
-  };
+  }
 
-  LT.randomOfficialName = function (opts) {
+  randomOfficialName(opts) {
     opts = opts || {};
     var feminine = !!opts.feminine;
     if (opts.demon) {
-      return { name: LT.randomDemonName(feminine), surname: LT.randomHumanSurname() };
+      return { name: randomDemonName(feminine), surname: randomHumanSurname() };
     }
-    var trip = LT.randomHumanNameTriplet();
+    var trip = randomHumanNameTriplet();
     return {
       name: feminine ? trip[2] : trip[0],
-      surname: LT.randomHumanSurname(),
+      surname: randomHumanSurname(),
     };
-  };
-})();
+  }
+}
