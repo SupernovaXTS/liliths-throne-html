@@ -1,16 +1,22 @@
 import nodes from "../content/nodes.js";
 export default class Pregnancy {
-
-  
   PREG_0_MIN_HOURS = 4;
   PREG_0_EXTRA_HOURS = 5;
   pregnancyWeeks() {
-    return typeof LT.pregnancyDurationWeeks === "function" ? LT.pregnancyDurationWeeks() : 1;
+    return typeof LT.pregnancyDurationWeeks === "function"
+      ? LT.pregnancyDurationWeeks()
+      : 1;
   }
 
   bag(ch) {
     if (!ch.pregnancy) {
-      ch.pregnancy = { possibilities: [], litter: null, incubating: {}, seconds: 0, pregnant: false };
+      ch.pregnancy = {
+        possibilities: [],
+        litter: null,
+        incubating: {},
+        seconds: 0,
+        pregnant: false,
+      };
     }
     if (!ch.pregnancy.possibilities) ch.pregnancy.possibilities = [];
     if (!ch.offspring) ch.offspring = [];
@@ -18,34 +24,48 @@ export default class Pregnancy {
   }
 
   fertilityOf(ch) {
-    var base = (ch && ch.attributes && ch.attributes.fertility != null) ? ch.attributes.fertility : 10;
-    var bonus = (typeof LT.statusBonus === "function" && LT.statusBonus(ch).fertility) || 0;
+    var base =
+      ch && ch.attributes && ch.attributes.fertility != null
+        ? ch.attributes.fertility
+        : 10;
+    var bonus =
+      (typeof LT.statusBonus === "function" && LT.statusBonus(ch).fertility) ||
+      0;
     return base + bonus;
   }
 
   virilityOf(ch) {
-    var base = (ch && ch.attributes && ch.attributes.virility != null) ? ch.attributes.virility : 10;
-    var bonus = (typeof LT.statusBonus === "function" && LT.statusBonus(ch).virility) || 0;
+    var base =
+      ch && ch.attributes && ch.attributes.virility != null
+        ? ch.attributes.virility
+        : 10;
+    var bonus =
+      (typeof LT.statusBonus === "function" && LT.statusBonus(ch).virility) ||
+      0;
     return base + bonus;
   }
 
   offspringRange(race) {
     var id = String(race || "HUMAN").toUpperCase();
-    if (id === "DEMON" || id === "IMP" || id === "LILIN") return { low: 2, high: 3 };
+    if (id === "DEMON" || id === "IMP" || id === "LILIN")
+      return { low: 2, high: 3 };
     if (id === "HARPY") return { low: 2, high: 4 };
     return { low: 1, high: 1 };
   }
 
   raceOf(ch) {
     if (!ch) return "HUMAN";
-    if (ch.body && ch.body.subspecies) return String(ch.body.subspecies).toUpperCase();
-    return String(ch.raceName || "human").toUpperCase().replace(/-/g, "_");
+    if (ch.body && ch.body.subspecies)
+      return String(ch.body.subspecies).toUpperCase();
+    return String(ch.raceName || "human")
+      .toUpperCase()
+      .replace(/-/g, "_");
   }
 
   isPregnant(ch) {
     ch = ch || (LT.game && LT.game.player);
     return !!(ch && ch.pregnancy && ch.pregnancy.litter);
-  };
+  }
 
   isVisiblyPregnant(ch) {
     ch = ch || (LT.game && LT.game.player);
@@ -55,14 +75,19 @@ export default class Pregnancy {
       LT.hasStatusEffect(ch, "PREGNANT_2") ||
       LT.hasStatusEffect(ch, "PREGNANT_3")
     );
-  };
+  }
 
   isAbleToBeImpregnated(ch) {
     if (!ch || !(ch.hasVagina && ch.hasVagina())) return false;
     if (this.isVisiblyPregnant(ch)) return false;
-    if (ch.pregnancy && ch.pregnancy.incubating && ch.pregnancy.incubating.VAGINA) return false;
+    if (
+      ch.pregnancy &&
+      ch.pregnancy.incubating &&
+      ch.pregnancy.incubating.VAGINA
+    )
+      return false;
     return true;
-  };
+  }
 
   pregnancyChance(mother, father) {
     if (!this.isAbleToBeImpregnated(mother)) return 0;
@@ -73,7 +98,7 @@ export default class Pregnancy {
     if (chance < 0) chance = 0;
     if (chance > 1) chance = 1;
     return chance;
-  };
+  }
 
   chanceLabel(chance) {
     if (chance <= 0) return { id: "NO_CHANCE", name: "no chance" };
@@ -94,10 +119,16 @@ export default class Pregnancy {
       if (Math.random() < 0.5) takesAfterMother += 1;
     }
     return {
-      id: (mother.id || "pc") + "-" + ((mother.pregnancy && mother.pregnancy.littersGenerated) || 0),
+      id:
+        (mother.id || "pc") +
+        "-" +
+        ((mother.pregnancy && mother.pregnancy.littersGenerated) || 0),
       motherId: mother.id || "player",
       fatherId: (father && father.id) || "unknown",
-      fatherName: father && father.getName ? father.getName() : (father && father.name) || "someone",
+      fatherName:
+        father && father.getName
+          ? father.getName()
+          : (father && father.name) || "someone",
       motherRace: this.raceOf(mother),
       fatherRace: this.raceOf(father),
       count: count,
@@ -135,19 +166,27 @@ export default class Pregnancy {
       "</b> that you'll get pregnant!</p>";
     if (!LT.isPregnant(mother)) {
       if (!LT.hasStatusEffect(mother, "PREGNANT_0")) {
-        var hours = PREG_0_MIN_HOURS + Math.floor(Math.random() * PREG_0_EXTRA_HOURS);
-        LT.addStatusEffect(mother, "PREGNANT_0", { secondsRemaining: hours * 3600 });
+        var hours =
+          PREG_0_MIN_HOURS + Math.floor(Math.random() * PREG_0_EXTRA_HOURS);
+        LT.addStatusEffect(mother, "PREGNANT_0", {
+          secondsRemaining: hours * 3600,
+        });
       }
       if (chance > 0 && Math.random() <= chance) {
-        var range = this.offspringRange(this.raceOf(mother) === "HUMAN" ? this.raceOf(father) : this.raceOf(mother));
-        var count = range.low + Math.floor(Math.random() * (range.high - range.low + 1));
+        var range = this.offspringRange(
+          this.raceOf(mother) === "HUMAN"
+            ? this.raceOf(father)
+            : this.raceOf(mother),
+        );
+        var count =
+          range.low + Math.floor(Math.random() * (range.high - range.low + 1));
         preg.litter = this.makeLitter(mother, father, count);
         preg.pregnant = true;
         preg.littersGenerated = (preg.littersGenerated || 0) + 1;
       }
     }
     return html;
-  };
+  }
 
   endPregnancy(ch, withBirth) {
     ch = ch || (LT.game && LT.game.player);
@@ -167,22 +206,22 @@ export default class Pregnancy {
     LT.removeStatusEffect(ch, "PREGNANT_2");
     LT.removeStatusEffect(ch, "PREGNANT_3");
     return litter;
-  };
+  }
 
   lastLitterBirthed(ch) {
     ch = ch || (LT.game && LT.game.player);
     if (!ch || !ch.offspring || !ch.offspring.length) return null;
     return ch.offspring[ch.offspring.length - 1];
-  };
+  }
 
   pregStageHours() {
     return Math.floor((this.pregnancyWeeks() * 7 * 24) / 2);
-  };
+  }
 
   stageDuration() {
     var maxH = this.pregStageHours();
     return 3600 * (maxH - 12 + Math.floor(Math.random() * 13));
-  };
+  }
 
   startFirstPregnancyQuest() {
     var flags = LT.game && LT.game.flags;
@@ -194,18 +233,20 @@ export default class Pregnancy {
   advanceFirstPregnancyQuest(next) {
     if (!LT.game.flags) return;
     LT.game.flags.pregnancyQuest = next;
-  };
+  }
 
   completeFirstPregnancyQuest() {
     if (!LT.game.flags) return;
     LT.game.flags.pregnancyQuest = "complete";
-  };
+  }
 
   applyPregnancyStageExpire(ch, id) {
     if (!ch) return "";
     if (id === "PREGNANT_0") {
       if (LT.isPregnant(ch)) {
-        LT.addStatusEffect(ch, "PREGNANT_1", { secondsRemaining: this.stageDuration() });
+        LT.addStatusEffect(ch, "PREGNANT_1", {
+          secondsRemaining: this.stageDuration(),
+        });
         if (ch.player) this.startFirstPregnancyQuest();
         if (!ch.player) return "";
         var count = (ch.pregnancy.litter && ch.pregnancy.litter.count) || 1;
@@ -216,7 +257,9 @@ export default class Pregnancy {
           "<p style='text-align:center;'><b style='color:" +
           LT.Colour.GENERIC_SEX +
           ";'>You're pregnant!</b></p>" +
-          (count > 1 ? "<p>You have a feeling that there is more than one child growing inside of you.</p>" : "")
+          (count > 1
+            ? "<p>You have a feeling that there is more than one child growing inside of you.</p>"
+            : "")
         );
       }
       this.endPregnancy(ch, false);
@@ -230,7 +273,9 @@ export default class Pregnancy {
       );
     }
     if (id === "PREGNANT_1") {
-      LT.addStatusEffect(ch, "PREGNANT_2", { secondsRemaining: this.stageDuration() });
+      LT.addStatusEffect(ch, "PREGNANT_2", {
+        secondsRemaining: this.stageDuration(),
+      });
       if (!ch.player) return "";
       return "<p>Your belly has swollen considerably. You're now <b>heavily pregnant</b>.</p>";
     }
@@ -239,10 +284,12 @@ export default class Pregnancy {
       return "<p>Your belly has inflated to a colossal size. You're ready to give birth — it might be a good idea to visit Lilaya...</p>";
     }
     return "";
-  };
+  }
 
   birthXml(tag) {
-    return typeof LT.parseFromXML === "function" ? LT.parseFromXML("places/dominion/lilayasHome/lilayaBirthing", tag) : "";
+    return typeof LT.parseFromXML === "function"
+      ? LT.parseFromXML("places/dominion/lilayasHome/lilayaBirthing", tag)
+      : "";
   }
 
   consultHtml(first) {
@@ -252,162 +299,216 @@ export default class Pregnancy {
     var lilaya = LT.game.npcs && LT.game.npcs.lilaya;
     var hadSex = !!(LT.game.flags && LT.game.flags.hadSexWithLilaya);
     if (hadSex && p && p.pregnancy && p.pregnancy.possibilities) {
-      var anyLilaya = p.pregnancy.possibilities.some((x) {
+      var anyLilaya = p.pregnancy.possibilities.some((x) => {
         return x.fatherId === "lilaya" || (lilaya && x.fatherId === lilaya.id);
       });
-      var anyOther = p.pregnancy.possibilities.some((x) {
+      var anyOther = p.pregnancy.possibilities.some((x) => {
         return x.fatherId !== "lilaya" && (!lilaya || x.fatherId !== lilaya.id);
       });
-      if (anyLilaya && anyOther) html += this.birthXml("LILAYA_ASSISTS_PREGNANCY_LILAYA_POSSIBLY_FATHER");
-      else if (anyLilaya) html += this.birthXml("LILAYA_ASSISTS_PREGNANCY_LILAYA_DEFINITELY_FATHER");
-      else html += this.birthXml("LILAYA_ASSISTS_PREGNANCY_LILAYA_DEFINITELY_NOT_FATHER");
+      if (anyLilaya && anyOther)
+        html += this.birthXml(
+          "LILAYA_ASSISTS_PREGNANCY_LILAYA_POSSIBLY_FATHER",
+        );
+      else if (anyLilaya)
+        html += this.birthXml(
+          "LILAYA_ASSISTS_PREGNANCY_LILAYA_DEFINITELY_FATHER",
+        );
+      else
+        html += this.birthXml(
+          "LILAYA_ASSISTS_PREGNANCY_LILAYA_DEFINITELY_NOT_FATHER",
+        );
     }
-    html += birthXml("LILAYA_ASSISTS_PREGNANCY_END");
+    html += this.birthXml("LILAYA_ASSISTS_PREGNANCY_END");
     return html;
   }
 
   birthResponses() {
-    var ready = LT.hasStatusEffect(LT.game.player, "PREGNANT_3") || (LT.isPregnant(LT.game.player) && !LT.hasStatusEffect(LT.game.player, "PREGNANT_1") && !LT.hasStatusEffect(LT.game.player, "PREGNANT_2") && !LT.hasStatusEffect(LT.game.player, "PREGNANT_0"));
-    var give = new LT.Response("Give birth", ready ? "Tell Lilaya that you're ready to give birth." : "You need to wait until your belly has finished growing before you're able to give birth.", ready ? "lab.birth.type" : null);
-    if (!ready) give.disable("You need to wait until your belly has finished growing before you're able to give birth.");
+    var ready =
+      LT.hasStatusEffect(LT.game.player, "PREGNANT_3") ||
+      (LT.isPregnant(LT.game.player) &&
+        !LT.hasStatusEffect(LT.game.player, "PREGNANT_1") &&
+        !LT.hasStatusEffect(LT.game.player, "PREGNANT_2") &&
+        !LT.hasStatusEffect(LT.game.player, "PREGNANT_0"));
+    var give = new LT.Response(
+      "Give birth",
+      ready
+        ? "Tell Lilaya that you're ready to give birth."
+        : "You need to wait until your belly has finished growing before you're able to give birth.",
+      ready ? "lab.birth.type" : null,
+    );
+    if (!ready)
+      give.disable(
+        "You need to wait until your belly has finished growing before you're able to give birth.",
+      );
     return [
-      new LT.Response("Back", "Tell Lilaya that you need a moment to think.", "lab.entry"),
+      new LT.Response(
+        "Back",
+        "Tell Lilaya that you need a moment to think.",
+        "lab.entry",
+      ),
       give,
     ];
   }
-
-  nodes.defineNode({
-    id: "lab.pregnancy",
-    ui: "dialogue",
-    title: "Lilaya's Laboratory",
-    secondsPassed: 300,
-    travelDisabled: true,
-    chrome: { left: true, right: true },
-    getContent: () {
-      return consultHtml(true);
-    },
-    getResponses: birthResponses,
-  });
-
-  nodes.defineNode({
-    id: "lab.pregnancyRepeat",
-    ui: "dialogue",
-    title: "Lilaya's Laboratory",
-    secondsPassed: 300,
-    travelDisabled: true,
-    chrome: { left: true, right: true },
-    getContent: () {
-      return consultHtml(false);
-    },
-    getResponses: birthResponses,
-  });
-
-  nodes.defineNode({
-    id: "lab.birth.type",
-    ui: "dialogue",
-    title: "Giving birth",
-    secondsPassed: 120,
-    travelDisabled: true,
-    chrome: { left: true, right: true },
-    getContent: () {
-      return birthXml("LILAYA_DETECTS_BIRTHING_TYPE");
-    },
-    getResponses: () {
-      return [
-        new LT.Response("Follow Lilaya", "Allow Lilaya to lead you to the birthing room.", "lab.birth.room"),
-      ];
-    },
-  });
-
-  nodes.defineNode({
-    id: "lab.birth.room",
-    ui: "dialogue",
-    title: "Birthing Room",
-    secondsPassed: 600,
-    travelDisabled: true,
-    chrome: { left: true, right: true },
-    getContent: () {
-      var first = !(LT.game.flags && LT.game.flags.pregnancyQuest === "complete");
-      return birthXml(first ? "ASSIST_BIRTHING_FIRST_TIME" : "ASSIST_BIRTHING");
-    },
-    getResponses: () {
-      return [
-        new LT.Response("Start", "Tell Lilaya that you're ready to give birth now.", "lab.birth.delivers", () {
-          LT.endPregnancy(LT.game.player, true);
-          if (LT.game.player) LT.game.player.mana = 0;
-          LT.completeFirstPregnancyQuest();
-        }).withTime(14400),
-        new LT.Response("Knock out", "Ask Lilaya if she could give you something to knock you out.", "lab.birth.knockout", () {
-          LT.endPregnancy(LT.game.player, true);
-          if (LT.game.player) LT.game.player.mana = 0;
-          LT.completeFirstPregnancyQuest();
-        }).withTime(14400),
-      ];
-    },
-  });
-
-  nodes.defineNode({
-    id: "lab.birth.delivers",
-    ui: "dialogue",
-    title: "Birthing Room",
-    secondsPassed: 0,
-    travelDisabled: true,
-    chrome: { left: true, right: true },
-    getContent: () {
-      var litter = LT.lastLitterBirthed();
-      var count = (litter && litter.count) || 1;
-      return (
-        birthXml("LILAYA_ASSISTS_BIRTHING_DELIVERS") +
-        "<p><i>You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying...</i></p>" +
-        "<p>You feel a weight on your chest, and you're vaguely aware of something greedily drinking a bottle of milk as you cradle it in your arms...</p>" +
-        "<p>Some time later, you imagine seeing " +
-        count +
-        " strangely familiar " +
-        (count === 1 ? "child" : "children") +
-        " bending down over you, before departing...</p>"
-      );
-    },
-    getResponses: () {
-      return [new LT.Response("Finished", "Lilaya has finished delivering your children.", "lab.birth.finished")];
-    },
-  });
-
-  nodes.defineNode({
-    id: "lab.birth.knockout",
-    ui: "dialogue",
-    title: "Birthing Room",
-    secondsPassed: 0,
-    travelDisabled: true,
-    chrome: { left: true, right: true },
-    getContent: () {
-      return birthXml("LILAYA_ASSISTS_BIRTHING_KNOCK_OUT");
-    },
-    getResponses: () {
-      return [new LT.Response("Wake up", "You slowly start to come to.", "lab.birth.finished")];
-    },
-  });
-
-  nodes.defineNode({
-    id: "lab.birth.finished",
-    ui: "dialogue",
-    title: "Birthing Room",
-    secondsPassed: 600,
-    travelDisabled: true,
-    chrome: { left: true, right: true },
-    getContent: () {
-      var litter = LT.lastLitterBirthed();
-      var count = (litter && litter.count) || 1;
-      return (
-        birthXml("LILAYA_ASSISTS_BIRTHING_FINISHED") +
-        "<p style='text-align:center;'>You gave birth to <b>" +
-        count +
-        "</b> " +
-        (count === 1 ? "child" : "children") +
-        ".</p>"
-      );
-    },
-    getResponses: () {
-      return [new LT.Response("Leave", "Thank Lilaya and leave the birthing room.", "lab.entry")];
-    },
-  });
 }
+nodes.defineNode({
+  id: "lab.pregnancy",
+  ui: "dialogue",
+  title: "Lilaya's Laboratory",
+  secondsPassed: 300,
+  travelDisabled: true,
+  chrome: { left: true, right: true },
+  getContent: () => this.consultHtml(true),
+  getResponses: birthResponses,
+});
+
+nodes.defineNode({
+  id: "lab.pregnancyRepeat",
+  ui: "dialogue",
+  title: "Lilaya's Laboratory",
+  secondsPassed: 300,
+  travelDisabled: true,
+  chrome: { left: true, right: true },
+  getContent: () => this.consultHtml(false),
+  getResponses: birthResponses,
+});
+
+nodes.defineNode({
+  id: "lab.birth.type",
+  ui: "dialogue",
+  title: "Giving birth",
+  secondsPassed: 120,
+  travelDisabled: true,
+  chrome: { left: true, right: true },
+  getContent: () => {
+    return Pregnancy.birthXml("LILAYA_DETECTS_BIRTHING_TYPE");
+  },
+  getResponses: () => {
+    return [
+      new LT.Response(
+        "Follow Lilaya",
+        "Allow Lilaya to lead you to the birthing room.",
+        "lab.birth.room",
+      ),
+    ];
+  },
+});
+
+nodes.defineNode({
+  id: "lab.birth.room",
+  ui: "dialogue",
+  title: "Birthing Room",
+  secondsPassed: 600,
+  travelDisabled: true,
+  chrome: { left: true, right: true },
+  getContent: () => {
+    var first = !(LT.game.flags && LT.game.flags.pregnancyQuest === "complete");
+    return Pregnancy.birthXml(
+      first ? "ASSIST_BIRTHING_FIRST_TIME" : "ASSIST_BIRTHING",
+    );
+  },
+  getResponses: () => {
+    return [
+      new LT.Response(
+        "Start",
+        "Tell Lilaya that you're ready to give birth now.",
+        "lab.birth.delivers",
+        () => {
+          LT.endPregnancy(LT.game.player, true);
+          if (LT.game.player) LT.game.player.mana = 0;
+          LT.completeFirstPregnancyQuest();
+        },
+      ).withTime(14400),
+      new LT.Response(
+        "Knock out",
+        "Ask Lilaya if she could give you something to knock you out.",
+        "lab.birth.knockout",
+        () => {
+          LT.endPregnancy(LT.game.player, true);
+          if (LT.game.player) LT.game.player.mana = 0;
+          LT.completeFirstPregnancyQuest();
+        },
+      ).withTime(14400),
+    ];
+  },
+});
+
+nodes.defineNode({
+  id: "lab.birth.delivers",
+  ui: "dialogue",
+  title: "Birthing Room",
+  secondsPassed: 0,
+  travelDisabled: true,
+  chrome: { left: true, right: true },
+  getContent: () => {
+    var litter = LT.lastLitterBirthed();
+    var count = (litter && litter.count) || 1;
+    return (
+      Pregnancy.birthXml("LILAYA_ASSISTS_BIRTHING_DELIVERS") +
+      "<p><i>You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying...</i></p>" +
+      "<p>You feel a weight on your chest, and you're vaguely aware of something greedily drinking a bottle of milk as you cradle it in your arms...</p>" +
+      "<p>Some time later, you imagine seeing " +
+      count +
+      " strangely familiar " +
+      (count === 1 ? "child" : "children") +
+      " bending down over you, before departing...</p>"
+    );
+  },
+  getResponses: () => {
+    return [
+      new LT.Response(
+        "Finished",
+        "Lilaya has finished delivering your children.",
+        "lab.birth.finished",
+      ),
+    ];
+  },
+});
+
+nodes.defineNode({
+  id: "lab.birth.knockout",
+  ui: "dialogue",
+  title: "Birthing Room",
+  secondsPassed: 0,
+  travelDisabled: true,
+  chrome: { left: true, right: true },
+  getContent: () => Pregnancy.birthXml("LILAYA_ASSISTS_BIRTHING_KNOCK_OUT"),
+  getResponses: () => {
+    return [
+      new LT.Response(
+        "Wake up",
+        "You slowly start to come to.",
+        "lab.birth.finished",
+      ),
+    ];
+  },
+});
+
+nodes.defineNode({
+  id: "lab.birth.finished",
+  ui: "dialogue",
+  title: "Birthing Room",
+  secondsPassed: 600,
+  travelDisabled: true,
+  chrome: { left: true, right: true },
+  getContent: () => {
+    var litter = LT.lastLitterBirthed();
+    var count = (litter && litter.count) || 1;
+    return (
+      Pregnancy.birthXml("LILAYA_ASSISTS_BIRTHING_FINISHED") +
+      "<p style='text-align:center;'>You gave birth to <b>" +
+      count +
+      "</b> " +
+      (count === 1 ? "child" : "children") +
+      ".</p>"
+    );
+  },
+  getResponses: () => {
+    return [
+      new LT.Response(
+        "Leave",
+        "Thank Lilaya and leave the birthing room.",
+        "lab.entry",
+      ),
+    ];
+  },
+});

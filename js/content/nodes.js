@@ -1,4 +1,4 @@
-export default class nodes {
+export default class Nodes {
   nodes = {};
 
   defineNode(node) {
