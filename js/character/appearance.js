@@ -1134,12 +1134,12 @@ export default class Appearance {
       var html = this.header("Vagina");
       var type = this.partName((b.vagina && b.vagina.type) || "HUMAN");
       var labia = named(
-        LT.SIZE5,
+        bodyEnums.SIZE5,
         (b.vagina && b.vagina.labiaSize) || (ch.labiaSize && ch.labiaSize.id),
         "average-sized",
       );
       var clit = named(
-        LT.SIZE5,
+        bodyEnums.SIZE5,
         (b.vagina && b.vagina.clitSize) ||
           (ch.clitorisSize && ch.clitorisSize.id),
         "tiny",
@@ -1160,7 +1160,7 @@ export default class Appearance {
           named(
             LT.CAPACITY,
             orifice.capacity,
-            named(LT.SIZE5, orifice.capacity, "tight"),
+            named(bodyEnums.SIZE5, orifice.capacity, "tight"),
           ) +
           " and " +
           named(LT.WETNESS, orifice.wetness, "moist") +

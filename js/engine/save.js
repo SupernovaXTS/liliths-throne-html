@@ -5,7 +5,8 @@
   function byId(table, id) {
     if (id == null || !table) return null;
     if (table[id]) return table[id];
-    if (typeof LT.findById === "function") return LT.findById(table, id);
+    if (typeof bodyEnums.findById === "function")
+      return bodyEnums.findById(table, id);
     return null;
   }
 
@@ -24,7 +25,8 @@
       femininityValue: p.femininityValue,
       orientation: pickId(p.orientation),
       personality: p.personality,
-      birthday: p.birthday instanceof Date ? p.birthday.toISOString() : p.birthday,
+      birthday:
+        p.birthday instanceof Date ? p.birthday.toISOString() : p.birthday,
       level: p.level,
       experience: p.experience,
       experienceForLevel: p.experienceForLevel,
@@ -75,13 +77,19 @@
       wardrobeFem: p.wardrobeFem,
       knownSpells: p.knownSpells || [],
       items: p.items || [],
-      statusEffects: typeof LT.serializeStatusEffects === "function" ? LT.serializeStatusEffects(p) : p.statusEffects || {},
+      statusEffects:
+        typeof LT.serializeStatusEffects === "function"
+          ? LT.serializeStatusEffects(p)
+          : p.statusEffects || {},
       raceName: p.raceName,
       fullRace: p.fullRace,
       appearedAge: p.appearedAge,
       penisPresent: p.penisPresent,
       vaginaPresent: p.vaginaPresent,
-      body: typeof LT.serializeBody === "function" ? LT.serializeBody(p.body) : p.body || null,
+      body:
+        typeof LT.serializeBody === "function"
+          ? LT.serializeBody(p.body)
+          : p.body || null,
       fetishes: p.fetishes || {},
       fetishDesire: p.fetishDesire || {},
       perks: p.perks || [],
@@ -108,7 +116,8 @@
     p.names = data.names || p.names;
     p.surname = data.surname || "";
     p.gender = byId(LT.Gender, data.gender) || p.gender;
-    p.femininityValue = data.femininityValue != null ? data.femininityValue : p.femininityValue;
+    p.femininityValue =
+      data.femininityValue != null ? data.femininityValue : p.femininityValue;
     p.orientation = byId(LT.Orientation, data.orientation) || p.orientation;
     p.personality = data.personality || {};
     p.birthday = data.birthday ? new Date(data.birthday) : p.birthday;
@@ -133,7 +142,11 @@
     p.mainWeapon = data.mainWeapon || null;
     p.offhandWeapon = data.offhandWeapon || null;
     p.weapons = data.weapons || [];
-    p.occupation = (data.occupation && LT.findOccupation && LT.findOccupation(data.occupation)) || null;
+    p.occupation =
+      (data.occupation &&
+        LT.findOccupation &&
+        LT.findOccupation(data.occupation)) ||
+      null;
     p.sex = data.sex || p.sex;
     p.heightCm = data.heightCm || p.heightCm;
     p.skin = byId(LT.SKIN, data.skin) || p.skin;
@@ -168,8 +181,10 @@
     if (data.penisPresent != null) p.penisPresent = data.penisPresent;
     if (data.vaginaPresent != null) p.vaginaPresent = data.vaginaPresent;
     if (typeof LT.applySavedBody === "function") LT.applySavedBody(p, data);
-    if (typeof LT.applySavedStatusEffects === "function") LT.applySavedStatusEffects(p, data.statusEffects);
-    if (typeof LT.reapplyWornEnchantments === "function") LT.reapplyWornEnchantments(p);
+    if (typeof LT.applySavedStatusEffects === "function")
+      LT.applySavedStatusEffects(p, data.statusEffects);
+    if (typeof LT.reapplyWornEnchantments === "function")
+      LT.reapplyWornEnchantments(p);
     else if (typeof LT.refreshVitals === "function") LT.refreshVitals(p);
     return p;
   }
@@ -189,14 +204,17 @@
   }
 
   function sanitizeName(name) {
-    return String(name || "New Save")
-      .replace(/[^A-Za-z0-9 _-]/g, "")
-      .trim()
-      .slice(0, 40) || "New Save";
+    return (
+      String(name || "New Save")
+        .replace(/[^A-Za-z0-9 _-]/g, "")
+        .trim()
+        .slice(0, 40) || "New Save"
+    );
   }
 
   LT.snapshotGame = function () {
-    if (typeof LT.compactCharacterSave === "function") LT.compactCharacterSave();
+    if (typeof LT.compactCharacterSave === "function")
+      LT.compactCharacterSave();
     var loc = (LT.game.player && LT.game.player.location) || {};
     var tile = typeof getCurrentTile === "function" ? getCurrentTile() : null;
     return {
@@ -214,9 +232,20 @@
       discoveredWorlds: LT.game.discoveredWorlds || [],
       discoveredTiles: LT.game.discoveredTiles || {},
       world: loc.world || (window.grid && grid.gridName) || null,
-      place: loc.place || (tile && tile.location && tile.location.placeType) || null,
-      x: loc.x != null ? loc.x : window.grid && grid.playerPosition ? grid.playerPosition.x : null,
-      y: loc.y != null ? loc.y : window.grid && grid.playerPosition ? grid.playerPosition.y : null,
+      place:
+        loc.place || (tile && tile.location && tile.location.placeType) || null,
+      x:
+        loc.x != null
+          ? loc.x
+          : window.grid && grid.playerPosition
+            ? grid.playerPosition.x
+            : null,
+      y:
+        loc.y != null
+          ? loc.y
+          : window.grid && grid.playerPosition
+            ? grid.playerPosition.y
+            : null,
       player: serializePlayer(LT.game.player),
       alleyNpcs: serializeAlleyNpcs(),
     };
@@ -229,7 +258,12 @@
     Object.keys(npcs).forEach(function (key) {
       var n = npcs[key];
       if (!n || n.transient || n.stormAttacker) return;
-      if (!(n.id && String(n.id).indexOf("alley_") === 0) && n.occupation !== "mugger" && n.occupation !== "prostitute") return;
+      if (
+        !(n.id && String(n.id).indexOf("alley_") === 0) &&
+        n.occupation !== "mugger" &&
+        n.occupation !== "prostitute"
+      )
+        return;
       if (key === "npc" || key === "alleyMugger") return;
       out.push({
         id: n.id,
@@ -268,7 +302,10 @@
       out.push({
         name: names[i],
         savedAt: data.savedAt,
-        playerName: data.player && data.player.names ? data.player.names.feminine || data.player.names.masculine : names[i],
+        playerName:
+          data.player && data.player.names
+            ? data.player.names.feminine || data.player.names.masculine
+            : names[i],
         world: data.world,
         place: data.place,
       });
@@ -317,10 +354,14 @@
     if (!data) {
       if (!LT.game.started) return;
       data = LT.snapshotGame();
-      data.name = sanitizeName(name || (LT.game.player && LT.game.player.getName()) || "export");
+      data.name = sanitizeName(
+        name || (LT.game.player && LT.game.player.getName()) || "export",
+      );
       data.savedAt = new Date().toISOString();
     }
-    var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    var blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = data.name + ".ltjson";
@@ -337,8 +378,11 @@
     reader.onload = function () {
       try {
         var data = JSON.parse(reader.result);
-        var name = sanitizeName(data.name || file.name.replace(/\.ltjson$/i, "") || "Imported");
-        if (LT.readSave(name)) name = name + "_" + Date.now().toString().slice(-4);
+        var name = sanitizeName(
+          data.name || file.name.replace(/\.ltjson$/i, "") || "Imported",
+        );
+        if (LT.readSave(name))
+          name = name + "_" + Date.now().toString().slice(-4);
         data.name = name;
         data.savedAt = data.savedAt || new Date().toISOString();
         localStorage.setItem(PREFIX + name, JSON.stringify(data));
@@ -364,10 +408,16 @@
       var rec = list[i];
       if (!rec || !rec.id) continue;
       var npc = rec;
-      if (rec.gender && typeof rec.gender === "string" && LT.Gender && LT.Gender[rec.gender]) {
+      if (
+        rec.gender &&
+        typeof rec.gender === "string" &&
+        LT.Gender &&
+        LT.Gender[rec.gender]
+      ) {
         npc.gender = LT.Gender[rec.gender];
       }
-      if (typeof LT.hydrateAlleyNpc === "function") npc = LT.hydrateAlleyNpc(npc);
+      if (typeof LT.hydrateAlleyNpc === "function")
+        npc = LT.hydrateAlleyNpc(npc);
       LT.game.npcs[npc.id] = npc;
     }
   }
@@ -380,7 +430,8 @@
       LT.game.started = true;
       LT.game.secondsPassed = data.secondsPassed || 0;
       if (data.startingYear != null) LT.game.startingYear = data.startingYear;
-      if (data.startingMonth != null) LT.game.startingMonth = data.startingMonth;
+      if (data.startingMonth != null)
+        LT.game.startingMonth = data.startingMonth;
       if (data.startingDay != null) LT.game.startingDay = data.startingDay;
       LT.game.flags = data.flags || {};
       if (typeof LT.ensureWeather === "function") LT.ensureWeather();
@@ -399,13 +450,23 @@
       applyPlayer(LT.game.player, data.player);
       window.player = LT.game.player;
       if (data.world && typeof LT.enterWorld === "function") {
-        LT.enterWorld(data.world, data.place, data.x != null ? { x: data.x, y: data.y } : null);
+        LT.enterWorld(
+          data.world,
+          data.place,
+          data.x != null ? { x: data.x, y: data.y } : null,
+        );
       }
       var nodeId = data.node;
-      if (nodeId && /^(boot\.save-load|boot\.menu|boot\.options|phone\.|inventory\.)/.test(nodeId)) {
+      if (
+        nodeId &&
+        /^(boot\.save-load|boot\.menu|boot\.options|phone\.|inventory\.)/.test(
+          nodeId,
+        )
+      ) {
         nodeId = null;
       }
-      if (typeof LT.refreshAllRoomVisuals === "function") LT.refreshAllRoomVisuals();
+      if (typeof LT.refreshAllRoomVisuals === "function")
+        LT.refreshAllRoomVisuals();
       if (typeof LT.syncSlaveNpcs === "function") LT.syncSlaveNpcs();
       restoreAlleyNpcs(data.alleyNpcs);
       if (nodeId && LT.hasNode(nodeId)) LT.game.setContent(nodeId);
@@ -413,7 +474,8 @@
         var tile = getCurrentTile();
         var passage = tile && tile.location && tile.location.passage;
         if (passage && LT.hasNode(passage)) LT.game.setContent(passage);
-        else if (LT.hasNode("place.generic")) LT.game.setContent("place.generic");
+        else if (LT.hasNode("place.generic"))
+          LT.game.setContent("place.generic");
       } else {
         LT.game.setContent("boot.menu");
       }
