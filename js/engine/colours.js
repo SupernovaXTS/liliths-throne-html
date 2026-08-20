@@ -1,54 +1,53 @@
-LT.Colour = {
-  BACKGROUND: "#1e1e20",
-  BACKGROUND_ALT: "#19191a",
-  GENERIC_ARCANE: "#ff6bda",
-  GENERIC_GOOD: "#57be7e",
-  GENERIC_BAD: "#e36f6f",
-  GENERIC_MINOR_BAD: "#e39a6f",
-  GENERIC_MINOR_GOOD: "#8dbe57",
-  GENERIC_EXCELLENT: "#6fd4e3",
-  GENERIC_SEX: "#ff6bda",
-  GENERIC_TERRIBLE: "#d94c4c",
-  BASE_YELLOW_LIGHT: "#f8e1b9",
-  BASE_PINK: "#ff6bda",
-  BASE_PINK_LIGHT: "#f5a8ff",
-  BASE_PURPLE: "#b98cff",
-  BASE_WHITE: "#ffffff",
-  BASE_GREY: "#b3b3b3",
-  BASE_BLACK: "#777777",
-  ATTRIBUTE_HEALTH: "#e36f6f",
-  ATTRIBUTE_MANA: "#6f9be3",
-  ATTRIBUTE_PHYSIQUE: "#e39a6f",
-  ATTRIBUTE_ARCANE: "#c06fe3",
-  ATTRIBUTE_CORRUPTION: "#bd0061",
-  ATTRIBUTE_AROUSAL: "#ff6bda",
-  ATTRIBUTE_LUST: "#e36f9b",
-  ATTRIBUTE_EXPERIENCE: "#6fd4e3",
-  MONEY: "#e3c66f",
-  FEMININE: "#ff6bda",
-  MASCULINE: "#6f9be3",
-  ANDROGYNOUS: "#b98cff",
-  FEMININE_PLUS: "#ff9de0",
-  MASCULINE_PLUS: "#9dc4ff",
-  TEXT: "#dddddd",
-  TEXT_GREY: "#888888",
-  TRANSFORMATION_HUMAN: "#e8d5c4",
-  TRANSFORMATION_PARTIAL: "#c4a574",
-  TRANSFORMATION_PARTIAL_FULL: "#8dbe57",
-  TRANSFORMATION_LESSER: "#6f9be3",
-  TRANSFORMATION_GREATER: "#ff6bda",
-  TRANSFORMATION_GENERIC: "#b98cff",
-  RACE_HUMAN: "#e8d5c4",
-  RACE_CENTAUR: "#c4a574",
-  RACE_HALF_DEMON: "#c06fe3",
-  AGE_TEENS: "#8dbe57",
-  AGE_TWENTIES: "#6fd4e3",
-  AGE_THIRTIES: "#6f9be3",
-  AGE_FORTIES: "#b98cff",
-  AGE_FIFTIES: "#e39a6f",
-  AGE_SIXTIES: "#b3b3b3",
-};
-
-LT.styleSpan = function (colour, text) {
-  return '<span style="color:' + colour + ';">' + text + "</span>";
-};
+export default class Colour {
+  static BACKGROUND = "#1e1e20";
+  static BACKGROUND_ALT = "#19191a";
+  static GENERIC_ARCANE = "#ff6bda";
+  static GENERIC_GOOD = "#57be7e";
+  static GENERIC_BAD = "#e36f6f";
+  static GENERIC_MINOR_BAD = "#e39a6f";
+  static GENERIC_MINOR_GOOD = "#8dbe57";
+  static GENERIC_EXCELLENT = "#6fd4e3";
+  static GENERIC_SEX = "#ff6bda";
+  static GENERIC_TERRIBLE = "#d94c4c";
+  static BASE_YELLOW_LIGHT = "#f8e1b9";
+  static BASE_PINK = "#ff6bda";
+  static BASE_PINK_LIGHT = "#f5a8ff";
+  static BASE_PURPLE = "#b98cff";
+  static BASE_WHITE = "#ffffff";
+  static BASE_GREY = "#b3b3b3";
+  static BASE_BLACK = "#777777";
+  static ATTRIBUTE_HEALTH = "#e36f6f";
+  static ATTRIBUTE_MANA = "#6f9be3";
+  static ATTRIBUTE_PHYSIQUE = "#e39a6f";
+  static ATTRIBUTE_ARCANE = "#c06fe3";
+  static ATTRIBUTE_CORRUPTION = "#bd0061";
+  static ATTRIBUTE_AROUSAL = "#ff6bda";
+  static ATTRIBUTE_LUST = "#e36f9b";
+  static ATTRIBUTE_EXPERIENCE = "#6fd4e3";
+  static MONEY = "#e3c66f";
+  static FEMININE = "#ff6bda";
+  static MASCULINE = "#6f9be3";
+  static ANDROGYNOUS = "#b98cff";
+  static FEMININE_PLUS = "#ff9de0";
+  static MASCULINE_PLUS = "#9dc4ff";
+  static TEXT = "#dddddd";
+  static TEXT_GREY = "#888888";
+  static TRANSFORMATION_HUMAN = "#e8d5c4";
+  static TRANSFORMATION_PARTIAL = "#c4a574";
+  static TRANSFORMATION_PARTIAL_FULL = "#8dbe57";
+  static TRANSFORMATION_LESSER = "#6f9be3";
+  static TRANSFORMATION_GREATER = "#ff6bda";
+  static TRANSFORMATION_GENERIC = "#b98cff";
+  static RACE_HUMAN = "#e8d5c4";
+  static RACE_CENTAUR = "#c4a574";
+  static RACE_HALF_DEMON = "#c06fe3";
+  static AGE_TEENS = "#8dbe57";
+  static AGE_TWENTIES = "#6fd4e3";
+  static AGE_THIRTIES = "#6f9be3";
+  static AGE_FORTIES = "#b98cff";
+  static AGE_FIFTIES = "#e39a6f";
+  static AGE_SIXTIES = "#b3b3b3";
+  styleSpan = function (colour, text) {
+    return '<span style="color:' + colour + ';">' + text + "</span>";
+  };
+}
