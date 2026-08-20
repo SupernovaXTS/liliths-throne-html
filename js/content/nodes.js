@@ -1,18 +1,18 @@
-(function () {
-  var nodes = {};
+export default class nodes {
+  nodes = {};
 
-  LT.defineNode = function (node) {
-    nodes[node.id] = node;
+  defineNode(node) {
+    this.nodes[node.id] = node;
     return node;
-  };
+  }
 
-  LT.getNode = function (id) {
-    var node = nodes[id];
+  getNode(id) {
+    var node = this.nodes[id];
     if (!node) throw new Error("Unknown dialogue node: " + id);
     return node;
-  };
+  }
 
-  LT.hasNode = function (id) {
-    return !!nodes[id];
-  };
-})();
+  hasNode(id) {
+    return !!this.nodes[id];
+  }
+}

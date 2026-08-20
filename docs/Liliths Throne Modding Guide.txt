@@ -40,7 +40,7 @@ beginner Replace form only where it helps you find the live code.
 
 Everything hangs off window.LT.
 
-A "scene" is a DialogueNode registered with LT.defineNode({...}).
+A "scene" is a DialogueNode registered with defineNode({...}).
 The player is always looking at one node. Clicking a Response either
 runs effects and stays, or runs effects and LT.game.setContent(id)
 to another node.
@@ -178,7 +178,7 @@ Hook your script AFTER "js/main.js" unless you must run earlier.
     js/lt.js                     LT namespace, version
     js/engine/game.js            LT.game, setContent, choose, advanceTime
     js/engine/response.js        LT.Response, disable, withColour, withTime
-    js/content/nodes.js          LT.defineNode, LT.getNode, LT.hasNode
+    js/content/nodes.js          defineNode, LT.getNode, LT.hasNode
     js/engine/save.js            serialize / restore, including alley NPCs
     js/engine/utilText.js        LT.parse, LT.parseFromXML, #IF, [pc.name]
     js/engine/properties.js      Content options, localStorage lt-properties
@@ -347,8 +347,9 @@ Hook your script AFTER "js/main.js" unless you must run earlier.
 ======================================================================
 
 Register a scene:
+import defineNode from "../content/nodes.js";
 
-    LT.defineNode({
+    defineNode({
       id: "my.hello",
       ui: "dialogue",
       title: "A quiet corner",
@@ -473,7 +474,7 @@ Advanced (do not touch shoppingArcade.js):
         return list;
       };
 
-      LT.defineNode({
+      defineNode({
         id: "my.ralphTea",
         ui: "dialogue",
         title: "Ralph's Snacks",
@@ -526,7 +527,7 @@ they might not exist yet.
         return n;
       };
 
-      LT.defineNode({
+      defineNode({
         id: "my.mira",
         ui: "dialogue",
         title: "Mira",
@@ -690,7 +691,7 @@ Example: a two-tile cellar you enter from a Dominion street.
         return "<p>" + (loc.description || "You are in the cellar.") + "</p>";
       }
 
-      LT.defineNode({
+      defineNode({
         id: "place.MY_CELLAR_STAIRS",
         ui: "dialogue",
         title: "Cellar stairs",
@@ -704,7 +705,7 @@ Example: a two-tile cellar you enter from a Dominion street.
         },
       });
 
-      LT.defineNode({
+      defineNode({
         id: "place.MY_CELLAR_RACKS",
         ui: "dialogue",
         title: "Wine racks",
@@ -784,7 +785,7 @@ The clean hook is to wrap the entry function:
         return list;
       };
 
-      LT.defineNode({
+      defineNode({
         id: "my.streetEvent",
         ui: "dialogue",
         title: "A dropped purse",
@@ -805,7 +806,7 @@ The clean hook is to wrap the entry function:
         },
       });
 
-      LT.defineNode({
+      defineNode({
         id: "my.streetEvent.wait",
         ui: "dialogue",
         title: "A dropped purse",

@@ -1,5 +1,6 @@
 import enums from "./enums";
 import bodyEnums from "./bodyEnums";
+import Colour from "../engine/colours";
 export default class Appearance {
   esc(s) {
     return String(s == null ? "" : s)
@@ -129,7 +130,7 @@ export default class Appearance {
   header(title) {
     return (
       "<p style='padding-top:0;margin-top:0;'><span style='color:" +
-      LT.Colour.TEXT_GREY +
+      Colour.TEXT_GREY +
       ";'>" +
       this.esc(title) +
       ":</span><br/>"
@@ -140,7 +141,7 @@ export default class Appearance {
     if (!type || type === "NONE") return "";
     if (type === "HUMAN") return "human";
     return this.named(
-      LT.PART_TYPE,
+      bodyEnums.PART_TYPE,
       type,
       String(type).toLowerCase().replace(/_/g, "-"),
     );
@@ -178,7 +179,7 @@ export default class Appearance {
   }
 
   ageCategory(age) {
-    var list = LT.AGE_CATEGORY || [];
+    var list = bodyEnums.AGE_CATEGORY || [];
     var i;
     for (i = 0; i < list.length; i++) {
       if (age >= list[i].min && age <= list[i].max) return list[i];
@@ -190,7 +191,7 @@ export default class Appearance {
     var rec = ch.makeup && ch.makeup[slotId];
     if (!rec || !rec.colour || rec.colour === "NONE") return "";
     return this.named(
-      LT.MAKEUP_COLOURS,
+      bodyEnums.MAKEUP_COLOURS,
       rec.colour,
       rec.colour.toLowerCase().replace(/_/g, " "),
     );
@@ -228,7 +229,7 @@ export default class Appearance {
   }
 
   bodyHairPhrase(level, area) {
-    var n = this.named(LT.BODY_HAIR, level, "none");
+    var n = this.named(bodyEnums.BODY_HAIR, level, "none");
     if (!level || level === "ZERO_NONE") return "";
     if (level === "ONE_STUBBLE") return "a stubbly patch of " + area;
     if (level === "TWO_MANICURED")
@@ -241,7 +242,7 @@ export default class Appearance {
     return n + " " + area;
   }
 
-  knowsArea = function (target, area) {
+  knowsArea(target, area) {
     if (!target) return false;
     if (this.isPlayer(target)) return true;
     if (
@@ -268,14 +269,14 @@ export default class Appearance {
 
   disabled(text) {
     return (
-      "<span style='color:" + LT.Colour.TEXT_GREY + ";'>" + text + "</span>"
+      "<span style='color:" + Colour.TEXT_GREY + ";'>" + text + "</span>"
     );
   }
 
   overview(ch, v, b) {
     var fem = ch.getFemininity
       ? ch.getFemininity()
-      : LT.femininityFromValue(ch.femininityValue || 50);
+      : enums.femininityFromValue(ch.femininityValue || 50);
     var gender = ch.getGender ? ch.getGender() : ch.gender;
     var genderName = (gender && gender.name) || "person";
     var race = ch.getRaceName
@@ -284,46 +285,46 @@ export default class Appearance {
     var raceLower = String(race).toLowerCase();
     var human = raceLower === "human";
     var heightCm = (b && b.height) || ch.heightCm || 170;
-    var html = header("Overview");
+    var html = this.header("Overview");
     if (this.isPlayer(ch)) {
       html +=
         "You are " +
-        esc(ch.getName ? ch.getName() : "you") +
+        this.esc(ch.getName ? ch.getName() : "you") +
         ", " +
         (human
-          ? article(
+          ? this.article(
               "<span style='color:" +
                 (fem.colour || "#ddd") +
                 ";'>" +
-                esc(fem.name.toLowerCase()) +
+                this.esc(fem.name.toLowerCase()) +
                 "</span>",
             ) +
             " " +
-            esc(genderName) +
+            this.esc(genderName) +
             " <span style='color:" +
-            LT.Colour.RACE_HUMAN +
+            Colour.RACE_HUMAN +
             ";'>human</span>. "
-          : article(esc(raceLower)) + " " + esc(genderName) + ". ");
-    } else if (LT.knowsArea(ch, "PENIS") && LT.knowsArea(ch, "VAGINA")) {
+          : this.article(this.esc(raceLower)) + " " + this.esc(genderName) + ". ");
+    } else if (this.knowsArea(ch, "PENIS") && this.knowsArea(ch, "VAGINA")) {
       html +=
-        esc(v.Name) +
+        this.esc(v.Name) +
         " is " +
         (human
-          ? article(
+          ? this.article(
               "<span style='color:" +
                 (fem.colour || "#ddd") +
                 ";'>" +
-                esc(fem.name.toLowerCase()) +
+                this.esc(fem.name.toLowerCase()) +
                 "</span>",
             ) +
             " " +
-            esc(genderName) +
+            this.esc(genderName) +
             " <span style='color:" +
-            LT.Colour.RACE_HUMAN +
+            Colour.RACE_HUMAN +
             ";'>human</span>. "
-          : article(esc(raceLower)) + " " + esc(genderName) + ". ");
+          : this.article(this.esc(raceLower)) + " " + this.esc(genderName) + ". ");
     } else {
-      html += esc(v.Name) + " is " + article(esc(raceLower)) + ". ";
+      html += this.esc(v.Name) + " is " + this.article(this.esc(raceLower)) + ". ";
     }
     html +=
       "Standing at full height, " +
@@ -374,26 +375,26 @@ export default class Appearance {
         "</p><p>" +
         v.NameHas +
         " an entire body made out of <b style='color:" +
-        LT.Colour.GENERIC_ARCANE +
+        Colour.GENERIC_ARCANE +
         ";'>" +
-        this.named(LT.BODY_MATERIAL, b.bodyMaterial) +
+        this.named(bodyEnums.BODY_MATERIAL, b.bodyMaterial) +
         "</b>!";
     }
     return html + "</p>";
   }
 
   faceSection(ch, v, b) {
-    var html = header("Face");
+    var html = this.header("Face");
     var faceType = this.partName(b.face && b.face.type) || "human";
     var fem = ch.getFemininity
       ? ch.getFemininity()
       : this.femininityFromValue(ch.femininityValue || 50);
     var skin = colourSpan(
-      LT.SKIN,
+      bodyEnums.SKIN,
       (b.torso && b.torso.covering && b.torso.covering.primary) ||
         (ch.skin && ch.skin.id),
       named(
-        LT.SKIN,
+        bodyEnums.SKIN,
         (b.torso && b.torso.covering && b.torso.covering.primary) ||
           (ch.skin && ch.skin.id),
         "light",
@@ -402,15 +403,15 @@ export default class Appearance {
     html +=
       v.SheHas +
       " " +
-      article(
+      this.article(
         "<span style='color:" +
           (fem.colour || "#ddd") +
           ";'>" +
-          esc(fem.name.toLowerCase()) +
+          this.esc(fem.name.toLowerCase()) +
           "</span>",
       ) +
       " " +
-      esc(faceType) +
+      this.esc(faceType) +
       " face, with " +
       skin +
       " skin.";
@@ -440,9 +441,9 @@ export default class Appearance {
         " " +
         v.SheHas +
         " " +
-        this.named(LT.HAIR_LENGTH_LIST, hairLen, "short") +
+        this.named(bodyEnums.HAIR_LENGTH_LIST, hairLen, "short") +
         ", " +
-        colourSpan(LT.HAIR_COLOUR, hairCol) +
+        colourSpan(bodyEnums.HAIR_COLOUR, hairCol) +
         " hair, which " +
         hairStylePhrase(hairStyle) +
         ".";
@@ -450,7 +451,7 @@ export default class Appearance {
     if (b.hair && b.hair.neckFluff) {
       html +=
         " A large amount of " +
-        colourSpan(LT.HAIR_COLOUR, hairCol) +
+        colourSpan(bodyEnums.HAIR_COLOUR, hairCol) +
         " hair has grown around " +
         v.her +
         " neck and upper chest.";
@@ -460,7 +461,7 @@ export default class Appearance {
         " " +
         v.SheHas +
         " " +
-        esc(this.partName(b.horn.type)) +
+        this.esc(this.partName(b.horn.type)) +
         " horns growing from " +
         v.her +
         " forehead.";
@@ -471,21 +472,21 @@ export default class Appearance {
     if ((ch.piercings && ch.piercings.nose) || (b.face && b.face.piercedNose)) {
       html += " " + v.Her + " nose has been pierced.";
     }
-    if (LT.knowsArea(ch, "EYES")) {
+    if (this.knowsArea(ch, "EYES")) {
       var iris = (b.eye && b.eye.iris) || (ch.eye && ch.eye.id) || "BROWN";
       var irisShape = this.named(
-        LT.EYE_SHAPE,
+        bodyEnums.EYE_SHAPE,
         (b.eye && b.eye.irisShape) || "ROUND",
       );
       html +=
         " " +
         v.SheHas +
         " a pair of " +
-        esc(this.partName((b.eye && b.eye.type) || "HUMAN")) +
+        this.esc(this.partName((b.eye && b.eye.type) || "HUMAN")) +
         " eyes, with " +
         irisShape +
         ", " +
-        colourSpan(LT.EYE, iris) +
+        colourSpan(bodyEnums.EYE, iris) +
         " irises.";
       var liner = makeupColour(ch, "MAKEUP_EYE_LINER");
       if (liner)
@@ -524,7 +525,7 @@ export default class Appearance {
       ((ch.piercings && ch.piercings.ear) || (b.ear && b.ear.pierced)
         ? "pierced "
         : "") +
-      esc(earType) +
+      this.esc(earType) +
       " ears.";
     if (
       typeof LT.hasProperty !== "function" ||
@@ -548,13 +549,13 @@ export default class Appearance {
   }
 
   mouthSection(ch, v, b) {
-    var html = header("Mouth");
+    var html = this.header("Mouth");
     var lips = this.named(
-      LT.LIP_LIST,
+      bodyEnums.LIP_LIST,
       (b.face && b.face.lipSize) || (ch.lipSize && ch.lipSize.id),
       "average-sized",
     );
-    var lipstick = makeupColour(ch, "MAKEUP_LIPSTICK");
+    var lipstick = this.makeupColour(ch, "MAKEUP_LIPSTICK");
     html +=
       v.SheHas +
       " " +
@@ -578,12 +579,12 @@ export default class Appearance {
         v.Her +
         " throat is " +
         this.named(
-          LT.CAPACITY,
+          bodyEnums.CAPACITY,
           mouth.capacity,
-          this.named(LT.SIZE5, mouth.capacity, "average"),
+          this.named(bodyEnums.SIZE5, mouth.capacity, "average"),
         ) +
         " and " +
-        this.named(LT.WETNESS, mouth.wetness, "moist") +
+        this.named(bodyEnums.WETNESS, mouth.wetness, "moist") +
         ".";
       if (mouth.modifiers && mouth.modifiers.indexOf("PUFFY") >= 0) {
         html +=
@@ -616,45 +617,45 @@ export default class Appearance {
   }
 
   torsoSection(ch, v, b) {
-    var html = header("Torso");
-    var size = ch.bodySize || (LT.BODY_SIZE && LT.BODY_SIZE[b.bodySize]);
-    var muscle = ch.muscle || (LT.MUSCLE && LT.MUSCLE[b.muscle]);
+    var html = this.header("Torso");
+    var size = ch.bodySize || (bodyEnums.BODY_SIZE && bodyEnums.BODY_SIZE[b.bodySize]);
+    var muscle = ch.muscle || (bodyEnums.MUSCLE && bodyEnums.MUSCLE[b.muscle]);
     var shape =
-      typeof LT.bodyShapeOf === "function"
-        ? LT.bodyShapeOf(size, muscle)
+      typeof bodyEnums.bodyShapeOf === "function"
+        ? bodyEnums.bodyShapeOf(size, muscle)
         : { name: "average", colour: "#88b8d4" };
     var torsoType = this.partName((b.torso && b.torso.type) || "HUMAN");
     var skin = colourSpan(
-      LT.SKIN,
+      bodyEnums.SKIN,
       (b.torso && b.torso.covering && b.torso.covering.primary) ||
         (ch.skin && ch.skin.id),
     );
     html +=
       v.Her +
       " torso is " +
-      article(esc(torsoType)) +
+      this.article(this.esc(torsoType)) +
       " in form, and is covered in " +
       skin +
       " skin. " +
       v.SheHas +
       " a " +
       colourSpan(
-        LT.BODY_SIZE_LIST,
+        bodyEnums.BODY_SIZE_LIST,
         size && size.id,
-        this.named(LT.BODY_SIZE_LIST, size && size.id, "average"),
+        this.named(bodyEnums.BODY_SIZE_LIST, size && size.id, "average"),
       ) +
       ", " +
       colourSpan(
-        LT.MUSCLE_LIST,
+        bodyEnums.MUSCLE_LIST,
         muscle && muscle.id,
-        this.named(LT.MUSCLE_LIST, muscle && muscle.id, "toned"),
+        this.named(bodyEnums.MUSCLE_LIST, muscle && muscle.id, "toned"),
       ) +
       " body, giving " +
       v.him +
       " <span style='color:" +
       shape.colour +
       ";'>" +
-      article(shape.name) +
+      this.article(shape.name) +
       "</span> body shape.";
     if (
       typeof LT.isVisiblyPregnant === "function" &&
@@ -663,7 +664,7 @@ export default class Appearance {
       var stage =
         LT.hasStatusEffect && LT.hasStatusEffect(ch, "PREGNANT_3")
           ? "massively swollen, and it's blatantly obvious that <span style='color:" +
-            LT.Colour.GENERIC_ARCANE +
+            Colour.GENERIC_ARCANE +
             ";'>" +
             v.she +
             " " +
@@ -671,14 +672,14 @@ export default class Appearance {
             " expecting to give birth very soon</span>"
           : LT.hasStatusEffect && LT.hasStatusEffect(ch, "PREGNANT_2")
             ? "heavily swollen, and it's clear that <span style='color:" +
-              LT.Colour.GENERIC_ARCANE +
+              Colour.GENERIC_ARCANE +
               ";'>" +
               v.she +
               " " +
               v.is +
               " pregnant</span>"
             : "slightly swollen, and it's clear to anyone who takes a closer look that <span style='color:" +
-              LT.Colour.GENERIC_ARCANE +
+              Colour.GENERIC_ARCANE +
               ";'>" +
               v.she +
               " " +
@@ -690,13 +691,13 @@ export default class Appearance {
   }
 
   chestSection(ch, v, b) {
-    var html = header("Chest");
+    var html = this.header("Chest");
     var cup =
       (b.breast && b.breast.size) ||
       (ch.breastSize && ch.breastSize.id) ||
       "FLAT";
     var shape = this.named(
-      LT.BREAST_SHAPE,
+      bodyEnums.BREAST_SHAPE,
       (b.breast && b.breast.shape) || (ch.breastShape && ch.breastShape.id),
       "round",
     );
@@ -708,7 +709,7 @@ export default class Appearance {
         (rows === 1 ? "a single pair of pecs" : rows + " pairs of pecs") +
         ".";
     } else {
-      var cupName = this.named(LT.CUP_LIST, cup, cup);
+      var cupName = this.named(bodyEnums.CUP_LIST, cup, cup);
       html +=
         v.SheHas +
         " " +
@@ -716,12 +717,12 @@ export default class Appearance {
         " of " +
         shape +
         " breasts, which fit comfortably into " +
-        article(cupName) +
+        this.article(cupName) +
         " bra.";
       if (rows > 1)
         html += " The pairs below " + v.her + " top pair are slightly smaller.";
     }
-    if (!LT.knowsArea(ch, "NIPPLES")) {
+    if (!this.knowsArea(ch, "NIPPLES")) {
       html +=
         " " +
         disabled(
@@ -733,23 +734,23 @@ export default class Appearance {
         );
     } else {
       var nipSize = this.named(
-        LT.SIZE5,
+        bodyEnums.SIZE5,
         (b.breast && b.breast.nipple && b.breast.nipple.size) ||
           (ch.nippleSize && ch.nippleSize.id),
         "average-sized",
       );
       var nipShape = this.named(
-        LT.NIPPLE_SHAPE,
+        bodyEnums.NIPPLE_SHAPE,
         (b.breast && b.breast.nipple && b.breast.nipple.shape) || "NORMAL",
       );
       var areSize = this.named(
-        LT.SIZE5,
+        bodyEnums.SIZE5,
         (b.breast && b.breast.areolae && b.breast.areolae.size) ||
           (ch.areolaeSize && ch.areolaeSize.id),
         "average-sized",
       );
       var areShape = this.named(
-        LT.AREOLAE_SHAPE,
+        bodyEnums.AREOLAE_SHAPE,
         (b.breast && b.breast.areolae && b.breast.areolae.shape) || "NORMAL",
       );
       html +=
@@ -793,7 +794,7 @@ export default class Appearance {
           " " +
           v.is +
           " lactating " +
-          this.named(LT.LACTATION, milk, "a small amount") +
+          this.named(bodyEnums.LACTATION, milk, "a small amount") +
           " of milk.";
       }
     }
@@ -804,9 +805,9 @@ export default class Appearance {
     var crotch = b.breastCrotch;
     if (!crotch || crotch.type === "NONE" || !crotch.rows) return "";
     var title = crotch.shape === "UDDERS" ? "Udders" : "Crotch-boobs";
-    if (!LT.knowsArea(ch, "BREASTS_CROTCH")) {
+    if (!this.knowsArea(ch, "BREASTS_CROTCH")) {
       return (
-        header(title) +
+        this.header(title) +
         disabled(
           "You haven't seen " +
             v.her +
@@ -820,19 +821,19 @@ export default class Appearance {
       );
     }
     return (
-      header(title) +
+      this.header(title) +
       v.SheHas +
       " " +
-      this.named(LT.CUP_LIST, crotch.size, "flat") +
+      this.named(bodyEnums.CUP_LIST, crotch.size, "flat") +
       " " +
-      this.named(LT.BREAST_SHAPE, crotch.shape, "round") +
+      this.named(bodyEnums.BREAST_SHAPE, crotch.shape, "round") +
       " crotch-boobs." +
       "</p>"
     );
   }
 
   armsSection(ch, v, b) {
-    var html = header("Arms");
+    var html = this.header("Arms");
     var rows = (b.arm && b.arm.rows) || 1;
     var type = this.partName((b.arm && b.arm.type) || "HUMAN");
     html +=
@@ -840,7 +841,7 @@ export default class Appearance {
       " " +
       (rows === 1 ? "a pair" : rows + " pairs") +
       " of " +
-      esc(type) +
+      this.esc(type) +
       " arms.";
     var nails = makeupColour(ch, "MAKEUP_NAIL_POLISH_HANDS");
     if (nails)
@@ -867,24 +868,24 @@ export default class Appearance {
   }
 
   legsSection(ch, v, b) {
-    var html = header("Legs");
+    var html = this.header("Legs");
     var type = this.partName((b.leg && b.leg.type) || "HUMAN");
     var config = this.named(
-      LT.LEG_CONFIGURATION,
+      bodyEnums.LEG_CONFIGURATION,
       (b.leg && b.leg.configuration) || "BIPEDAL",
     );
     var feet = this.named(
-      LT.FOOT_STRUCTURE,
-      (b.leg && b.leg.footStructure) || "PLANTIGRADE",
+      bodyEnums.FOOT_STRUCTURE,
+      bodyEnums.FOOT_STRUCTURE[(b.leg && b.leg.footStructure) || "HUMAN"],
     );
     html +=
       v.SheHas +
       " a pair of " +
-      esc(type) +
+      this.esc(type) +
       " legs, in a " +
-      esc(config) +
+      this.esc(config) +
       " configuration, ending in " +
-      esc(feet) +
+      this.esc(feet) +
       " feet.";
     var toes = makeupColour(ch, "MAKEUP_NAIL_POLISH_FEET");
     if (toes) html += " " + v.Her + " toenails have been painted " + toes + ".";
@@ -895,31 +896,31 @@ export default class Appearance {
     var html = "";
     if (b.wing && b.wing.type && b.wing.type !== "NONE") {
       html +=
-        header("Wings") +
+        this.header("Wings") +
         v.SheHas +
         " a pair of " +
         this.named(LT.WING_SIZE, b.wing.size, "average") +
         " " +
-        esc(this.partName(b.wing.type)) +
+        this.esc(this.partName(b.wing.type)) +
         " wings." +
         "</p>";
     }
     if (b.tail && b.tail.type && b.tail.type !== "NONE") {
       html +=
-        header("Tail") +
+        this.header("Tail") +
         v.SheHas +
         " " +
         ((b.tail.count || 1) > 1 ? b.tail.count + " " : "a ") +
         this.named(LT.PENETRATION_GIRTH, b.tail.girth, "average") +
         " " +
-        esc(this.partName(b.tail.type)) +
+        this.esc(this.partName(b.tail.type)) +
         ((b.tail.count || 1) > 1 ? " tails" : " tail") +
         "." +
         "</p>";
     }
     if (b.tentacle && b.tentacle.type && b.tentacle.type !== "NONE") {
       html +=
-        header("Tentacle-legs") +
+        this.header("Tentacle-legs") +
         v.SheHas +
         " tentacles in place of " +
         v.her +
@@ -927,27 +928,27 @@ export default class Appearance {
     }
     if (b.genitalArrangement && b.genitalArrangement !== "NORMAL") {
       html +=
-        header("Cloaca") +
+        this.header("Cloaca") +
         "<i>" +
         v.Her +
         " genitals and asshole are located within " +
         v.her +
         " " +
-        this.named(LT.GENITAL_ARRANGEMENT, b.genitalArrangement) +
+        this.named(bodyEnums.GENITAL_ARRANGEMENT, b.genitalArrangement) +
         ".</i></p>";
     }
     return html;
   }
 
   assSection(ch, v, b) {
-    var html = header("Ass");
+    var html = this.header("Ass");
     var ass = this.named(
-      LT.SIZE5,
+      bodyEnums.SIZE5,
       (b.ass && b.ass.size) || (ch.assSize && ch.assSize.id),
       "average-sized",
     );
     var hips = this.named(
-      LT.SIZE5,
+      bodyEnums.SIZE5,
       (b.ass && b.ass.hipSize) || (ch.hipSize && ch.hipSize.id),
       "average-sized",
     );
@@ -960,7 +961,7 @@ export default class Appearance {
       " ass are covered in the same skin as the rest of " +
       v.her +
       " body.";
-    if (!LT.knowsArea(ch, "ANUS")) {
+    if (!this.knowsArea(ch, "ANUS")) {
       html +=
         " " +
         disabled(
@@ -984,12 +985,12 @@ export default class Appearance {
         html +=
           " It is " +
           this.named(
-            LT.CAPACITY,
+            bodyEnums.CAPACITY,
             anus.capacity,
-            this.named(LT.SIZE5, anus.capacity, "tight"),
+            this.named(bodyEnums.SIZE5, anus.capacity, "tight"),
           ) +
           " and " +
-          this.named(LT.WETNESS, anus.wetness, "dry") +
+          this.named(bodyEnums.WETNESS, anus.wetness, "dry") +
           ".";
       }
       if (
@@ -1015,26 +1016,26 @@ export default class Appearance {
     var has =
       (b.penis && b.penis.type && b.penis.type !== "NONE") ||
       (ch.hasPenis && ch.hasPenis());
-    if (LT.knowsArea(ch, "PENIS")) {
+    if (this.knowsArea(ch, "PENIS")) {
       if (!has) return "";
-      var html = header("Penis");
+      var html = this.header("Penis");
       var len = (b.penis && b.penis.length) || ch.penisLength || 15;
       var girth = this.named(
-        LT.PENETRATION_GIRTH,
+        bodyEnums.PENETRATION_GIRTH,
         (b.penis && b.penis.girth) || "THREE_AVERAGE",
       );
       var type = this.partName((b.penis && b.penis.type) || "HUMAN");
       html +=
         v.SheHas +
         " " +
-        article(girth) +
+        this.article(girth) +
         ", " +
         len +
         "-cm " +
-        esc(type) +
+        this.esc(type) +
         " cock.";
       var balls = this.named(
-        LT.SIZE5,
+        bodyEnums.SIZE5,
         (b.penis && b.penis.testicle && b.penis.testicle.size) ||
           (ch.testicleSize && ch.testicleSize.id),
         "average-sized",
@@ -1056,7 +1057,7 @@ export default class Appearance {
           " " +
           v.is +
           " capable of producing " +
-          this.named(LT.CUM_PRODUCTION, cum, "an average amount") +
+          this.named(bodyEnums.CUM_PRODUCTION, cum, "an average amount") +
           " of cum.";
       }
       if ((ch.piercings && ch.piercings.penis) || (b.penis && b.penis.pierced))
@@ -1087,7 +1088,7 @@ export default class Appearance {
       return html + "</p>";
     }
     return (
-      header("Penis") +
+      this.header("Penis") +
       disabled(
         "You haven't seen " +
           v.her +
@@ -1107,23 +1108,25 @@ export default class Appearance {
     var has =
       (b.vagina && b.vagina.type && b.vagina.type !== "NONE") ||
       (ch.hasVagina && ch.hasVagina());
-    if (LT.knowsArea(ch, "VAGINA")) {
+    if (this.knowsArea(ch, "VAGINA")) {
       if (!has) {
         if (
-          LT.knowsArea(ch, "PENIS") &&
+          this.knowsArea(ch, "PENIS") &&
           !(
             (b.penis && b.penis.type && b.penis.type !== "NONE") ||
             (ch.hasPenis && ch.hasPenis())
           )
         ) {
           return (
-            header("Genitals") + v.SheHas + " a smooth, featureless mound.</p>"
+            this.header("Genitals") +
+            v.SheHas +
+            " a smooth, featureless mound.</p>"
           );
         }
         return "";
       }
-      var html = header("Vagina");
-      var type = partName((b.vagina && b.vagina.type) || "HUMAN");
+      var html = this.header("Vagina");
+      var type = this.partName((b.vagina && b.vagina.type) || "HUMAN");
       var labia = named(
         LT.SIZE5,
         (b.vagina && b.vagina.labiaSize) || (ch.labiaSize && ch.labiaSize.id),
@@ -1139,11 +1142,11 @@ export default class Appearance {
       html +=
         v.SheHas +
         " " +
-        article(esc(type)) +
+        this.article(this.esc(type)) +
         " pussy, with " +
         labia +
         " labia and " +
-        article(clit) +
+        this.article(clit) +
         " clit.";
       if (orifice) {
         html +=
@@ -1181,7 +1184,7 @@ export default class Appearance {
       return html + "</p>";
     }
     return (
-      header("Vagina") +
+      this.header("Vagina") +
       disabled(
         "You haven't seen " +
           v.her +
@@ -1203,7 +1206,7 @@ export default class Appearance {
       return tats[k];
     });
     if (!keys.length) return "";
-    var html = header("Tattoos");
+    var html = this.header("Tattoos");
     var i;
     for (i = 0; i < keys.length; i++) {
       var t = tats[keys[i]];
@@ -1215,12 +1218,12 @@ export default class Appearance {
       if (i) html += "<br/>";
       html +=
         "<span style='color:" +
-        LT.Colour.GENERIC_ARCANE +
+        Colour.GENERIC_ARCANE +
         ";'>" +
         cap(slot) +
         ":</span> " +
-        esc(t.name || t.type || "a tattoo") +
-        (t.writing ? ", bearing the words: '" + esc(t.writing) + "'" : "") +
+        this.esc(t.name || t.type || "a tattoo") +
+        (t.writing ? ", bearing the words: '" + this.esc(t.writing) + "'" : "") +
         ".";
     }
     return html + "</p>";
@@ -1232,12 +1235,12 @@ export default class Appearance {
       typeof LT.isVisiblyPregnant === "function" &&
       LT.isVisiblyPregnant(ch)
     ) {
-      return header("Pregnancy") + v.SheIs + " visibly pregnant.</p>";
+      return this.header("Pregnancy") + v.SheIs + " visibly pregnant.</p>";
     }
     return "";
   }
 
-  getBodyDescription = function (ch) {
+  getBodyDthis.escription = function (ch) {
     if (!ch) return "";
     if (typeof LT.ensureAppearance === "function") LT.ensureAppearance(ch);
     else if (typeof LT.ensureCharacterSystems === "function")
@@ -1245,8 +1248,8 @@ export default class Appearance {
     var v = voice(ch);
     if (ch.raceConcealed) {
       return (
-        header("Overview") +
-        esc(v.Name) +
+        this.header("Overview") +
+        this.esc(v.Name) +
         " is wrapped in a concealing cloak. As " +
         v.her +
         " body is mostly concealed, you can't tell what " +
@@ -1331,7 +1334,7 @@ export default class Appearance {
         " <span style='color:" +
         (ch.orientation.colour || "#ddd") +
         ";'>" +
-        esc(ch.orientation.name || "ambiphilic") +
+        this.esc(ch.orientation.name || "ambiphilic") +
         "</span>.";
     }
     return html + "</p>";
@@ -1366,7 +1369,7 @@ export default class Appearance {
         "<br/>" +
         v.SheIs +
         " a <span style='color:" +
-        LT.Colour.GENERIC_ARCANE +
+        Colour.GENERIC_ARCANE +
         ";'>slave</span>, owned by you.";
     return html + "</p>";
   }
@@ -1386,7 +1389,7 @@ export default class Appearance {
         var item = slots[slot];
         var name = item.name || item.id || slot;
         if (i) html += "<br/>";
-        html += "<b>" + cap(slot) + ":</b> " + esc(name);
+        html += "<b>" + cap(slot) + ":</b> " + this.esc(name);
       });
     }
     return html + "</p>";
@@ -1401,7 +1404,7 @@ export default class Appearance {
     var html = "<h6>Fetishes</h6><p>";
     keys.forEach(function (k, i) {
       if (i) html += ", ";
-      html += esc(String(k).toLowerCase().replace(/_/g, " "));
+      html += this.esc(String(k).toLowerCase().replace(/_/g, " "));
     });
     return html + "</p>";
   }
@@ -1432,15 +1435,15 @@ export default class Appearance {
       "/" +
       Math.round(ch.maxMana || 0) +
       "</p><p><span style='color:" +
-      LT.Colour.ATTRIBUTE_PHYSIQUE +
+      Colour.ATTRIBUTE_PHYSIQUE +
       ";'>Physique</span> " +
       phys +
       " · <span style='color:" +
-      LT.Colour.ATTRIBUTE_ARCANE +
+      Colour.ATTRIBUTE_ARCANE +
       ";'>Arcane</span> " +
       arc +
       " · <span style='color:" +
-      LT.Colour.ATTRIBUTE_CORRUPTION +
+      Colour.ATTRIBUTE_CORRUPTION +
       ";'>Corruption</span> " +
       cor +
       "</p></details></div>"
@@ -1463,9 +1466,9 @@ export default class Appearance {
       html += LT.portraitHtml(portraitId, "char-portrait");
     html +=
       "<h6><span class='char-info-name' data-tip-char='" +
-      esc(portraitId) +
+      this.esc(portraitId) +
       "'>" +
-      esc(name) +
+      this.esc(name) +
       "</span></h6><p>";
     if (ch.occupation && ch.occupation.name)
       html += cap(ch.occupation.name) + ". ";
@@ -1484,7 +1487,7 @@ export default class Appearance {
           " considered to be <span style='color:" +
           cat.colour +
           ";'>" +
-          article(
+          this.article(
             cat.name.replace(/s$/, "") +
               (cat.id === "TEENS_LATE" ? "" : "").trim() || cat.name,
           ) +
@@ -1492,10 +1495,10 @@ export default class Appearance {
       } else html += ".";
     }
     html += "</p>";
-    html += relationshipHtml(ch);
-    html += personalityHtml(ch);
-    html += "<h6>Appearance</h6>" + LT.getBodyDescription(ch);
-    html += statsHtml(ch);
+    html += this.relationshipHtml(ch);
+    html += this.personalityHtml(ch);
+    html += "<h6>Appearance</h6>" + this.getBodyDescription(ch);
+    html += this.statsHtml(ch);
     if (opts.perkTree !== false) {
       html +=
         "<div class='container-full-width'><details><summary class='quest-title'>Perk tree</summary>" +
@@ -1503,8 +1506,8 @@ export default class Appearance {
         (ch.perks && ch.perks.length ? ch.perks.join(", ") : "none yet") +
         ".</p></details></div>";
     }
-    html += fetishHtml(ch);
-    html += clothingHtml(ch);
+    html += this.fetishHtml(ch);
+    html += this.clothingHtml(ch);
     html += "</div>";
     return html;
   };

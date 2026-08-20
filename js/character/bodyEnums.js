@@ -183,14 +183,14 @@ export default class bodyEnums {
     { id: "AMBER", name: "amber", hex: "#c47b17" },
   ];
 
-  hairLengthIndex = function (id) {
+  hairLengthIndex(id) {
     for (var i = 0; i < HAIR_LENGTH_LIST.length; i++) {
       if (HAIR_LENGTH_LIST[i].id === id) return i;
     }
     return 0;
-  };
+  }
 
-  bodyShapeOf = function (size, muscle) {
+  bodyShapeOf(size, muscle) {
     var si = BODY_SIZE_LIST.indexOf(size);
     var mi = MUSCLE_LIST.indexOf(muscle);
     if (si < 0) si = 2;
@@ -202,7 +202,7 @@ export default class bodyEnums {
     if (si === 0) return { name: "skinny", colour: "#c9dde8" };
     if (si === 1) return { name: "slender", colour: "#9ec9dc" };
     return { name: "average", colour: "#88b8d4" };
-  };
+  }
 
   findById = function (arr, id) {
     for (var i = 0; i < arr.length; i++) if (arr[i].id === id) return arr[i];

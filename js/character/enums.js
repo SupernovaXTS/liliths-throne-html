@@ -1,4 +1,4 @@
-import Colour from "./colour.js";
+import Colour from "../engine/colours.js";
 export default class Enums {
   Femininity = {
     MASCULINE_STRONG: {
