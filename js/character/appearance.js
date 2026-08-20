@@ -259,7 +259,7 @@ export default class Appearance {
     )
       return false;
     return true;
-  };
+  }
 
   revealArea = function (target, area) {
     if (!target) return;
@@ -268,9 +268,7 @@ export default class Appearance {
   };
 
   disabled(text) {
-    return (
-      "<span style='color:" + Colour.TEXT_GREY + ";'>" + text + "</span>"
-    );
+    return "<span style='color:" + Colour.TEXT_GREY + ";'>" + text + "</span>";
   }
 
   overview(ch, v, b) {
@@ -304,7 +302,10 @@ export default class Appearance {
             " <span style='color:" +
             Colour.RACE_HUMAN +
             ";'>human</span>. "
-          : this.article(this.esc(raceLower)) + " " + this.esc(genderName) + ". ");
+          : this.article(this.esc(raceLower)) +
+            " " +
+            this.esc(genderName) +
+            ". ");
     } else if (this.knowsArea(ch, "PENIS") && this.knowsArea(ch, "VAGINA")) {
       html +=
         this.esc(v.Name) +
@@ -322,9 +323,13 @@ export default class Appearance {
             " <span style='color:" +
             Colour.RACE_HUMAN +
             ";'>human</span>. "
-          : this.article(this.esc(raceLower)) + " " + this.esc(genderName) + ". ");
+          : this.article(this.esc(raceLower)) +
+            " " +
+            this.esc(genderName) +
+            ". ");
     } else {
-      html += this.esc(v.Name) + " is " + this.article(this.esc(raceLower)) + ". ";
+      html +=
+        this.esc(v.Name) + " is " + this.article(this.esc(raceLower)) + ". ";
     }
     html +=
       "Standing at full height, " +
@@ -618,7 +623,8 @@ export default class Appearance {
 
   torsoSection(ch, v, b) {
     var html = this.header("Torso");
-    var size = ch.bodySize || (bodyEnums.BODY_SIZE && bodyEnums.BODY_SIZE[b.bodySize]);
+    var size =
+      ch.bodySize || (bodyEnums.BODY_SIZE && bodyEnums.BODY_SIZE[b.bodySize]);
     var muscle = ch.muscle || (bodyEnums.MUSCLE && bodyEnums.MUSCLE[b.muscle]);
     var shape =
       typeof bodyEnums.bodyShapeOf === "function"
@@ -1223,7 +1229,9 @@ export default class Appearance {
         cap(slot) +
         ":</span> " +
         this.esc(t.name || t.type || "a tattoo") +
-        (t.writing ? ", bearing the words: '" + this.esc(t.writing) + "'" : "") +
+        (t.writing
+          ? ", bearing the words: '" + this.esc(t.writing) + "'"
+          : "") +
         ".";
     }
     return html + "</p>";
@@ -1240,7 +1248,7 @@ export default class Appearance {
     return "";
   }
 
-  getBodyDthis.escription = function (ch) {
+  getBodyDescription(ch) {
     if (!ch) return "";
     if (typeof LT.ensureAppearance === "function") LT.ensureAppearance(ch);
     else if (typeof LT.ensureCharacterSystems === "function")
@@ -1275,7 +1283,7 @@ export default class Appearance {
       tattooSection(ch, v) +
       pregnancySection(ch, v)
     );
-  };
+  }
 
   birthdayString(ch) {
     if (!ch.birthday) return "";
