@@ -1,6 +1,9 @@
 import enums from "./enums";
 import bodyEnums from "./bodyEnums";
 import Colour from "../engine/colours";
+import Pregnancy from "./pregnancy";
+import Body from "./body";
+import npcBodies from "./npcBodies";
 export default class Appearance {
   esc(s) {
     return String(s == null ? "" : s)
@@ -420,7 +423,7 @@ export default class Appearance {
       " face, with " +
       skin +
       " skin.";
-    var blush = makeupColour(ch, "MAKEUP_BLUSHER");
+    var blush = this.makeupColour(ch, "MAKEUP_BLUSHER");
     if (blush) html += " " + v.SheIs + " wearing " + blush + " blusher.";
     var hairLen =
       (b.hair && b.hair.length) ||
@@ -491,9 +494,9 @@ export default class Appearance {
         " eyes, with " +
         irisShape +
         ", " +
-        colourSpan(bodyEnums.EYE, iris) +
+        this.colourSpan(bodyEnums.EYE, iris) +
         " irises.";
-      var liner = makeupColour(ch, "MAKEUP_EYE_LINER");
+      var liner = this.makeupColour(ch, "MAKEUP_EYE_LINER");
       if (liner)
         html +=
           " Around " +
@@ -505,7 +508,7 @@ export default class Appearance {
           " a layer of " +
           liner +
           " eye liner.";
-      var shadow = makeupColour(ch, "MAKEUP_EYE_SHADOW");
+      var shadow = this.makeupColour(ch, "MAKEUP_EYE_SHADOW");
       if (shadow)
         html +=
           " " +
@@ -546,7 +549,7 @@ export default class Appearance {
           " growing on " +
           v.her +
           " face.";
-      } else if (!feminine(ch)) {
+      } else if (!this.feminine(ch)) {
         html += " " + v.She + " " + v.doNot + " have any trace of facial hair.";
       }
     }
@@ -631,7 +634,7 @@ export default class Appearance {
         ? bodyEnums.bodyShapeOf(size, muscle)
         : { name: "average", colour: "#88b8d4" };
     var torsoType = this.partName((b.torso && b.torso.type) || "HUMAN");
-    var skin = colourSpan(
+    var skin = this.colourSpan(
       bodyEnums.SKIN,
       (b.torso && b.torso.covering && b.torso.covering.primary) ||
         (ch.skin && ch.skin.id),
@@ -645,13 +648,13 @@ export default class Appearance {
       " skin. " +
       v.SheHas +
       " a " +
-      colourSpan(
+      this.colourSpan(
         bodyEnums.BODY_SIZE_LIST,
         size && size.id,
         this.named(bodyEnums.BODY_SIZE_LIST, size && size.id, "average"),
       ) +
       ", " +
-      colourSpan(
+      this.colourSpan(
         bodyEnums.MUSCLE_LIST,
         muscle && muscle.id,
         this.named(bodyEnums.MUSCLE_LIST, muscle && muscle.id, "toned"),
@@ -664,8 +667,8 @@ export default class Appearance {
       this.article(shape.name) +
       "</span> body shape.";
     if (
-      typeof LT.isVisiblyPregnant === "function" &&
-      LT.isVisiblyPregnant(ch)
+      typeof Pregnancy.isVisiblyPregnant === "function" &&
+      Pregnancy.isVisiblyPregnant(ch)
     ) {
       var stage =
         LT.hasStatusEffect && LT.hasStatusEffect(ch, "PREGNANT_3")
@@ -849,7 +852,7 @@ export default class Appearance {
       " of " +
       this.esc(type) +
       " arms.";
-    var nails = makeupColour(ch, "MAKEUP_NAIL_POLISH_HANDS");
+    var nails = this.makeupColour(ch, "MAKEUP_NAIL_POLISH_HANDS");
     if (nails)
       html += " " + v.Her + " fingernails have been painted " + nails + ".";
     if (
@@ -893,7 +896,7 @@ export default class Appearance {
       " configuration, ending in " +
       this.esc(feet) +
       " feet.";
-    var toes = makeupColour(ch, "MAKEUP_NAIL_POLISH_FEET");
+    var toes = this.makeupColour(ch, "MAKEUP_NAIL_POLISH_FEET");
     if (toes) html += " " + v.Her + " toenails have been painted " + toes + ".";
     return html + "</p>";
   }
@@ -1009,7 +1012,7 @@ export default class Appearance {
             " " +
             v.SheHas +
             " " +
-            bodyHairPhrase(ah, "ass hair") +
+            this.bodyHairPhrase(ah, "ass hair") +
             " around " +
             v.her +
             " asshole.";
@@ -1240,8 +1243,8 @@ export default class Appearance {
   pregnancySection(ch, v) {
     if (isPlayer(ch)) return "";
     if (
-      typeof LT.isVisiblyPregnant === "function" &&
-      LT.isVisiblyPregnant(ch)
+      typeof Pregnancy.isVisiblyPregnant === "function" &&
+      Pregnancy.isVisiblyPregnant(ch)
     ) {
       return this.header("Pregnancy") + v.SheIs + " visibly pregnant.</p>";
     }
@@ -1250,9 +1253,10 @@ export default class Appearance {
 
   getBodyDescription(ch) {
     if (!ch) return "";
-    if (typeof LT.ensureAppearance === "function") LT.ensureAppearance(ch);
-    else if (typeof LT.ensureCharacterSystems === "function")
-      LT.ensureCharacterSystems(ch);
+    if (typeof LT.ensureAppearance === "function")
+      npcBodies.ensureAppearance(ch);
+    else if (typeof Body.ensureCharacterSystems === "function")
+      Body.ensureCharacterSystems(ch);
     var v = voice(ch);
     if (ch.raceConcealed) {
       return (
@@ -1461,17 +1465,18 @@ export default class Appearance {
   getCharacterInformationScreen = function (ch, opts) {
     opts = opts || {};
     if (!ch) return "<p>Nobody is here.</p>";
-    if (typeof LT.ensureAppearance === "function") LT.ensureAppearance(ch);
-    else if (typeof LT.ensureCharacterSystems === "function")
-      LT.ensureCharacterSystems(ch);
+    if (typeof npcBodies.ensureAppearance === "function")
+      npcBodies.ensureAppearance(ch);
+    else if (typeof Body.ensureCharacterSystems === "function")
+      Body.ensureCharacterSystems(ch);
     var v = voice(ch);
     var name = ch.getFullName ? ch.getFullName() : v.Name;
     var html = "<div class='char-info-block'>";
     var portraitId = ch.id || (isPlayer(ch) ? "player" : "");
-    if (typeof LT.artworkHtml === "function")
-      html += LT.artworkHtml(portraitId);
-    else if (typeof LT.portraitHtml === "function")
-      html += LT.portraitHtml(portraitId, "char-portrait");
+    if (typeof Slavery.artworkHtml === "function")
+      html += Slavery.artworkHtml(portraitId);
+    else if (typeof Slavery.portraitHtml === "function")
+      html += Slavery.portraitHtml(portraitId, "char-portrait");
     html +=
       "<h6><span class='char-info-name' data-tip-char='" +
       this.esc(portraitId) +
