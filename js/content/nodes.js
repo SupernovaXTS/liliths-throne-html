@@ -1,5 +1,7 @@
-export default class Nodes {
-  nodes = {};
+class Nodes {
+  constructor() {
+    this.nodes = {};
+  }
 
   defineNode(node) {
     this.nodes[node.id] = node;
@@ -16,3 +18,5 @@ export default class Nodes {
     return !!this.nodes[id];
   }
 }
+const nodes = new Nodes();
+export default nodes;
