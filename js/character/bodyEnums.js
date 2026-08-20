@@ -1,4 +1,4 @@
-export default class BodyEnums {
+export default class bodyEnums {
   constructor() {}
 
   list() {
