@@ -1,100 +1,107 @@
-(function () {
-  var registry = {};
-  var activeByTarget = {
+export default class UI {
+  registry = {};
+  activeByTarget = {
     stage: null,
     left: null,
     right: null,
     overlay: null,
   };
 
-  function inferTarget(id) {
+  inferTarget(id) {
     var el = document.querySelector('[data-ui="' + id + '"]');
     return (el && el.getAttribute("data-ui-target")) || "stage";
   }
 
-  function hideSection(id) {
+  hideSection(id) {
     var el = document.querySelector('[data-ui="' + id + '"]');
     if (el) el.hidden = true;
   }
 
-  function showSection(id) {
+  showSection(id) {
     var el = document.querySelector('[data-ui="' + id + '"]');
     if (el) el.hidden = false;
   }
 
-  LT.registerUI = function (id, hooks) {
+  registerUI(id, hooks) {
     hooks = hooks || {};
-    registry[id] = {
+    this.registry[id] = {
       id: id,
-      target: hooks.target || inferTarget(id),
+      target: hooks.target || this.inferTarget(id),
       onOpen: hooks.onOpen || null,
       onClose: hooks.onClose || null,
       render: hooks.render || null,
     };
-  };
+  }
 
-  LT.getActive = function (target) {
-    return activeByTarget[target || "stage"];
-  };
+  getActive(target) {
+    return this.activeByTarget[target || "stage"];
+  }
 
-  LT.openUI = function (id, opts) {
+  openUI(id, opts) {
     opts = opts || {};
-    var entry = registry[id] || { id: id, target: opts.target || inferTarget(id) };
+    var entry = this.registry[id] || {
+      id: id,
+      target: opts.target || inferTarget(id),
+    };
     var target = opts.target || entry.target || "stage";
-    var prevId = activeByTarget[target];
+    var prevId = this.activeByTarget[target];
 
     if (prevId && prevId !== id) {
-      var prev = registry[prevId];
+      var prev = this.registry[prevId];
       if (prev && prev.onClose) prev.onClose(opts);
-      hideSection(prevId);
+      this.hideSection(prevId);
     }
 
-    activeByTarget[target] = id;
-    showSection(id);
+    this.activeByTarget[target] = id;
+    this.showSection(id);
     if (entry.onOpen) entry.onOpen(opts);
     if (entry.render) entry.render(opts);
 
     document.dispatchEvent(
-      new CustomEvent("lt-ui-opened", { detail: { id: id, target: target, opts: opts, prevId: prevId } }),
+      new CustomEvent("lt-ui-opened", {
+        detail: { id: id, target: target, opts: opts, prevId: prevId },
+      }),
     );
     return id;
-  };
+  }
 
-  LT.closeUI = function (id) {
+  closeUI(id) {
     var entry = registry[id];
-    var target = (entry && entry.target) || inferTarget(id);
+    var target = (entry && entry.target) || this.inferTarget(id);
     if (activeByTarget[target] !== id) return;
     if (entry && entry.onClose) entry.onClose({});
-    hideSection(id);
+    this.hideSection(id);
     activeByTarget[target] = null;
-  };
+  }
 
-  LT.setTitle = function (text) {
+  setTitle(text) {
     var el = document.getElementById("content-title");
     if (!el) return;
     el.innerHTML = text || "";
     el.hidden = !text;
-  };
+  }
 
-  LT.setChrome = function (opts) {
+  setChrome(opts) {
     opts = opts || {};
     var app = document.getElementById("app");
     if (opts.left === false) app.classList.add("chrome-left-hidden");
     if (opts.left === true) app.classList.remove("chrome-left-hidden");
     if (opts.right === false) app.classList.add("chrome-right-hidden");
     if (opts.right === true) app.classList.remove("chrome-right-hidden");
-    if (opts.title !== undefined) LT.setTitle(opts.title);
-  };
+    if (opts.title !== undefined) this.setTitle(opts.title);
+  }
 
-  LT.initOpenUI = function () {
+  initOpenUI() {
     var els = document.querySelectorAll("[data-ui]");
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
       var id = el.getAttribute("data-ui");
       if (!registry[id]) {
-        LT.registerUI(id, { target: el.getAttribute("data-ui-target") || "stage" });
+        LT.registerUI(id, {
+          target: el.getAttribute("data-ui-target") || "stage",
+        });
       }
       el.hidden = true;
     }
-  };
-})();
+  }
+}

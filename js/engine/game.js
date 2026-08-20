@@ -1,4 +1,6 @@
 import Colour from "../engine/colours.js";
+import Nodes from "../content/nodes.js";
+import UI from "../ui/openUI.js";
 export class Game {
   constructor() {
     this.started = false;
@@ -21,7 +23,7 @@ export class Game {
     if (!node) return;
     if (typeof node === "string") {
       var requested = node;
-      if (typeof LT.hasNode === "function" && !LT.hasNode(requested)) {
+      if (typeof Nodes.hasNode === "function" && !Nodes.hasNode(requested)) {
         console.warn("Unknown dialogue node:", requested);
         var appMissing = document.getElementById("app");
         if (appMissing) appMissing.classList.remove("travel-disabled");
@@ -35,11 +37,11 @@ export class Game {
         ) {
           return this.setContent(this.currentNode);
         }
-        if (LT.hasNode("place.generic"))
+        if (Nodes.hasNode("place.generic"))
           return this.setContent("place.generic");
         return;
       }
-      node = LT.getNode(requested);
+      node = Nodes.getNode(requested);
     }
     this.currentNode = node;
     if (node.applyPreParsingEffects) node.applyPreParsingEffects(this);
@@ -52,8 +54,8 @@ export class Game {
     var ui = node.ui || "dialogue";
     var title =
       typeof node.title === "function" ? node.title(this) : node.title;
-    LT.setTitle(title || "");
-    LT.setChrome({
+    UI.setTitle(title || "");
+    UI.setChrome({
       left:
         node.chrome && node.chrome.left != null
           ? node.chrome.left
@@ -70,7 +72,7 @@ export class Game {
       if (locked) app.classList.add("travel-disabled");
       else app.classList.remove("travel-disabled");
     }
-    LT.openUI(ui, { node: node, game: this });
+    UI.openUI(ui, { node: node, game: this });
 
     var contentEl = document.querySelector(
       '[data-ui="' +
