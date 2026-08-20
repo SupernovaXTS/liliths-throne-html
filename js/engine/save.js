@@ -1,3 +1,4 @@
+import bodyEnums from "../character/bodyEnums.js";
 (function () {
   var PREFIX = "lt-save-";
   var INDEX_KEY = "lt-saves-index";
